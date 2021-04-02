@@ -54,6 +54,14 @@ struct Meal {
         
         return sections
     }
+    static func loadFoodSections() -> [String] {
+//        let sections: [String] = ["Recommended", "Beef Tacos", "Seafood Tacos", "Chicken Tacos", "Pork Tacos",
+//                                  "Veggie Tacos", "Quesadillas", "Skillets", "Main", "Chips and Dips", "Sides",
+//                                  "Starters","Salads","Sweets", "Kids Menu"]
+        let sections: [String] = ["Foods", "Drinks", "Desserts", "Etc."]
+        
+        return sections
+    }
     static func loadMealsForSection(sectionName: String, meals: [Meal]) -> [Meal]{
         let filteredMeals = meals.filter { (m) -> Bool in
             return m.type == sectionName

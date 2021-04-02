@@ -31,7 +31,7 @@ class HomeViewCell: UICollectionViewCell {
 //                UIGraphicsEndImageContext()
 //            }
             nameLabel.text = biz.name
-            cuisineLabel.text = "Italian - \(biz.price ?? "")"
+            priceLabel.text = "Italian - \(biz.price ?? "")"
             ratingLabel.text = "\(biz.rating ?? 0) (\(biz.review_count ?? 0))"
         }
     }
@@ -41,23 +41,25 @@ class HomeViewCell: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.backgroundColor = .yellow
+        iv.layer.cornerRadius = 10
+        iv.layer.masksToBounds = true
         return iv
     }()
     
     var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Tennesse Taco Company"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "Maple Walnut Muffins"
+        label.font = UIFont(name: "Comfortaa-Bold", size: 14)
         label.backgroundColor = .white
         return label
     }()
     
-    var cuisineLabel: UILabel = {
+    var priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Mexican - $$"
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
+        label.text = "Free"
+        label.font = UIFont(name: "Comfortaa-Regular", size: 12)
         label.backgroundColor = .white
         return label
     }()
@@ -66,28 +68,45 @@ class HomeViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "4.4 (177)"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "Comfortaa-Regular", size: 12)
         label.backgroundColor = .white
         return label
     }()
     
+    var chefLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Bryten"
+        label.font = UIFont(name: "Comfortaa-Regular", size: 12)
+        label.backgroundColor = .white
+        label.textAlignment = .right
+        return label
+    }()
+    
+    var aptLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "17K"
+        label.font = UIFont(name: "Comfortaa-Regular", size: 12)
+        label.textAlignment = .right
+        label.backgroundColor = .white
+        return label
+    }()
+    
+    var timeLabelTopAnchorConstraint: NSLayoutConstraint?
+    var timeLabelLeftAnchorConstraint: NSLayoutConstraint?
+    var timeLabelWidthAnchorConstraint: NSLayoutConstraint?
+    var timeLabelRightAnchorConstraint: NSLayoutConstraint?
+    var timeLabelHeightAnchorConstraint: NSLayoutConstraint?
     var timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "25-35 MIN"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.backgroundColor = .white
-        label.textAlignment = .right
-        return label
-    }()
-    
-    var feeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "$6.89"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textAlignment = .right
-        label.backgroundColor = .white
+        label.font = UIFont(name: "Comfortaa-Light", size: 12.0)
+        label.text = "Expires in 2h49"
+        label.layer.backgroundColor = hexStringToUIColor(hex: "#F0B357").cgColor
+        label.layer.cornerRadius = 5
+        label.layer.masksToBounds = true
+        label.textColor = .white
         return label
     }()
     
@@ -103,7 +122,7 @@ class HomeViewCell: UICollectionViewCell {
     
     fileprivate func setupViews(){
         let cellWidth = frame.width - 30
-        print(cellWidth)
+        let leading: CGFloat = 20
         addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
@@ -111,40 +130,48 @@ class HomeViewCell: UICollectionViewCell {
             imageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100)
             ])
+        imageView.addSubview(timeLabel)
+        timeLabel.textAlignment = .center
+        NSLayoutConstraint.activate([
+            timeLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 18),
+            timeLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -10),
+            timeLabel.widthAnchor.constraint(equalToConstant: 120),
+            timeLabel.heightAnchor.constraint(equalToConstant: 20)
+            ])
         addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15),
-            nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
+            nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: leading),
             nameLabel.widthAnchor.constraint(equalToConstant: (cellWidth*0.66)),
             nameLabel.heightAnchor.constraint(equalToConstant: 15)
             ])
-        addSubview(cuisineLabel)
+        addSubview(priceLabel)
         NSLayoutConstraint.activate([
-            cuisineLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-            cuisineLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
-            cuisineLabel.widthAnchor.constraint(equalToConstant: cellWidth*0.66),
-            cuisineLabel.heightAnchor.constraint(equalToConstant: 15)
+            priceLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+            priceLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: leading),
+            priceLabel.widthAnchor.constraint(equalToConstant: cellWidth*0.66),
+            priceLabel.heightAnchor.constraint(equalToConstant: 15)
             ])
-        addSubview(ratingLabel)
+//        addSubview(ratingLabel)
+//        NSLayoutConstraint.activate([
+//            ratingLabel.topAnchor.constraint(equalTo: cuisineLabel.bottomAnchor, constant: 5),
+//            ratingLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
+//            ratingLabel.widthAnchor.constraint(equalToConstant: 150),
+//            ratingLabel.heightAnchor.constraint(equalToConstant: 15)
+//            ])
+        addSubview(chefLabel)
         NSLayoutConstraint.activate([
-            ratingLabel.topAnchor.constraint(equalTo: cuisineLabel.bottomAnchor, constant: 5),
-            ratingLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
-            ratingLabel.widthAnchor.constraint(equalToConstant: 150),
-            ratingLabel.heightAnchor.constraint(equalToConstant: 15)
+            chefLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15),
+            chefLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -leading),
+            chefLabel.widthAnchor.constraint(equalToConstant: cellWidth*0.31),
+            chefLabel.heightAnchor.constraint(equalToConstant: 15)
             ])
-        addSubview(timeLabel)
+        addSubview(aptLabel)
         NSLayoutConstraint.activate([
-            timeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15),
-            timeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
-            timeLabel.widthAnchor.constraint(equalToConstant: cellWidth*0.31),
-            timeLabel.heightAnchor.constraint(equalToConstant: 15)
-            ])
-        addSubview(feeLabel)
-        NSLayoutConstraint.activate([
-            feeLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 5),
-            feeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
-            feeLabel.widthAnchor.constraint(equalToConstant: cellWidth*0.31),
-            feeLabel.heightAnchor.constraint(equalToConstant: 15)
+            aptLabel.topAnchor.constraint(equalTo: chefLabel.bottomAnchor, constant: 5),
+            aptLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -leading),
+            aptLabel.widthAnchor.constraint(equalToConstant: cellWidth*0.31),
+            aptLabel.heightAnchor.constraint(equalToConstant: 15)
             ])
     }
 }

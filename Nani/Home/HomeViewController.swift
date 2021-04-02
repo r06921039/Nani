@@ -8,7 +8,7 @@
 import UIKit
 //import Crashlytics
 
-class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate{
 
 //    @IBOutlet var collectionView_storyboard: UICollectionView!
     lazy var bizs: [Biz] = []
@@ -20,6 +20,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     let interactor = Interactor()
     var selectedFrame: CGRect?
     var navAddressTitle: String = "2590 N Moreland Blvd"
+    var mealSections: [String] = Meal.loadFoodSections()
     
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -56,6 +57,53 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         button.layer.cornerRadius = button.layer.frame.height/2
 //        button.addTarget(self, action: #selector(showFilterView), for: .touchUpInside)
         return button
+    }()
+    
+    var nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "nani.today?"
+        label.font = UIFont(name: "Comfortaa-Bold", size: 20)
+        label.backgroundColor = .white
+        return label
+    }()
+    
+    lazy var userButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        let photo = UIImage(named: "Justin")
+        button.setImage(photo, for: .normal)
+//        button.addTarget(self, action: #selector(infoButtonTapped), for: UIControl.Event.touchUpInside)
+        return button
+        }()
+    
+    var searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        bar.frame = CGRect(x: 0, y: 130, width: 390, height: 70)
+        bar.showsCancelButton = false
+        bar.searchBarStyle = UISearchBar.Style.default
+        bar.placeholder = " What are you looking for?"
+        bar.layer.borderWidth = 1
+        bar.layer.borderColor = UIColor.white.cgColor
+        bar.sizeToFit()
+        return bar
+    }()
+    
+    lazy var sectionTitleIndexCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let cv = SectionTitleIndexCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.delegate = self
+        cv.dataSource = self
+        cv.showsHorizontalScrollIndicator = false
+        cv.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionTitleIndexEmptyCell")
+        cv.register(SectionTitleIndexCollectionViewCell.self, forCellWithReuseIdentifier: "SectionTitleIndexCell")
+        cv.isHidden = false
+        return cv
     }()
     
 //    lazy var filterViewController: FilterViewController = {
@@ -130,12 +178,40 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         setupCollectionView()
-//        setupViews()
+        
         // checkUserAuth()
         //setupAPIClient()
         //logUser()
         generateMockData()
+    }
+    
+    func setupViews(){
+        let leading: CGFloat = 20
+        let top: CGFloat = 70
+        self.view.addSubview(nameLabel)
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: top),
+            nameLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: leading),
+            nameLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -100),
+            nameLabel.heightAnchor.constraint(equalToConstant: 20)
+            ])
+        self.view.addSubview(userButton)
+        NSLayoutConstraint.activate([
+            userButton.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor, constant: 0),
+            userButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -30),
+            userButton.widthAnchor.constraint(equalToConstant: 50),
+            userButton.heightAnchor.constraint(equalToConstant: 50)
+            ])
+        self.view.addSubview(searchBar)
+        searchBar.delegate = self
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            searchBar.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: leading),
+            searchBar.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -leading),
+//            searchBar.heightAnchor.constraint(equalToConstant: 20)
+            ])
     }
     
     func setupCollectionView()
@@ -148,10 +224,17 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView!.contentInsetAdjustmentBehavior = .never
         NSLayoutConstraint.activate([
-            self.collectionView!.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.collectionView!.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 190),
             self.collectionView!.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             self.collectionView!.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             self.collectionView!.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            ])
+        view.addSubview(sectionTitleIndexCollectionView)
+        NSLayoutConstraint.activate([
+            sectionTitleIndexCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
+            sectionTitleIndexCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            sectionTitleIndexCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            sectionTitleIndexCollectionView.heightAnchor.constraint(equalToConstant: 40)
             ])
     }
     
@@ -206,7 +289,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 //        if section == 0 {
 //            return 1
 //        } else {
-            return isFiltered ? filteredBizs.count : bizs.count
+        if (collectionView == self.sectionTitleIndexCollectionView) {
+            return mealSections.count
+        }
+        
+        return isFiltered ? filteredBizs.count : bizs.count
 //        }
     }
     
@@ -216,9 +303,14 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalViewCell", for: indexPath)
 //            return cell
 //        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeViewCell", for: indexPath) as! HomeViewCell
-            cell.biz = isFiltered ? filteredBizs[indexPath.row] : bizs[indexPath.row]
+        if (collectionView == self.sectionTitleIndexCollectionView) {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SectionTitleIndexCell", for: indexPath) as! SectionTitleIndexCollectionViewCell
+            cell.sectionTitle = mealSections[indexPath.row]
             return cell
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeViewCell", for: indexPath) as! HomeViewCell
+        cell.biz = isFiltered ? filteredBizs[indexPath.row] : bizs[indexPath.row]
+        return cell
         
 
     }
@@ -236,23 +328,34 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if (collectionView == self.sectionTitleIndexCollectionView) {
+            let text = mealSections[indexPath.row]
+            let length = text.count
+//            return CGSize(width: (length*10), height: 40)
+            return CGSize(width: 130, height: 40)
+        }
         return CGSize(width: view.frame.width, height: 300)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // get the cell frame
-        let attributes = collectionView.layoutAttributesForItem(at: indexPath)
-        self.itemFrame = attributes!.frame
-        self.item = collectionView.cellForItem(at: indexPath) as! HomeViewCell
+        if (collectionView == self.sectionTitleIndexCollectionView){
         
-        let detailViewController = DetailViewController()
-        detailViewController.transitioningDelegate = self
-        detailViewController.interactor = self.interactor
-        detailViewController.modalPresentationStyle = .overFullScreen
-//        navigationController?.present(detailViewController, animated: true, completion: nil)
-        present(detailViewController, animated: true, completion: nil)
-//        navigationController?.pushViewController(detailViewController, animated: true)
+        }
+        else{
+            let attributes = collectionView.layoutAttributesForItem(at: indexPath)
+            self.itemFrame = attributes!.frame
+            self.item = collectionView.cellForItem(at: indexPath) as! HomeViewCell
+            
+            let detailViewController = DetailViewController()
+            detailViewController.transitioningDelegate = self
+            detailViewController.interactor = self.interactor
+            detailViewController.modalPresentationStyle = .overFullScreen
+    //        navigationController?.present(detailViewController, animated: true, completion: nil)
+            present(detailViewController, animated: true, completion: nil)
+    //        navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
 
 }
