@@ -92,6 +92,8 @@ class DetailViewController: UIViewController {
     }
     
     func setupViews(){
+        let screenSize: CGRect = UIScreen.main.bounds
+        let top: CGFloat = screenSize.width == 375 ? 15 : -1
         view.backgroundColor = .white
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -113,7 +115,7 @@ class DetailViewController: UIViewController {
             ])
         view.addSubview(backButton)
         NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -1),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: top),
             backButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 15),
             backButton.widthAnchor.constraint(equalToConstant: 30),
             backButton.heightAnchor.constraint(equalToConstant: 30)
@@ -237,6 +239,8 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
     fileprivate func updateHeaderView(_ scrollView: UIScrollView){
         let pos = scrollView.contentOffset.y
         let pec = 1 - (pos)/241 //194
+        
+        
         if pos == 0 {
             yContraint?.constant = 298.6
         }

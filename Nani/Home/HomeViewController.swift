@@ -21,6 +21,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var selectedFrame: CGRect?
     var navAddressTitle: String = "2590 N Moreland Blvd"
     var mealSections: [String] = Meal.loadFoodSections()
+   
+    
     
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -82,7 +84,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     var searchBar: UISearchBar = {
         let bar = UISearchBar()
-        bar.frame = CGRect(x: 0, y: 130, width: 390, height: 70)
+        let screenSize: CGRect = UIScreen.main.bounds
+        let offset = screenSize.width == 375 ? 30 : 0
+        bar.frame = CGRect(x: 0, y: 130 - offset, width: Int(screenSize.width), height: 70)
         bar.showsCancelButton = false
         bar.searchBarStyle = UISearchBar.Style.default
         bar.placeholder = " What are you looking for?"
@@ -176,6 +180,24 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         bizs.append(b)
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar){
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(false, animated: true)
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Stop doing the search stuff
+        // and clear the text in the search bar
+        searchBar.text = ""
+        // Hide the cancel button
+        searchBar.showsCancelButton = false
+        // You could also change the position, frame etc of the searchBar
+        view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -188,8 +210,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func setupViews(){
+        let screenSize: CGRect = UIScreen.main.bounds
         let leading: CGFloat = 20
-        let top: CGFloat = 70
+        let top: CGFloat = screenSize.width == 375 ? 40 : 70
         self.view.addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: top),

@@ -15,11 +15,12 @@ class HeaderView: UIView, HeaderViewDelegate {
     func updateHeaderViewLabelSize(constant: CGFloat) {
         if constant > 0{
             let pec = 1 + (constant)/52 // 1 + (constant+44)/80
-            let topPec = 1 + (constant)/75
+            let screenSize: CGRect = UIScreen.main.bounds
+            let topPec = screenSize.width == 375 ? 1 + (constant)/120 : 1 + (constant)/75
             let opacityPec = 1 - (constant)/100 // 1 - (constant + 44)/147
             nameLabelTopAnchorConstraint?.constant = 10 * (topPec) //10
             nameLabelLeftAnchorConstraint?.constant = 15 * (pec) - 30*(constant)/241
-            print(constant)
+            //print(constant)
             //print(nameLabelLeftAnchorConstraint?.constant)
             //nameLabelRightAnchorConstraint?.constant = -15 * (pec)
             
