@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07A5494828D400DF45DBABFB /* Pods_Nani.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01D22FB732F920FBE0E025 /* Pods_Nani.framework */; };
+		1F0FBECD262018FB009B2A82 /* NoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBECC262018FB009B2A82 /* NoteCollectionViewCell.swift */; };
+		1F0FBED5262026C9009B2A82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F0FBED4262026C9009B2A82 /* GoogleService-Info.plist */; };
+		1F0FBF192620317C009B2A82 /* FoodCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF182620317C009B2A82 /* FoodCard.swift */; };
 		1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */; };
 		1F2B47E62612AA4E00F758DE /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */; };
 		1F2B47E72612AA4E00F758DE /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */; };
@@ -45,6 +49,14 @@
 		1FB3A59D261652DF004D71BF /* PresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3A59C261652DF004D71BF /* PresentAnimator.swift */; };
 		1FB3A5A526165308004D71BF /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3A5A426165308004D71BF /* DismissAnimator.swift */; };
 		1FB3A5AA26165C36004D71BF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3A5A926165C36004D71BF /* TabBarViewController.swift */; };
+		1FB8DFE4261E59DB00132152 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8DFE3261E59DB00132152 /* AddViewController.swift */; };
+		1FB8DFF2261FDEF100132152 /* AddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8DFF1261FDEF100132152 /* AddCollectionViewCell.swift */; };
+		1FB8DFF7261FE3CB00132152 /* CollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8DFF6261FE3CB00132152 /* CollectionViewCellDelegate.swift */; };
+		1FB8E004261FEDEE00132152 /* ShortAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8E003261FEDEE00132152 /* ShortAddCollectionViewCell.swift */; };
+		1FB8E009261FFE8F00132152 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8E008261FFE8F00132152 /* ImageCollectionViewCell.swift */; };
+		1FB8E00E26200C6600132152 /* DishContainsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8E00D26200C6600132152 /* DishContainsCollectionViewCell.swift */; };
+		3CD1817D76CF11EEFBE0F1F8 /* Pods_NaniTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B6CD19BC443AFC7E14114B /* Pods_NaniTests.framework */; };
+		52E65082BF292FCFECA8929A /* Pods_Nani_NaniUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +77,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B375973FEFCD551C7D176FB /* Pods-NaniTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaniTests.release.xcconfig"; path = "Target Support Files/Pods-NaniTests/Pods-NaniTests.release.xcconfig"; sourceTree = "<group>"; };
+		1F0FBECC262018FB009B2A82 /* NoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F0FBED4262026C9009B2A82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1F0FBF182620317C009B2A82 /* FoodCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCard.swift; sourceTree = "<group>"; };
 		1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
 		1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Light.ttf"; sourceTree = "<group>"; };
@@ -109,6 +125,20 @@
 		1FB3A59C261652DF004D71BF /* PresentAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentAnimator.swift; sourceTree = "<group>"; };
 		1FB3A5A426165308004D71BF /* DismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
 		1FB3A5A926165C36004D71BF /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		1FB8DFE3261E59DB00132152 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		1FB8DFF1261FDEF100132152 /* AddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FB8DFF6261FE3CB00132152 /* CollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellDelegate.swift; sourceTree = "<group>"; };
+		1FB8E003261FEDEE00132152 /* ShortAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAddCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FB8E008261FFE8F00132152 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FB8E00D26200C6600132152 /* DishContainsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishContainsCollectionViewCell.swift; sourceTree = "<group>"; };
+		56ECBE7FD5805C94E1DCBA70 /* Pods-Nani-NaniUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani-NaniUITests.debug.xcconfig"; path = "Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6D96B6D082B8166440F1C751 /* Pods-Nani.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani.release.xcconfig"; path = "Target Support Files/Pods-Nani/Pods-Nani.release.xcconfig"; sourceTree = "<group>"; };
+		7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nani_NaniUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96B6CD19BC443AFC7E14114B /* Pods_NaniTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NaniTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAFB71102D36AF2450B06FE8 /* Pods-Nani.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani.debug.xcconfig"; path = "Target Support Files/Pods-Nani/Pods-Nani.debug.xcconfig"; sourceTree = "<group>"; };
+		BC492569C7D0B59EDDC93716 /* Pods-Nani-NaniUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani-NaniUITests.release.xcconfig"; path = "Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CA01D22FB732F920FBE0E025 /* Pods_Nani.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nani.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00048DC33831D8C2F1EA902 /* Pods-NaniTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaniTests.debug.xcconfig"; path = "Target Support Files/Pods-NaniTests/Pods-NaniTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A5494828D400DF45DBABFB /* Pods_Nani.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD1817D76CF11EEFBE0F1F8 /* Pods_NaniTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52E65082BF292FCFECA8929A /* Pods_Nani_NaniUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +198,7 @@
 			children = (
 				1F4D50742611160500C34716 /* Meal.swift */,
 				1FB3A59626165047004D71BF /* Business.swift */,
+				1F0FBF182620317C009B2A82 /* FoodCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,6 +239,8 @@
 				1FA327CB260338E900811BC2 /* NaniTests */,
 				1FA327D6260338E900811BC2 /* NaniUITests */,
 				1FA327B3260338E800811BC2 /* Products */,
+				75AE54B3F02218DAFBA2D7EA /* Pods */,
+				95A392D4D3303E7850EC6DFA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -221,6 +257,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1FB8DFE2261E59C900132152 /* Add */,
 				1FB3A59B261652C5004D71BF /* Animator */,
 				1FB3A58826164DF4004D71BF /* Home */,
 				1F2B47DF2612A9F500F758DE /* Font */,
@@ -233,6 +270,7 @@
 				1FA327BE260338E900811BC2 /* Assets.xcassets */,
 				1FA327C0260338E900811BC2 /* LaunchScreen.storyboard */,
 				1FA327C3260338E900811BC2 /* Info.plist */,
+				1F0FBED4262026C9009B2A82 /* GoogleService-Info.plist */,
 				1FB3A5A926165C36004D71BF /* TabBarViewController.swift */,
 			);
 			path = Nani;
@@ -274,6 +312,43 @@
 			path = Animator;
 			sourceTree = "<group>";
 		};
+		1FB8DFE2261E59C900132152 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				1FB8DFE3261E59DB00132152 /* AddViewController.swift */,
+				1FB8DFF1261FDEF100132152 /* AddCollectionViewCell.swift */,
+				1FB8DFF6261FE3CB00132152 /* CollectionViewCellDelegate.swift */,
+				1FB8E003261FEDEE00132152 /* ShortAddCollectionViewCell.swift */,
+				1FB8E008261FFE8F00132152 /* ImageCollectionViewCell.swift */,
+				1FB8E00D26200C6600132152 /* DishContainsCollectionViewCell.swift */,
+				1F0FBECC262018FB009B2A82 /* NoteCollectionViewCell.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		75AE54B3F02218DAFBA2D7EA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BAFB71102D36AF2450B06FE8 /* Pods-Nani.debug.xcconfig */,
+				6D96B6D082B8166440F1C751 /* Pods-Nani.release.xcconfig */,
+				56ECBE7FD5805C94E1DCBA70 /* Pods-Nani-NaniUITests.debug.xcconfig */,
+				BC492569C7D0B59EDDC93716 /* Pods-Nani-NaniUITests.release.xcconfig */,
+				F00048DC33831D8C2F1EA902 /* Pods-NaniTests.debug.xcconfig */,
+				0B375973FEFCD551C7D176FB /* Pods-NaniTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		95A392D4D3303E7850EC6DFA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA01D22FB732F920FBE0E025 /* Pods_Nani.framework */,
+				7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */,
+				96B6CD19BC443AFC7E14114B /* Pods_NaniTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,9 +356,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA327DC260338E900811BC2 /* Build configuration list for PBXNativeTarget "Nani" */;
 			buildPhases = (
+				22812B75ECF212A96CDCBFB5 /* [CP] Check Pods Manifest.lock */,
 				1FA327AE260338E800811BC2 /* Sources */,
 				1FA327AF260338E800811BC2 /* Frameworks */,
 				1FA327B0260338E800811BC2 /* Resources */,
+				E8F04330A9E4ACB22C1A0860 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -298,6 +375,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA327DF260338E900811BC2 /* Build configuration list for PBXNativeTarget "NaniTests" */;
 			buildPhases = (
+				C5F6C2632B7BBA58A1B01C4E /* [CP] Check Pods Manifest.lock */,
 				1FA327C4260338E900811BC2 /* Sources */,
 				1FA327C5260338E900811BC2 /* Frameworks */,
 				1FA327C6260338E900811BC2 /* Resources */,
@@ -316,9 +394,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA327E2260338E900811BC2 /* Build configuration list for PBXNativeTarget "NaniUITests" */;
 			buildPhases = (
+				7F37193A3523C5A66906ECFD /* [CP] Check Pods Manifest.lock */,
 				1FA327CF260338E900811BC2 /* Sources */,
 				1FA327D0260338E900811BC2 /* Frameworks */,
 				1FA327D1260338E900811BC2 /* Resources */,
+				8DFFD40A9F912B346DF88763 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -379,6 +459,7 @@
 			files = (
 				1F2B47E62612AA4E00F758DE /* Comfortaa-SemiBold.ttf in Resources */,
 				1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */,
+				1F0FBED5262026C9009B2A82 /* GoogleService-Info.plist in Resources */,
 				1F2B47E92612AA4E00F758DE /* Comfortaa-Medium.ttf in Resources */,
 				1FA327C2260338E900811BC2 /* LaunchScreen.storyboard in Resources */,
 				1F2B47E82612AA4E00F758DE /* Comfortaa-Regular.ttf in Resources */,
@@ -404,6 +485,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		22812B75ECF212A96CDCBFB5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Nani-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F37193A3523C5A66906ECFD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Nani-NaniUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8DFFD40A9F912B346DF88763 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5F6C2632B7BBA58A1B01C4E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NaniTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8F04330A9E4ACB22C1A0860 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1FA327AE260338E800811BC2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -413,23 +597,31 @@
 				1FA327BA260338E800811BC2 /* DetailViewController.swift in Sources */,
 				1F4D50C62611204900C34716 /* InfoTableViewCell.swift in Sources */,
 				1FB3A59726165047004D71BF /* Business.swift in Sources */,
+				1FB8DFF7261FE3CB00132152 /* CollectionViewCellDelegate.swift in Sources */,
 				1FB3A5AA26165C36004D71BF /* TabBarViewController.swift in Sources */,
 				1F4D5067261115B600C34716 /* SectionTitleIndexController.swift in Sources */,
+				1FB8DFF2261FDEF100132152 /* AddCollectionViewCell.swift in Sources */,
 				1F4D50AF26111DA700C34716 /* MealItemTitleCell.swift in Sources */,
+				1FB8E00E26200C6600132152 /* DishContainsCollectionViewCell.swift in Sources */,
 				1F4D509F26111C5000C34716 /* SectionHeaderView.swift in Sources */,
 				1FB3A58A26164E08004D71BF /* HomeViewController.swift in Sources */,
 				1FA327B6260338E800811BC2 /* AppDelegate.swift in Sources */,
+				1FB8E009261FFE8F00132152 /* ImageCollectionViewCell.swift in Sources */,
 				1FA327B8260338E800811BC2 /* SceneDelegate.swift in Sources */,
 				1FB3A59D261652DF004D71BF /* PresentAnimator.swift in Sources */,
 				1F4D50752611160500C34716 /* Meal.swift in Sources */,
+				1FB8DFE4261E59DB00132152 /* AddViewController.swift in Sources */,
 				1F4D507D2611169500C34716 /* Interactor.swift in Sources */,
 				1F4D506F261115D800C34716 /* InfoViewController.swift in Sources */,
 				1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */,
 				1F4D50C126111F1200C34716 /* InfoTableViewHeader.swift in Sources */,
 				1F4D508326111A3300C34716 /* HeaderView.swift in Sources */,
 				1F4D50A926111D5500C34716 /* MealItemTableViewCell.swift in Sources */,
+				1FB8E004261FEDEE00132152 /* ShortAddCollectionViewCell.swift in Sources */,
+				1F0FBF192620317C009B2A82 /* FoodCard.swift in Sources */,
 				1F4D509026111B1300C34716 /* DetailHeaderCollectionViewCell.swift in Sources */,
 				1FB3A59226164E4E004D71BF /* HomeViewCell.swift in Sources */,
+				1F0FBECD262018FB009B2A82 /* NoteCollectionViewCell.swift in Sources */,
 				1F4D50A426111CD800C34716 /* MealItemViewController.swift in Sources */,
 				1F4D50BC26111E9400C34716 /* InfoTableView.swift in Sources */,
 				1F4D509526111BC300C34716 /* InfoCollectionViewCell.swift in Sources */,
@@ -609,16 +801,19 @@
 		};
 		1FA327DD260338E900811BC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAFB71102D36AF2450B06FE8 /* Pods-Nani.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.1.1;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -628,16 +823,19 @@
 		};
 		1FA327DE260338E900811BC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D96B6D082B8166440F1C751 /* Pods-Nani.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.1.1;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -647,6 +845,7 @@
 		};
 		1FA327E0260338E900811BC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00048DC33831D8C2F1EA902 /* Pods-NaniTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -669,6 +868,7 @@
 		};
 		1FA327E1260338E900811BC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B375973FEFCD551C7D176FB /* Pods-NaniTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -691,6 +891,7 @@
 		};
 		1FA327E3260338E900811BC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56ECBE7FD5805C94E1DCBA70 /* Pods-Nani-NaniUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -711,6 +912,7 @@
 		};
 		1FA327E4260338E900811BC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC492569C7D0B59EDDC93716 /* Pods-Nani-NaniUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -14,6 +14,17 @@ class HomeViewCell: UICollectionViewCell {
 //        return manager
 //    }()
 //
+    
+    var food: FoodCard? {
+            didSet {
+                nameLabel.text = food?.name
+                priceLabel.text = food!.price == 0 ? "Free" : "$" + String(food!.price)
+                chefLabel.text = food?.chef
+                aptLabel.text = food?.apt
+                timeLabel.text = food?.time
+                imageView.image = food?.image
+            }
+    }
     var biz: Biz = Biz() {
         didSet {
             let defaultUrl = "http://s3-media3.fl.yelpcdn.com/bphoto/--8oiPVp0AsjoWHqaY1rDQ/o.jpg"

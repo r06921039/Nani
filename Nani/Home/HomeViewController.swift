@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 //import Crashlytics
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate{
@@ -21,6 +22,10 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var selectedFrame: CGRect?
     var navAddressTitle: String = "2590 N Moreland Blvd"
     var mealSections: [String] = Meal.loadFoodSections()
+    var foodCard: [FoodCard] = []
+    
+    var ref = Database.database().reference()
+    let storage = Storage.storage(url: "gs://nani-e9074.appspot.com")
    
     
     
@@ -198,15 +203,43 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         view.endEditing(true)
     }
     
+    func getData(){
+        var refHandle = self.ref.observe(DataEventType.value, with: { (snapshot) in
+          let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            if let items = postDict["Food_items"] as? [[String : Any]] {
+                self.foodCard = []
+                for item in items {
+                    let pathReference = self.storage.reference()
+                    let path = item["Picture"] as! String
+                    print(path)
+                    let islandRef = pathReference.child(path)
+                    islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                      if let error = error {
+                        print(error)
+                        // Uh-oh, an error occurred!
+                      } else {
+                        // Data for "images/island.jpg" is returned
+                        print("here")
+                        let image = UIImage(data: data!)
+                        self.foodCard.append(FoodCard(item, image!))
+                        self.collectionView.reloadData()
+                      }
+                    }
+                }
+            }
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
-        
+        getData()
         // checkUserAuth()
         //setupAPIClient()
         //logUser()
         generateMockData()
+        
     }
     
     func setupViews(){
@@ -316,7 +349,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             return mealSections.count
         }
         
-        return isFiltered ? filteredBizs.count : bizs.count
+//        return isFiltered ? filteredBizs.count : bizs.count
+        
+        return self.foodCard.count
 //        }
     }
     
@@ -332,7 +367,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeViewCell", for: indexPath) as! HomeViewCell
-        cell.biz = isFiltered ? filteredBizs[indexPath.row] : bizs[indexPath.row]
+        //cell.biz = isFiltered ? filteredBizs[indexPath.row] : bizs[indexPath.row]
+        cell.food = self.foodCard[indexPath.row]
         return cell
         
 
