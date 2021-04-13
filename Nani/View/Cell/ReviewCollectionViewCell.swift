@@ -9,15 +9,29 @@ import UIKit
 
 class ReviewCollectionViewCell: UICollectionViewCell {
     
-    var meal: Meal? {
+    var review: Review? {
             didSet {
-                nameLabel.text = meal?.name
-                reviewLabel.text = meal?.review
-                let photo = UIImage(named: meal!.image)
-                userButton.setImage(photo, for: .normal)
-                timeLabel.text = meal?.time
+                reviewLabel.text = review?.comment
+                timeLabel.text = review?.posted_time
+                starIcon5.image = review!.rating >= 5 ? UIImage(named: "star-24px.emf") : UIImage(named: "star_outline_black_24dp.emf")
+                starIcon4.image = review!.rating >= 4 ? UIImage(named: "star-24px.emf") : UIImage(named: "star_outline_black_24dp.emf")
+                starIcon3.image = review!.rating >= 3 ? UIImage(named: "star-24px.emf") : UIImage(named: "star_outline_black_24dp.emf")
+                starIcon2.image = review!.rating >= 2 ? UIImage(named: "star-24px.emf") : UIImage(named: "star_outline_black_24dp.emf")
+                starIcon1.image = review!.rating >= 1 ? UIImage(named: "star-24px.emf") : UIImage(named: "star_outline_black_24dp.emf")
             }
         }
+    var user: User?{
+        didSet {
+            nameLabel.text = user?.chef_name
+            userButton.setImage(user?.picture, for: .normal) 
+        }
+    }
+    
+    var last: Bool?{
+        didSet{
+            topSeperator.backgroundColor = .white
+        }
+    }
     
     
     lazy var userButton: UIButton = {
@@ -93,6 +107,13 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    var topSeperator: UIView = {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = .lightGray
+        return line
+    }()
+    
 
     
     override init(frame: CGRect) {
@@ -115,14 +136,14 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         backgroundColor = .white
         addSubview(userButton)
         NSLayoutConstraint.activate([
-            userButton.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            userButton.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             userButton.leftAnchor.constraint(equalTo: leftAnchor, constant: leading),
             userButton.widthAnchor.constraint(equalToConstant: buttonSize),
             userButton.heightAnchor.constraint(equalToConstant: buttonSize)
             ])
         addSubview(nameLabel)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo:topAnchor, constant: 10),
+            nameLabel.topAnchor.constraint(equalTo:topAnchor, constant: 25),
             nameLabel.leftAnchor.constraint(equalTo: userButton.rightAnchor, constant: distance),
             nameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -100),
             nameLabel.heightAnchor.constraint(equalToConstant: 20)
@@ -170,15 +191,22 @@ class ReviewCollectionViewCell: UICollectionViewCell {
             timeLabel.heightAnchor.constraint(equalToConstant: 20)
             ])
         addSubview(reviewLabel)
+        
         NSLayoutConstraint.activate([
             reviewLabel.topAnchor.constraint(equalTo:timeLabel.bottomAnchor, constant: 5),
             reviewLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: leading),
             reviewLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
-            reviewLabel.heightAnchor.constraint(equalToConstant: 90)
+            reviewLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 90)
+            ])
+        addSubview(topSeperator)
+        NSLayoutConstraint.activate([
+            topSeperator.topAnchor.constraint(equalTo:reviewLabel.bottomAnchor, constant: 15),
+            topSeperator.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
+            topSeperator.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
+            topSeperator.heightAnchor.constraint(equalToConstant: 0.5)
             ])
         
     }
 }
-
 
 

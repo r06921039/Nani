@@ -38,12 +38,22 @@ class HeaderView: UIView, HeaderViewDelegate {
         }
     }
     
-    var name: String?
-    var cuisine: String?
-    var time: String?
-    var fee: String?
-    var stars: String?
-    var review: String?
+    var food: FoodCard? {
+            didSet {
+                nameLabel.text = food?.name
+                cuisineLabel.text = "By " + food!.chef_name + " - " + food!.apt
+                let price = food!.price == 0 ? "Free" : "$" + String(food!.price)
+                let pick_up = food!.pickup ? "Pick up" : "Delivery"
+                costLabel.text = price + " - " + pick_up
+                timeLabel.text = food?.time
+//                cuisineLabel.text = food!.price == 0 ? "Free" : "$" + String(food!.price)
+//                chefLabel.text = ""
+//                aptLabel.text = food?.apt
+//                timeLabel.text = food?.time
+//                imageView.image = food?.image
+            }
+    }
+//    var review: String?
     
     var nameLabelTopAnchorConstraint: NSLayoutConstraint?
     var nameLabelLeftAnchorConstraint: NSLayoutConstraint?
@@ -54,7 +64,7 @@ class HeaderView: UIView, HeaderViewDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Comfortaa-Bold", size: 18.0)
         label.numberOfLines = 2
-        label.text = "Maple Walnut Muffins"
+        label.text = ""
         label.textColor = .black
         return label
     }()

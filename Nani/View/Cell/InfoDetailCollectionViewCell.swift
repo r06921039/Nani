@@ -9,6 +9,13 @@ import UIKit
 
 class InfoDetailCollectionViewCell: UICollectionViewCell {
     
+    var info: FoodCard? {
+            didSet {
+                containsLabel.text = info?.contains
+                timeLabel.text = info!.pickup ? "Pick up" : "Delivery"
+            }
+    }
+    
     
     var timeLabel: UILabel = {
         let label = UILabel()
@@ -59,7 +66,7 @@ class InfoDetailCollectionViewCell: UICollectionViewCell {
     }()
     
     let containsIcon: UIImageView = {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "local_dining-24px.emf").withRenderingMode(.alwaysOriginal))
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "Ingredients").withRenderingMode(.alwaysOriginal))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

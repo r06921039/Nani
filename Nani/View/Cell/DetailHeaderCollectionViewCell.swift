@@ -11,7 +11,7 @@ class DetailHeaderCollectionViewCell: UICollectionViewCell, CoverImageDelegate {
     
     var coverImageHeightConstraint: NSLayoutConstraint?
     var coverImageTopAnchorConstraint: NSLayoutConstraint?
-    let coverImageView: UIImageView = {
+    var coverImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "tennesse_taco_co_2") )
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.masksToBounds = true

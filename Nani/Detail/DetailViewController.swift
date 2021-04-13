@@ -39,6 +39,9 @@ class DetailViewController: UIViewController {
     var meals: [Meal] = Meal.loadDemoMeals()
     var mealSections: [String] = Meal.loadMealSections()
     let headerViewHeight = 115
+    var users: [Int:User] = [:]
+    var reviews: [Review] = []
+    var food_item: FoodCard? = nil
     
     lazy var backButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.system)
@@ -51,6 +54,7 @@ class DetailViewController: UIViewController {
     
     lazy var headerView: HeaderView = {
         let view = HeaderView()
+        view.food = self.food_item
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         return view
@@ -67,6 +71,7 @@ class DetailViewController: UIViewController {
         cv.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCell")
         cv.register(InfoDetailCollectionViewCell.self, forCellWithReuseIdentifier: "InfoDetailCell")
         cv.register(ReviewCollectionViewCell.self, forCellWithReuseIdentifier: "ReviewCell")
+        cv.register(EmptyReviewCollectionViewCell.self, forCellWithReuseIdentifier: "EmptyReviewCell")
         cv.register(DetailHeaderCollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DetailHeader")
         cv.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         cv.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "EmptyCell")
@@ -82,7 +87,6 @@ class DetailViewController: UIViewController {
         setupViews()
         setupGesture()
 //        self.transitioningDelegate = self
-       
     }
     
     func setupGesture(){
@@ -128,6 +132,18 @@ class DetailViewController: UIViewController {
             sectionTitleIndexCollectionView.heightAnchor.constraint(equalToConstant: 40)
             ])
     }
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+
+        label.sizeToFit()
+        return label.frame.height
+    }
+
 }
 
 extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -146,7 +162,11 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
         } else {
             if (section == 0) {
                 return 1 //2
-            } else {
+            }
+            else if (section == 3){
+                return self.reviews.count + 1 // padding
+            }
+            else{
                 let rows = Meal.loadMealsForSection(sectionName: mealSections[section-1], meals: meals)
                 return rows.count
             }
@@ -164,6 +184,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
                     infoCell.infoButtonCallback = {() -> () in
                         self.present(self.infoViewController, animated: true, completion: nil)
                 }
+                infoCell.chef = self.users[self.food_item!.user]
                 return infoCell
             }
 //            } else if (indexPath.section == 0) && (indexPath.row == 1) {
@@ -174,19 +195,31 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as! DetailCollectionViewCell
 //                let rows = Meal.loadMealsForSection(sectionName: mealSections[(indexPath.section-1)], meals: meals)
 //                cell.meal = rows[indexPath.row]
+                cell.nameLabel.text = self.food_item?.notes   
                 return cell
             }
             else if (indexPath.section == 2){
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InfoDetailCell", for: indexPath) as! InfoDetailCollectionViewCell
 //                let rows = Meal.loadMealsForSection(sectionName: mealSections[(indexPath.section-1)], meals: meals)
 //                cell.meal = rows[indexPath.row]
+                cell.info = self.food_item
                 return cell
             }
             else{
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCell", for: indexPath) as! ReviewCollectionViewCell
-                let rows = Meal.loadMealsForSection(sectionName: mealSections[(indexPath.section-1)], meals: meals)
-                cell.meal = rows[indexPath.row]
-                return cell
+                if (indexPath.row < self.reviews.count){
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCell", for: indexPath) as! ReviewCollectionViewCell
+    //                let rows = Meal.loadMealsForSection(sectionName: mealSections[(indexPath.section-1)], meals: meals)
+                    cell.review = self.reviews[indexPath.row]
+                    cell.user = self.users[self.reviews[indexPath.row].user]
+                    if (indexPath.row == self.reviews.count - 1){
+                        cell.last = true
+                    }
+                    return cell
+                }
+                else{
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyReviewCell", for: indexPath) as! EmptyReviewCollectionViewCell
+                    return cell
+                }
             }
         }
     }
@@ -208,7 +241,13 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
                 return CGSize(width: view.frame.width, height: 150)
             }
             else{
-                return CGSize(width: view.frame.width, height: 220)
+                if (indexPath.row < self.reviews.count){
+                    let height = heightForView(text: self.reviews[indexPath.row].comment, font: UIFont(name: "Comfortaa-Regular", size: 14)!, width: view.frame.width - 30)
+                    return CGSize(width: view.frame.width, height: 121 + height)
+                }
+                else{
+                    return CGSize(width: view.frame.width, height: 30)
+                }
             }
         }
     }
@@ -283,6 +322,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
         } else {
             if (kind == UICollectionView.elementKindSectionHeader) && (indexPath.section == 0) && (indexPath.row == 0) {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DetailHeader", for: indexPath) as! DetailHeaderCollectionViewCell
+                header.coverImageView.image = self.food_item?.image
                 self.delegate = header
                 return header
             } else if (kind == UICollectionView.elementKindSectionHeader) && (indexPath.section != 0) {
@@ -403,6 +443,36 @@ extension DetailViewController : UIViewControllerTransitioningDelegate {
 //    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
 //        return DismissAnimator()
 //    }
+}
+
+extension CALayer {
+
+    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+
+        let border = CALayer()
+
+        switch edge {
+        case UIRectEdge.top:
+            border.frame = CGRect(x: 0, y: 0, width: self.frame.height, height: thickness)
+            break
+        case UIRectEdge.bottom:
+            border.frame = CGRect(x: 0, y: self.frame.height - thickness, width: UIScreen.main.bounds.width, height: thickness)
+            break
+        case UIRectEdge.left:
+            border.frame = CGRect(x: 0, y: 0, width: thickness, height: self.frame.height)
+            break
+        case UIRectEdge.right:
+            border.frame = CGRect(x: self.frame.width - thickness, y: 0, width: thickness, height: self.frame.height)
+            break
+        default:
+            break
+        }
+
+        border.backgroundColor = color.cgColor;
+
+        self.addSublayer(border)
+    }
+
 }
 
 

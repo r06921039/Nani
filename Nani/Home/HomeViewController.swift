@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SwiftSpinner
 //import Crashlytics
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate{
@@ -18,11 +19,17 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     var item: HomeViewCell!
     var itemFrame: CGRect!
+    var food_item: FoodCard!
     let interactor = Interactor()
     var selectedFrame: CGRect?
     var navAddressTitle: String = "2590 N Moreland Blvd"
     var mealSections: [String] = Meal.loadFoodSections()
-    var foodCard: [FoodCard] = []
+    var foodCard: [Int: FoodCard] = [:]
+    var allergens: [String] = []
+    var users: [Int: User] = [:]
+    var reviews: [Review] = []
+    var total_items: Int = 0
+    var total_users: Int = 0
     
     var ref = Database.database().reference()
     let storage = Storage.storage(url: "gs://nani-e9074.appspot.com")
@@ -204,27 +211,71 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func getData(){
+        SwiftSpinner.show(delay: 0.0, title: "Connecting \nto Nani...", animated: true)
         var refHandle = self.ref.observe(DataEventType.value, with: { (snapshot) in
-          let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            if let total_items = postDict["Total_items"] as? Int{
+                self.total_items = total_items
+            }
+            if let total_users = postDict["Total_users"] as? Int{
+                self.total_users = total_users
+            }
+            if let allergens = postDict["Allergens"] as? [String]{
+                self.allergens = allergens
+            }
+            if let reviews = postDict["Reviews"] as? [[String : Any]]{
+                self.reviews = []
+                for review in reviews{
+                    self.reviews.append(Review(review))
+                }
+            }
+            if let users = postDict["Users"] as? [[String : Any]] {
+                self.users = [:]
+                for user in users {
+                    let pathReference = self.storage.reference()
+                    let path = user["Picture"] as! String
+                    let islandRef = pathReference.child(path)
+                    islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            print(error)
+                        // Uh-oh, an error occurred!
+                        }
+                        else {
+                        // Data for "images/island.jpg" is returned
+                            let image = UIImage(data: data!)
+                            self.users[user["ID"] as! Int] = User(user, image!)
+                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+                                self.collectionView.reloadData()
+                                SwiftSpinner.hide()
+                            }
+                        }
+                    }
+                }
+                
+            }
             if let items = postDict["Food_items"] as? [[String : Any]] {
-                self.foodCard = []
+                self.foodCard = [:]
                 for item in items {
                     let pathReference = self.storage.reference()
                     let path = item["Picture"] as! String
-                    print(path)
                     let islandRef = pathReference.child(path)
                     islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                      if let error = error {
+                        if let error = error {
                         print(error)
                         // Uh-oh, an error occurred!
-                      } else {
+                        }
+                        else {
                         // Data for "images/island.jpg" is returned
-                        print("here")
-                        let image = UIImage(data: data!)
-                        self.foodCard.append(FoodCard(item, image!))
-                        self.collectionView.reloadData()
-                      }
+                            let image = UIImage(data: data!)
+                            var food = FoodCard(item, image!, self.allergens)
+                            self.foodCard[item["Order"] as! Int] = food
+                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+                                self.collectionView.reloadData()
+                                SwiftSpinner.hide()
+                            }
+                        }
                     }
+                    
                 }
             }
         })
@@ -239,7 +290,19 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         //setupAPIClient()
         //logUser()
         generateMockData()
-        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        self.collectionView.refreshControl = refreshControl
+    }
+    
+    @objc func refresh(){
+        for index in 0..<self.foodCard.count{
+            var food = self.foodCard[index]
+            food?.updateTime()
+            self.foodCard[index] = food
+        }
+        self.collectionView.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     func setupViews(){
@@ -350,7 +413,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         
 //        return isFiltered ? filteredBizs.count : bizs.count
-        
         return self.foodCard.count
 //        }
     }
@@ -406,11 +468,19 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             let attributes = collectionView.layoutAttributesForItem(at: indexPath)
             self.itemFrame = attributes!.frame
             self.item = collectionView.cellForItem(at: indexPath) as! HomeViewCell
+            self.food_item = self.foodCard[indexPath.row]
             
             let detailViewController = DetailViewController()
             detailViewController.transitioningDelegate = self
             detailViewController.interactor = self.interactor
             detailViewController.modalPresentationStyle = .overFullScreen
+            detailViewController.users = self.users
+            detailViewController.food_item = self.foodCard[indexPath.row]
+            var temp: [Review] = []
+            for index in self.foodCard[indexPath.row]!.reviews{
+                temp.append(self.reviews[index])
+            }
+            detailViewController.reviews = temp
     //        navigationController?.present(detailViewController, animated: true, completion: nil)
             present(detailViewController, animated: true, completion: nil)
     //        navigationController?.pushViewController(detailViewController, animated: true)
@@ -456,7 +526,7 @@ extension HomeViewController: UIViewControllerTransitioningDelegate {
 //        if (presented == self.filterViewController) {
 //            return PresentAnimator2()
 //        }
-        return PresentAnimator(item: item, itemFrame: itemFrame)
+        return PresentAnimator(item: item, itemFrame: itemFrame, food_item: food_item)
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return DismissAnimator()

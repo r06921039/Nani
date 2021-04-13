@@ -12,19 +12,43 @@ struct FoodCard{
     var name: String
     var image: UIImage
     var price: Int
-    var chef: String
+    var user: Int
     var apt: String
     var time: String
+    var contains: String
+    var notes: String
+    var servings: Int
+    var pickup: Bool
+    var chef_name: String
+    var reviews: [Int]
+    var posted_time: String
+    var expiry_hours: Int
+    var order: Int
     
-    init(_ item: [String : Any], _ image: UIImage){
+    init(_ item: [String : Any], _ image: UIImage, _ allergens: [String]){
         self.name = item["Title"] as! String
         self.image = image
         self.price = item["Price"] as! Int
-        let user = item["User"] as? [String: Any]
-        self.chef = user!["Chef_name"] as! String
+//        let user = item["User"] as? [String: Any]
+        self.chef_name = item["Chef_name"] as! String
+        self.user = item["User"] as! Int
         self.apt = item["Room"] as! String
         self.time = ""
-        let (hour, min) = self.calculate(item["Posted_time"] as! String, item["Expiry_hours"] as! Int)
+        let Contains = item["Contains"] as? [Int]
+        var temp: [String] = []
+        for index in Contains!{
+            temp.append(allergens[index])
+        }
+        self.contains = "Contains: " + temp.joined(separator: ", ")
+        self.notes = item["Notes"] as! String
+        self.servings = item["Servings"] as! Int
+        self.pickup = item["Pickup"] as! Bool
+        self.reviews = item["Reviews"] as! [Int]
+        self.posted_time = item["Posted_time"] as! String
+        self.expiry_hours = item["Expiry_hours"] as! Int
+        self.order = item["Order"] as! Int
+        
+        let (hour, min) = self.calculate(self.posted_time, self.expiry_hours)
         self.time = hour < 0 ? "Expired" : "Expires in " + String(hour) + "h " + String(min)
     }
     
@@ -44,5 +68,10 @@ struct FoodCard{
         let minutes = floor((elapsedTime - (hours * 60 * 60)) / 60)
 
         return (Int(hours), Int(minutes))
+    }
+    
+    mutating func updateTime(){
+        let (hour, min) = self.calculate(self.posted_time, self.expiry_hours)
+        self.time = hour < 0 ? "Expired" : "Expires in " + String(hour) + "h " + String(min)
     }
 }

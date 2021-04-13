@@ -11,6 +11,15 @@ class InfoCollectionViewCell: UICollectionViewCell {
     
     var infoButtonCallback: (()->())?
     
+    var chef: User? {
+            didSet {
+                nameLabel.text = "By " + chef!.chef_name
+                chefLabel.text = chef?.chef_label
+                starLabel.text = String(chef!.average_rating) + " (" + String(chef!.total_ratings) + ")"
+                infoButton.setImage(chef?.picture, for: .normal)
+            }
+    }
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "By Bryten"

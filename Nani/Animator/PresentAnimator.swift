@@ -12,10 +12,12 @@ class PresentAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     
     var itemFrame: CGRect
     var item: HomeViewCell
+    var food_item: FoodCard
     
-    init(item: HomeViewCell, itemFrame: CGRect) {
+    init(item: HomeViewCell, itemFrame: CGRect, food_item: FoodCard) {
         self.itemFrame = itemFrame
         self.item = item
+        self.food_item = food_item
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -42,12 +44,13 @@ class PresentAnimator : NSObject, UIViewControllerAnimatedTransitioning {
         
         // get the headerView
         let headerView = HeaderView(frame: CGRect(x: 15, y: 200, width: 345, height: 120))
+        headerView.food = self.food_item
         headerView.backgroundColor = .white
         let headerViewOrigin = CGPoint(x: imageViewFrameConverted.origin.x, y: imageViewFrameConverted.origin.y + imageViewFrameConverted.height)
         headerView.frame = CGRect(origin: headerViewOrigin, size: CGSize(width: 345, height: 120))
         
         // get the test image
-        let testImageView = UIImageView(image: #imageLiteral(resourceName: "tennesse_taco_co_2"))
+        let testImageView = UIImageView(image: item.imageView.image)
         testImageView.contentMode = .scaleAspectFill
         //print("original Image Size: \(testImageView.frame)")
         testImageView.frame = imageViewFrameConverted

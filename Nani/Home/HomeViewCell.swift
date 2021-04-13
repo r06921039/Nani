@@ -19,7 +19,7 @@ class HomeViewCell: UICollectionViewCell {
             didSet {
                 nameLabel.text = food?.name
                 priceLabel.text = food!.price == 0 ? "Free" : "$" + String(food!.price)
-                chefLabel.text = food?.chef
+                chefLabel.text = food?.chef_name
                 aptLabel.text = food?.apt
                 timeLabel.text = food?.time
                 imageView.image = food?.image

@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
         layout.scrollDirection = .vertical
         let vc = HomeViewController(collectionViewLayout: layout)
 //        vc.collectionView_s
-        vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "filter_rating"), selectedImage: #imageLiteral(resourceName: "filter_rating"))
+        vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "fried-egg-1"), selectedImage: #imageLiteral(resourceName: "fried-egg-1"))
         return vc
     }()
     

@@ -11,6 +11,9 @@
 		1F0FBECD262018FB009B2A82 /* NoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBECC262018FB009B2A82 /* NoteCollectionViewCell.swift */; };
 		1F0FBED5262026C9009B2A82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F0FBED4262026C9009B2A82 /* GoogleService-Info.plist */; };
 		1F0FBF192620317C009B2A82 /* FoodCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF182620317C009B2A82 /* FoodCard.swift */; };
+		1F0FBF21262488C6009B2A82 /* Reivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF20262488C5009B2A82 /* Reivew.swift */; };
+		1F0FBF2626248A9B009B2A82 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF2526248A9B009B2A82 /* User.swift */; };
+		1F0FBF4626255851009B2A82 /* EmptyReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF4526255851009B2A82 /* EmptyReviewCollectionViewCell.swift */; };
 		1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */; };
 		1F2B47E62612AA4E00F758DE /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */; };
 		1F2B47E72612AA4E00F758DE /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */; };
@@ -81,6 +84,9 @@
 		1F0FBECC262018FB009B2A82 /* NoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F0FBED4262026C9009B2A82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F0FBF182620317C009B2A82 /* FoodCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCard.swift; sourceTree = "<group>"; };
+		1F0FBF20262488C5009B2A82 /* Reivew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reivew.swift; sourceTree = "<group>"; };
+		1F0FBF2526248A9B009B2A82 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1F0FBF4526255851009B2A82 /* EmptyReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
 		1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Light.ttf"; sourceTree = "<group>"; };
@@ -199,6 +205,8 @@
 				1F4D50742611160500C34716 /* Meal.swift */,
 				1FB3A59626165047004D71BF /* Business.swift */,
 				1F0FBF182620317C009B2A82 /* FoodCard.swift */,
+				1F0FBF20262488C5009B2A82 /* Reivew.swift */,
+				1F0FBF2526248A9B009B2A82 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 				1F4D50C52611204900C34716 /* InfoTableViewCell.swift */,
 				1F5F26E626156F060013D666 /* InfoDetailCollectionViewCell.swift */,
 				1F5F26EB261593D30013D666 /* ReviewCollectionViewCell.swift */,
+				1F0FBF4526255851009B2A82 /* EmptyReviewCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -593,6 +602,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F0FBF21262488C6009B2A82 /* Reivew.swift in Sources */,
 				1F5F26EC261593D30013D666 /* ReviewCollectionViewCell.swift in Sources */,
 				1FA327BA260338E800811BC2 /* DetailViewController.swift in Sources */,
 				1F4D50C62611204900C34716 /* InfoTableViewCell.swift in Sources */,
@@ -610,6 +620,8 @@
 				1FA327B8260338E800811BC2 /* SceneDelegate.swift in Sources */,
 				1FB3A59D261652DF004D71BF /* PresentAnimator.swift in Sources */,
 				1F4D50752611160500C34716 /* Meal.swift in Sources */,
+				1F0FBF2626248A9B009B2A82 /* User.swift in Sources */,
+				1F0FBF4626255851009B2A82 /* EmptyReviewCollectionViewCell.swift in Sources */,
 				1FB8DFE4261E59DB00132152 /* AddViewController.swift in Sources */,
 				1F4D507D2611169500C34716 /* Interactor.swift in Sources */,
 				1F4D506F261115D800C34716 /* InfoViewController.swift in Sources */,
@@ -806,7 +818,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.1;
+				CURRENT_PROJECT_VERSION = 0.1.3;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -828,7 +840,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.1;
+				CURRENT_PROJECT_VERSION = 0.1.3;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
