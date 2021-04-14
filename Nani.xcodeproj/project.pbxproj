@@ -87,6 +87,7 @@
 		1F0FBF20262488C5009B2A82 /* Reivew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reivew.swift; sourceTree = "<group>"; };
 		1F0FBF2526248A9B009B2A82 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F0FBF4526255851009B2A82 /* EmptyReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F0FBF67262665B6009B2A82 /* Nani.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nani.entitlements; sourceTree = "<group>"; };
 		1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
 		1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Light.ttf"; sourceTree = "<group>"; };
@@ -266,6 +267,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1F0FBF67262665B6009B2A82 /* Nani.entitlements */,
 				1FB8DFE2261E59C900132152 /* Add */,
 				1FB3A59B261652C5004D71BF /* Animator */,
 				1FB3A58826164DF4004D71BF /* Home */,
@@ -817,8 +819,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.3;
+				CURRENT_PROJECT_VERSION = 0.1.4;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -839,8 +842,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.3;
+				CURRENT_PROJECT_VERSION = 0.1.4;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
