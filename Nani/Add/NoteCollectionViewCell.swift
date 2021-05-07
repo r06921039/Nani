@@ -54,6 +54,7 @@ class NoteCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         dishTextView.delegate = self
         addSubview(dishTextView)
         dishTextView.setBottomBorder()
+        dishTextView.textContainer.maximumNumberOfLines = 3
         NSLayoutConstraint.activate([
             dishTextView.topAnchor.constraint(equalTo: dishLabel.bottomAnchor, constant: 15),
             dishTextView.leftAnchor.constraint(equalTo: leftAnchor, constant: leading),
@@ -65,9 +66,31 @@ class NoteCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
     }
     func textViewDidChange(_ textView: UITextView) {
         textView.isScrollEnabled = true
+        delegate?.collectionViewCell(valueChangedIn: textView, delegatedFrom: self)
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.isScrollEnabled = false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
+        let newLines = text.components(separatedBy: CharacterSet.newlines)
+        let linesAfterChange = existingLines.count + newLines.count - 1
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        var textWidth = textView.frame.inset(by: textView.textContainerInset).width
+        textWidth -= 2.0 * textView.textContainer.lineFragmentPadding;
+
+        let boundingRect = sizeOfString(string: newText, constrainedToWidth: Double(textWidth), font: textView.font!)
+        let numberOfLines = boundingRect.height / textView.font!.lineHeight;
+        
+        return linesAfterChange <= textView.textContainer.maximumNumberOfLines && numberOfLines <= 3
+    }
+    
+    func sizeOfString (string: String, constrainedToWidth width: Double, font: UIFont) -> CGSize {
+        return (string as NSString).boundingRect(with: CGSize(width: width, height: DBL_MAX),
+                                                 options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                 attributes: [NSAttributedString.Key.font: font],
+            context: nil).size
     }
     
 //    @objc func textFieldDidChange(_ textField: UITextField) {

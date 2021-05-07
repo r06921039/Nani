@@ -12,8 +12,15 @@ protocol CollectionViewCellDelegate {
     func collectionViewCell(textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String, delegatedFrom cell: AddCollectionViewCell)  -> Bool
     func collectionViewCell(valueChangedIn textField: UITextField, delegatedFrom cell: ShortAddCollectionViewCell)
     func collectionViewCell(textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String, delegatedFrom cell: ShortAddCollectionViewCell)  -> Bool
+    func collectionViewCell(valueChangedIn textView: UITextView, delegatedFrom cell: NoteCollectionViewCell)
+    func collectionViewCell(selectOn button: UIButton)
+    func collectionViewCell(deselectOn button: UIButton)
 }
 
 protocol ButtonCollectionViewCellDelegate {
     func showImagePicker(sender: UIButton)
+}
+
+protocol AddViewDelegate{
+    func getAllergens(delegatedFrom viewController: AddViewController)
 }

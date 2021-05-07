@@ -25,12 +25,14 @@ class TabBarController: UITabBarController {
     
     lazy var addViewController: UIViewController = {
         let vc = AddViewController()
+        vc.delegate = homeViewController
+        vc.tBController = self
         vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "button-plus"), selectedImage: #imageLiteral(resourceName: "button-plus"))
         return vc
     }()
     
     lazy var profileViewController: UIViewController = {
-        let vc = UIViewController()
+        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
         vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "icons8-user-50"), selectedImage: #imageLiteral(resourceName: "icons8-user-50"))
         return vc
     }()

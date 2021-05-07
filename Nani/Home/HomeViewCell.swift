@@ -18,7 +18,9 @@ class HomeViewCell: UICollectionViewCell {
     var food: FoodCard? {
             didSet {
                 nameLabel.text = food?.name
-                priceLabel.text = food!.price == 0 ? "Free" : "$" + String(food!.price)
+                if let price = food?.price{
+                    priceLabel.text = price == 0 ? "Free" : "$" + String(price)
+                }
                 chefLabel.text = food?.chef_name
                 aptLabel.text = food?.apt
                 timeLabel.text = food?.time

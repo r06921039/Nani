@@ -14,6 +14,8 @@
 		1F0FBF21262488C6009B2A82 /* Reivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF20262488C5009B2A82 /* Reivew.swift */; };
 		1F0FBF2626248A9B009B2A82 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF2526248A9B009B2A82 /* User.swift */; };
 		1F0FBF4626255851009B2A82 /* EmptyReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FBF4526255851009B2A82 /* EmptyReviewCollectionViewCell.swift */; };
+		1F1D06DC2644F152008A0ED7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D06DB2644F152008A0ED7 /* LoginViewController.swift */; };
+		1F1D06E42645CDD7008A0ED7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1D06E32645CDD7008A0ED7 /* LoginViewController.xib */; };
 		1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */; };
 		1F2B47E62612AA4E00F758DE /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */; };
 		1F2B47E72612AA4E00F758DE /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */; };
@@ -88,6 +90,8 @@
 		1F0FBF2526248A9B009B2A82 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F0FBF4526255851009B2A82 /* EmptyReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F0FBF67262665B6009B2A82 /* Nani.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nani.entitlements; sourceTree = "<group>"; };
+		1F1D06DB2644F152008A0ED7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1F1D06E32645CDD7008A0ED7 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		1F2B47E02612AA4E00F758DE /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		1F2B47E12612AA4E00F758DE /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
 		1F2B47E22612AA4E00F758DE /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Light.ttf"; sourceTree = "<group>"; };
@@ -176,6 +180,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F1D06DA2644F129008A0ED7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F1D06DB2644F152008A0ED7 /* LoginViewController.swift */,
+				1F1D06E32645CDD7008A0ED7 /* LoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		1F2B47DF2612A9F500F758DE /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +280,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1F1D06DA2644F129008A0ED7 /* Login */,
 				1F0FBF67262665B6009B2A82 /* Nani.entitlements */,
 				1FB8DFE2261E59C900132152 /* Add */,
 				1FB3A59B261652C5004D71BF /* Animator */,
@@ -372,6 +386,8 @@
 				1FA327AF260338E800811BC2 /* Frameworks */,
 				1FA327B0260338E800811BC2 /* Resources */,
 				E8F04330A9E4ACB22C1A0860 /* [CP] Embed Pods Frameworks */,
+				1F1D06A82633D211008A0ED7 /* ShellScript */,
+				FCC6476926AF17C1D9572FF2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -410,6 +426,7 @@
 				1FA327D0260338E900811BC2 /* Frameworks */,
 				1FA327D1260338E900811BC2 /* Resources */,
 				8DFFD40A9F912B346DF88763 /* [CP] Embed Pods Frameworks */,
+				9C724606F07DF6F0EAAEFF0D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -468,6 +485,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1D06E42645CDD7008A0ED7 /* LoginViewController.xib in Resources */,
 				1F2B47E62612AA4E00F758DE /* Comfortaa-SemiBold.ttf in Resources */,
 				1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */,
 				1F0FBED5262026C9009B2A82 /* GoogleService-Info.plist in Resources */,
@@ -497,6 +515,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1F1D06A82633D211008A0ED7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NA",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		22812B75ECF212A96CDCBFB5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -558,6 +595,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9C724606F07DF6F0EAAEFF0D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C5F6C2632B7BBA58A1B01C4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -597,6 +651,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FCC6476926AF17C1D9572FF2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nani/Pods-Nani-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -632,6 +703,7 @@
 				1F4D508326111A3300C34716 /* HeaderView.swift in Sources */,
 				1F4D50A926111D5500C34716 /* MealItemTableViewCell.swift in Sources */,
 				1FB8E004261FEDEE00132152 /* ShortAddCollectionViewCell.swift in Sources */,
+				1F1D06DC2644F152008A0ED7 /* LoginViewController.swift in Sources */,
 				1F0FBF192620317C009B2A82 /* FoodCard.swift in Sources */,
 				1F4D509026111B1300C34716 /* DetailHeaderCollectionViewCell.swift in Sources */,
 				1FB3A59226164E4E004D71BF /* HomeViewCell.swift in Sources */,
@@ -821,7 +893,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.4;
+				CURRENT_PROJECT_VERSION = 0.1.12;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -832,7 +905,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -844,7 +917,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.4;
+				CURRENT_PROJECT_VERSION = 0.1.12;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -855,7 +928,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

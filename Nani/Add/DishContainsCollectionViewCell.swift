@@ -9,7 +9,7 @@ import UIKit
 
 class DishContainsCollectionViewCell: UICollectionViewCell {
     
-    var delegate : ButtonCollectionViewCellDelegate?
+    var delegate : CollectionViewCellDelegate?
     
     var dishLabel: UILabel = {
         let label = UILabel()
@@ -220,9 +220,24 @@ class DishContainsCollectionViewCell: UICollectionViewCell {
     @objc func handleSelected(sender: UIButton) {
         if sender.backgroundColor == UIColor.gray{
             sender.backgroundColor = hexStringToUIColor(hex: "#F0B357")
+            delegate?.collectionViewCell(selectOn: sender)
         }
         else{
             sender.backgroundColor = UIColor.gray
+            delegate?.collectionViewCell(deselectOn: sender)
         }
     }
+    
+    func refresh(){
+        self.eggsButton.backgroundColor = UIColor.gray
+        self.milkButton.backgroundColor = UIColor.gray
+        self.shrimpButton.backgroundColor = UIColor.gray
+        self.peanutButton.backgroundColor = UIColor.gray
+        self.porkButton.backgroundColor = UIColor.gray
+        self.soyButton.backgroundColor = UIColor.gray
+        self.seafoodButton.backgroundColor = UIColor.gray
+        self.wheatButton.backgroundColor = UIColor.gray
+        self.othersButton.backgroundColor = UIColor.gray
+    }
+    
 }

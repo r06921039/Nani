@@ -235,7 +235,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
                     let pathReference = self.storage.reference()
                     let path = user["Picture"] as! String
                     let islandRef = pathReference.child(path)
-                    islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
                         if let error = error {
                             print(error)
                         // Uh-oh, an error occurred!
@@ -259,7 +259,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
                     let pathReference = self.storage.reference()
                     let path = item["Picture"] as! String
                     let islandRef = pathReference.child(path)
-                    islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
                         if let error = error {
                         print(error)
                         // Uh-oh, an error occurred!
@@ -430,7 +430,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeViewCell", for: indexPath) as! HomeViewCell
         //cell.biz = isFiltered ? filteredBizs[indexPath.row] : bizs[indexPath.row]
-        cell.food = self.foodCard[indexPath.row]
+        cell.food = self.foodCard[self.total_items - 1 - indexPath.row]
         return cell
         
 
@@ -468,16 +468,16 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             let attributes = collectionView.layoutAttributesForItem(at: indexPath)
             self.itemFrame = attributes!.frame
             self.item = collectionView.cellForItem(at: indexPath) as! HomeViewCell
-            self.food_item = self.foodCard[indexPath.row]
+            self.food_item = self.foodCard[self.total_items - 1 - indexPath.row]
             
             let detailViewController = DetailViewController()
             detailViewController.transitioningDelegate = self
             detailViewController.interactor = self.interactor
             detailViewController.modalPresentationStyle = .overFullScreen
             detailViewController.users = self.users
-            detailViewController.food_item = self.foodCard[indexPath.row]
+            detailViewController.food_item = self.foodCard[self.total_items - 1 - indexPath.row]
             var temp: [Review] = []
-            for index in self.foodCard[indexPath.row]!.reviews{
+            for index in self.foodCard[self.total_items - 1 - indexPath.row]!.reviews{
                 temp.append(self.reviews[index])
             }
             detailViewController.reviews = temp
@@ -534,6 +534,14 @@ extension HomeViewController: UIViewControllerTransitioningDelegate {
 
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactor.hasStarted ? interactor : nil
+    }
+}
+
+extension HomeViewController: AddViewDelegate{
+    func getAllergens(delegatedFrom viewController: AddViewController) {
+        viewController.allergensTable = allergens
+        viewController.total_items = self.total_items
+        viewController.total_users = self.total_users
     }
 }
 //

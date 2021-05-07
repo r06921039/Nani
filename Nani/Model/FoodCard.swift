@@ -36,7 +36,7 @@ struct FoodCard{
         self.time = ""
         let Contains = item["Contains"] as? [Int]
         var temp: [String] = []
-        for index in Contains!{
+        for index in Contains ?? []{
             temp.append(allergens[index])
         }
         self.contains = "Contains: " + temp.joined(separator: ", ")
