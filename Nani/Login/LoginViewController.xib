@@ -12,7 +12,7 @@
             <connections>
                 <outlet property="AppleSignInButton" destination="qFU-jr-7OG" id="pyI-eD-oTd"/>
                 <outlet property="EmailLabel" destination="Dri-Gl-HcX" id="0jE-nW-hiv"/>
-                <outlet property="EmailTextField" destination="9M5-JZ-16i" id="5dy-3z-yWA"/>
+                <outlet property="EmailTextField" destination="9M5-JZ-16i" id="eBB-J4-6kB"/>
                 <outlet property="FacebookSignInButton" destination="b2G-jl-oA4" id="kII-hq-aTD"/>
                 <outlet property="ForgetButton" destination="p9U-kc-klK" id="orQ-Wx-0nR"/>
                 <outlet property="GoogleSignInButton" destination="C5d-Ln-plf" id="q9K-bZ-XLO"/>
@@ -20,7 +20,7 @@
                 <outlet property="LoginLabel" destination="E2N-6Y-bNb" id="wvX-E2-HF9"/>
                 <outlet property="NewHereLabel" destination="yIb-jP-htt" id="joT-Ov-9nA"/>
                 <outlet property="PasswordLabel" destination="V5M-BI-8e8" id="S0A-l8-Nrl"/>
-                <outlet property="PasswordTextField" destination="KZD-xL-fY6" id="xgY-nB-wJp"/>
+                <outlet property="PasswordTextField" destination="KZD-xL-fY6" id="k1E-4l-Qom"/>
                 <outlet property="RegisterButton" destination="zAf-4v-bvC" id="alT-NX-w3Q"/>
                 <outlet property="view" destination="iN0-l3-epB" id="wfB-5d-D9Y"/>
             </connections>
@@ -53,7 +53,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
-                        <action selector="PasswordTextField:" destination="-1" eventType="editingDidEnd" id="VAF-nQ-LlG"/>
+                        <outlet property="delegate" destination="-1" id="xnn-eX-4Dr"/>
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9U-kc-klK">
@@ -69,6 +69,9 @@
                         <constraint firstAttribute="width" constant="133" id="0s9-CP-jiw"/>
                     </constraints>
                     <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="signOut:" destination="-1" eventType="touchUpInside" id="OcY-Nv-Fac"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2N-6Y-bNb">
                     <rect key="frame" x="30" y="294" width="330" height="35"/>
@@ -81,7 +84,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
-                        <action selector="EmailTextField:" destination="-1" eventType="editingDidEnd" id="YfB-Z3-Cga"/>
+                        <outlet property="delegate" destination="-1" id="QbV-2g-UP9"/>
                     </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIb-jP-htt">

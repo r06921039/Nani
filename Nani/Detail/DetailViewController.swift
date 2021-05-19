@@ -39,7 +39,7 @@ class DetailViewController: UIViewController {
     var meals: [Meal] = Meal.loadDemoMeals()
     var mealSections: [String] = Meal.loadMealSections()
     let headerViewHeight = 115
-    var users: [Int:User] = [:]
+    var users: [String:User] = [:]
     var reviews: [Review] = []
     var food_item: FoodCard? = nil
     

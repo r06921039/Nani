@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ReviewCollectionViewCell: UICollectionViewCell {
     
@@ -23,7 +24,9 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     var user: User?{
         didSet {
             nameLabel.text = user?.chef_name
-            userButton.setImage(user?.picture, for: .normal) 
+            let url = URL(string: user!.photoURL)
+//            userButton.setImage(user?.picture, for: .normal)
+            userButton.kf.setImage(with: url, for: .normal)
         }
     }
     

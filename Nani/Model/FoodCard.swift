@@ -12,7 +12,7 @@ struct FoodCard{
     var name: String
     var image: UIImage
     var price: Int
-    var user: Int
+    var user: String
     var apt: String
     var time: String
     var contains: String
@@ -31,7 +31,7 @@ struct FoodCard{
         self.price = item["Price"] as! Int
 //        let user = item["User"] as? [String: Any]
         self.chef_name = item["Chef_name"] as! String
-        self.user = item["User"] as! Int
+        self.user = item["User"] as! String
         self.apt = item["Room"] as! String
         self.time = ""
         let Contains = item["Contains"] as? [Int]

@@ -156,7 +156,7 @@ class AddViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
+        checkIfUserIsSignedIn()
         NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardWillShow),name:UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide),name:UIResponder.keyboardDidHideNotification, object: nil)
     }
@@ -526,12 +526,15 @@ extension AddViewController{
     
     func uploadPost(){
         let foodId = self.total_items
+        var new_food_items = CurrentUser.food_items as! [Int]
+        new_food_items.append(foodId)
+        CurrentUser.food_items = new_food_items
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
         var currentDate = Date()
         let realDate = dateFormatterGet.string(from: currentDate)
         let values = [
-            "Chef_name": "Hicochan",
+            "Chef_name": CurrentUser.chef_name,
             "Contains": self.contains,
             "Expiry_hours": Int(self.expiryHour),
             "Food_tags": [0,1],
@@ -545,7 +548,20 @@ extension AddViewController{
             "Room": self.apt,
             "Servings": Int(self.totalServing),
             "Title": self.dishName,
-            "User": 0
+            "User": CurrentUser.uid
+        ] as [String : Any]
+        
+        let new_user = [
+            "Allergies": CurrentUser.allergies,
+            "Average_Rating": CurrentUser.average_Rating,
+            "Chef_label": CurrentUser.chef_label,
+            "Chef_name": CurrentUser.chef_name,
+            "Food_items": CurrentUser.food_items,
+            "ID": CurrentUser.uid,
+            "Name": CurrentUser.name,
+            "Reviews": CurrentUser.reviews,
+            "Total_Ratings": CurrentUser.total_ratings,
+            "photoURL": CurrentUser.photoURL?.absoluteString
         ] as [String : Any]
         
         let storageRef = self.storage.reference()
@@ -561,6 +577,13 @@ extension AddViewController{
                     SwiftSpinner.hide()
                     self.ref.child("Food_items").child(String(foodId)).setValue(values)
                     self.ref.child("Total_items").setValue(self.total_items+1)
+                    if CurrentUser.needUpdate{
+                        self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
+                        self.ref.child("Total_users").setValue(self.total_users+1)
+                    }
+                    else{
+                        self.ref.child("Users").child(String(CurrentUser.index)).child("Food_items").setValue(CurrentUser.food_items)
+                    }
                     self.collectionView.reloadData()
                     self.sendPushNotification(title: self.dishName, body: "Click to have a bite!")
                     self.refresh()
@@ -635,4 +658,25 @@ extension AddViewController{
             }
             task.resume()
         }
+}
+
+
+extension AddViewController{
+    private func checkIfUserIsSignedIn() {
+
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                // user is signed in
+                // go to feature controller
+                //print(user?.photoURL)
+            } else {
+                 // user is not signed in
+                 // go to login controller
+                print("not login")
+                let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+                loginViewController.modalPresentationStyle = .fullScreen
+                self.present(loginViewController, animated: true, completion: nil)
+            }
+        }
+    }
 }

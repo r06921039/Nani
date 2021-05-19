@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import SwiftSpinner
+import Kingfisher
 //import Crashlytics
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate{
@@ -26,7 +27,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var mealSections: [String] = Meal.loadFoodSections()
     var foodCard: [Int: FoodCard] = [:]
     var allergens: [String] = []
-    var users: [Int: User] = [:]
+    var users: [String: User] = [:]
     var reviews: [Review] = []
     var total_items: Int = 0
     var total_users: Int = 0
@@ -88,8 +89,13 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         button.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        let photo = UIImage(named: "Justin")
-        button.setImage(photo, for: .normal)
+        let photo = UIImage(named: "Logo")
+        if CurrentUser.photoURL == URL(string: ""){
+            button.setImage(photo, for: .normal)
+        }
+        else{
+            button.kf.setImage(with: CurrentUser.photoURL, for: .normal)
+        }
 //        button.addTarget(self, action: #selector(infoButtonTapped), for: UIControl.Event.touchUpInside)
         return button
         }()
@@ -232,26 +238,36 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             if let users = postDict["Users"] as? [[String : Any]] {
                 self.users = [:]
                 for user in users {
-                    let pathReference = self.storage.reference()
-                    let path = user["Picture"] as! String
-                    let islandRef = pathReference.child(path)
-                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
-                        if let error = error {
-                            print(error)
-                        // Uh-oh, an error occurred!
-                        }
-                        else {
-                        // Data for "images/island.jpg" is returned
-                            let image = UIImage(data: data!)
-                            self.users[user["ID"] as! Int] = User(user, image!)
-                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
-                                self.collectionView.reloadData()
-                                SwiftSpinner.hide()
-                            }
-                        }
-                    }
+                    self.users[user["ID"] as! String] = User(user)
+//                    if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+//                        self.collectionView.reloadData()
+//                        CurrentUser.needUpdate = self.users[CurrentUser.uid] != nil
+//                        SwiftSpinner.hide()
+//                    }
+//                    let pathReference = self.storage.reference()
+//                    let path = user["Picture"] as! String
+//                    let islandRef = pathReference.child(path)
+//                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+//                        if let error = error {
+//                            print(error)
+//                        // Uh-oh, an error occurred!
+//                        }
+//                        else {
+//                        // Data for "images/island.jpg" is returned
+//                            let image = UIImage(data: data!)
+//                            self.users[user["ID"] as! String] = User(user)
+//                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+//                                self.collectionView.reloadData()
+//                                SwiftSpinner.hide()
+//                            }
+//                        }
+//                    }
                 }
-                
+                if let current_user = self.users[CurrentUser.uid]{
+                    CurrentUser.food_items = current_user.food_items
+                    CurrentUser.index = current_user.index
+                    CurrentUser.chef_label = current_user.chef_label
+                }
             }
             if let items = postDict["Food_items"] as? [[String : Any]] {
                 self.foodCard = [:]
@@ -271,6 +287,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
                             self.foodCard[item["Order"] as! Int] = food
                             if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
                                 self.collectionView.reloadData()
+                                CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
                                 SwiftSpinner.hide()
                             }
                         }
@@ -293,6 +310,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         self.collectionView.refreshControl = refreshControl
+        
     }
     
     @objc func refresh(){
@@ -567,3 +585,17 @@ extension HomeViewController: AddViewDelegate{
 //}
 //
 
+extension HomeViewController{
+    override func viewWillAppear(_ animated: Bool) {
+        if CurrentUser.photoURL == URL(string: ""){
+            let photo = UIImage(named: "Logo")
+            self.userButton.setImage(photo, for: .normal)
+        }
+        else{
+            self.userButton.kf.setImage(with: CurrentUser.photoURL, for: .normal)
+        }
+        print("needupdate \(CurrentUser.needUpdate)")
+        print("foodItems \(CurrentUser.food_items)")
+        print("index \(CurrentUser.index)")
+    }
+}

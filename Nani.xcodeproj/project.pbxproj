@@ -60,6 +60,9 @@
 		1FB8E004261FEDEE00132152 /* ShortAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8E003261FEDEE00132152 /* ShortAddCollectionViewCell.swift */; };
 		1FB8E009261FFE8F00132152 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8E008261FFE8F00132152 /* ImageCollectionViewCell.swift */; };
 		1FB8E00E26200C6600132152 /* DishContainsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8E00D26200C6600132152 /* DishContainsCollectionViewCell.swift */; };
+		1FBD1A9A2654ACD9006FA458 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1A992654ACD9006FA458 /* ProfileViewController.swift */; };
+		1FBD1AA22654AD11006FA458 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */; };
+		1FBD1AEA2654D553006FA458 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1AE92654D553006FA458 /* CurrentUser.swift */; };
 		3CD1817D76CF11EEFBE0F1F8 /* Pods_NaniTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B6CD19BC443AFC7E14114B /* Pods_NaniTests.framework */; };
 		52E65082BF292FCFECA8929A /* Pods_Nani_NaniUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */; };
 /* End PBXBuildFile section */
@@ -142,6 +145,9 @@
 		1FB8E003261FEDEE00132152 /* ShortAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FB8E008261FFE8F00132152 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FB8E00D26200C6600132152 /* DishContainsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishContainsCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FBD1A992654ACD9006FA458 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		1FBD1AE92654D553006FA458 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		56ECBE7FD5805C94E1DCBA70 /* Pods-Nani-NaniUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani-NaniUITests.debug.xcconfig"; path = "Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D96B6D082B8166440F1C751 /* Pods-Nani.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani.release.xcconfig"; path = "Target Support Files/Pods-Nani/Pods-Nani.release.xcconfig"; sourceTree = "<group>"; };
 		7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nani_NaniUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +227,7 @@
 				1F0FBF182620317C009B2A82 /* FoodCard.swift */,
 				1F0FBF20262488C5009B2A82 /* Reivew.swift */,
 				1F0FBF2526248A9B009B2A82 /* User.swift */,
+				1FBD1AE92654D553006FA458 /* CurrentUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -280,6 +287,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1FBD1A982654ABEB006FA458 /* Profile */,
 				1F1D06DA2644F129008A0ED7 /* Login */,
 				1F0FBF67262665B6009B2A82 /* Nani.entitlements */,
 				1FB8DFE2261E59C900132152 /* Add */,
@@ -349,6 +357,15 @@
 				1F0FBECC262018FB009B2A82 /* NoteCollectionViewCell.swift */,
 			);
 			path = Add;
+			sourceTree = "<group>";
+		};
+		1FBD1A982654ABEB006FA458 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1FBD1A992654ACD9006FA458 /* ProfileViewController.swift */,
+				1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		75AE54B3F02218DAFBA2D7EA /* Pods */ = {
@@ -490,6 +507,7 @@
 				1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */,
 				1F0FBED5262026C9009B2A82 /* GoogleService-Info.plist in Resources */,
 				1F2B47E92612AA4E00F758DE /* Comfortaa-Medium.ttf in Resources */,
+				1FBD1AA22654AD11006FA458 /* ProfileViewController.xib in Resources */,
 				1FA327C2260338E900811BC2 /* LaunchScreen.storyboard in Resources */,
 				1F2B47E82612AA4E00F758DE /* Comfortaa-Regular.ttf in Resources */,
 				1FA327BF260338E900811BC2 /* Assets.xcassets in Resources */,
@@ -711,9 +729,11 @@
 				1F4D50A426111CD800C34716 /* MealItemViewController.swift in Sources */,
 				1F4D50BC26111E9400C34716 /* InfoTableView.swift in Sources */,
 				1F4D509526111BC300C34716 /* InfoCollectionViewCell.swift in Sources */,
+				1FBD1A9A2654ACD9006FA458 /* ProfileViewController.swift in Sources */,
 				1F4D508B26111AF200C34716 /* DetailCollectionViewCell.swift in Sources */,
 				1F4D50B726111DCE00C34716 /* MealItemQuantityCell.swift in Sources */,
 				1FB3A5A526165308004D71BF /* DismissAnimator.swift in Sources */,
+				1FBD1AEA2654D553006FA458 /* CurrentUser.swift in Sources */,
 				1F4D509A26111C1000C34716 /* MenuCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -893,7 +913,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.12;
+				CURRENT_PROJECT_VERSION = 0.2.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
@@ -901,11 +921,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -917,18 +937,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.1.12;
+				CURRENT_PROJECT_VERSION = 0.2.3;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

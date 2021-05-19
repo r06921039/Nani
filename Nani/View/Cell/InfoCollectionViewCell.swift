@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class InfoCollectionViewCell: UICollectionViewCell {
     
@@ -16,7 +17,9 @@ class InfoCollectionViewCell: UICollectionViewCell {
                 nameLabel.text = "By " + chef!.chef_name
                 chefLabel.text = chef?.chef_label
                 starLabel.text = String(chef!.average_rating) + " (" + String(chef!.total_ratings) + ")"
-                infoButton.setImage(chef?.picture, for: .normal)
+//                infoButton.setImage(chef?.picture, for: .normal)
+                let url = URL(string: chef!.photoURL)
+                infoButton.kf.setImage(with: url, for: .normal)
             }
     }
     
