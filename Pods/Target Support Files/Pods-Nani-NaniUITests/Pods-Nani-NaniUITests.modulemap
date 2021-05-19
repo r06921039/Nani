@@ -1,0 +1,6 @@
+framework module Pods_Nani_NaniUITests {
+  umbrella header "Pods-Nani-NaniUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
