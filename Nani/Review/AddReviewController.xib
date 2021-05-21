@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddReviewController" customModule="Nani" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="7qi-xK-HQ6" id="mb0-LW-mlA"/>
+                <outlet property="navigationBar" destination="My2-M4-ZAv" id="3aG-iX-8JT"/>
+                <outlet property="sendButton" destination="5rH-EQ-acp" id="Tdv-dp-KZx"/>
+                <outlet property="tablevVew" destination="3A6-NO-gz7" id="cbk-aI-iro"/>
+                <outlet property="view" destination="iN0-l3-epB" id="uaq-z4-qmT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="My2-M4-ZAv">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <items>
+                        <navigationItem title="Write a Review" leftItemsSupplementBackButton="YES" id="TQF-6v-ukt">
+                            <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7qi-xK-HQ6">
+                                <connections>
+                                    <action selector="cancel:" destination="-1" id="RVE-De-iah"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" systemItem="done" id="5rH-EQ-acp">
+                                <connections>
+                                    <action selector="send:" destination="-1" id="xAN-iI-eZI"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3A6-NO-gz7">
+                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ckA-EW-EF2"/>
+                        <outlet property="delegate" destination="-1" id="FzD-kq-aHm"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="3A6-NO-gz7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="49b-Q7-93P"/>
+                <constraint firstItem="3A6-NO-gz7" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="7gd-Ts-CxS"/>
+                <constraint firstItem="3A6-NO-gz7" firstAttribute="top" secondItem="My2-M4-ZAv" secondAttribute="bottom" id="8gL-ce-hkp"/>
+                <constraint firstItem="My2-M4-ZAv" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="PJX-vs-j6d"/>
+                <constraint firstItem="My2-M4-ZAv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="X26-QV-FGx"/>
+                <constraint firstItem="My2-M4-ZAv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Z2u-Tt-y8v"/>
+                <constraint firstItem="3A6-NO-gz7" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="dv9-5Z-H3d"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="86.383928571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

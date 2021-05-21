@@ -157,8 +157,8 @@ class AddViewController: UIViewController, UITextFieldDelegate{
         super.viewDidLoad()
         setupView()
         checkIfUserIsSignedIn()
-        NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardWillShow),name:UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide),name:UIResponder.keyboardDidHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardWillShow),name:UIResponder.keyboardDidShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide),name:UIResponder.keyboardDidHideNotification, object: nil)
     }
     
     
@@ -561,7 +561,8 @@ extension AddViewController{
             "Name": CurrentUser.name,
             "Reviews": CurrentUser.reviews,
             "Total_Ratings": CurrentUser.total_ratings,
-            "photoURL": CurrentUser.photoURL?.absoluteString
+            "photoURL": CurrentUser.photoURL?.absoluteString,
+            "Index": self.total_users
         ] as [String : Any]
         
         let storageRef = self.storage.reference()

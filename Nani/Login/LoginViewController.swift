@@ -89,11 +89,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
         //checkIfUserIsSignedIn()
         setupViews()
         
-        hideKeyboardWhenTappedAround()
+//        hideKeyboardWhenTappedAround()
         //GIDSignIn.sharedInstance().signIn()
         //var loginButton = GIDSignInButton(frame: CGRect(x: 50, y: 50, width: 100, height: 50))
-        NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardWillShow),name:UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide),name:UIResponder.keyboardDidHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self,selector:#selector(self.keyboardWillShow),name:UIResponder.keyboardDidShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide),name:UIResponder.keyboardDidHideNotification, object: nil)
         
     }
     
@@ -198,33 +198,33 @@ extension UIViewController {
     }
 }
 
-extension LoginViewController{
-    
-    
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if keyboardAdjusted == false {
-            lastKeyboardOffset = getKeyboardHeight(notification: notification) / 2
-            UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                self.view.frame.origin.y -= self.lastKeyboardOffset
-            }, completion: nil)
-            keyboardAdjusted = true
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if keyboardAdjusted == true {
-            UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                self.view.frame.origin.y += self.lastKeyboardOffset
-            }, completion: nil)
-            keyboardAdjusted = false
-        }
-    }
-
-    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
-    }
-    
-}
+//extension LoginViewController{
+//    
+//    
+//    
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if keyboardAdjusted == false {
+//            lastKeyboardOffset = getKeyboardHeight(notification: notification) / 2
+//            UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
+//                self.view.frame.origin.y -= self.lastKeyboardOffset
+//            }, completion: nil)
+//            keyboardAdjusted = true
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if keyboardAdjusted == true {
+//            UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
+//                self.view.frame.origin.y += self.lastKeyboardOffset
+//            }, completion: nil)
+//            keyboardAdjusted = false
+//        }
+//    }
+//
+//    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+//        let userInfo = notification.userInfo
+//        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+//        return keyboardSize.cgRectValue.height
+//    }
+//    
+//}

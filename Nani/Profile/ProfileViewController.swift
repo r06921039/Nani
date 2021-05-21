@@ -27,6 +27,7 @@ class ProfileViewController: UIViewController{
         UserDefaults.standard.removeObject(forKey: "photoURL")
         CurrentUser.didLogin = false
         UserDefaults.standard.set(false, forKey: "didLogin")
+        print(CurrentUser.didLogin)
     }
     
     override func viewDidLoad() {
@@ -43,7 +44,6 @@ class ProfileViewController: UIViewController{
             self.present(loginViewController, animated: true, completion: nil)
         }
     }
-    
     
     
     private func checkIfUserIsSignedIn() {

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class DetailViewController: UIViewController {
     
@@ -41,7 +43,13 @@ class DetailViewController: UIViewController {
     let headerViewHeight = 115
     var users: [String:User] = [:]
     var reviews: [Review] = []
+    var reviews_id: [Int]?
     var food_item: FoodCard? = nil
+    var food_id: Int?
+    var new_review_id: Int? = nil
+    var total_users: Int = 0
+    
+    var ref = Database.database().reference()
     
     lazy var backButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.system)
@@ -86,7 +94,39 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupGesture()
+        getData()
 //        self.transitioningDelegate = self
+    }
+    
+    func getData(){
+        self.ref.child("Food_items").child(String(self.food_id!)).child("Reviews").observe(DataEventType.value, with: { (snapshot) in
+            if let new_reviews_id = snapshot.value as? [Int]{
+                if (self.reviews.count != new_reviews_id.count){
+                    self.new_review_id = new_reviews_id[0]
+                    self.ref.child("Reviews").child(String(self.new_review_id!)).observe(DataEventType.value, with: { (snapshot) in
+                        if let new_review = snapshot.value as? [String:Any]{
+                            self.reviews.insert(Review(new_review), at: 0)
+                            self.collectionView.reloadData()
+                        }
+                    })
+                }
+            }
+        })
+        
+        self.ref.child("Total_users").observe(DataEventType.value, with: { (snapshot) in
+            if let usersNumber = snapshot.value as? Int{
+                self.total_users = usersNumber
+            }
+        })
+        
+        self.ref.child("Users").observe(DataEventType.value, with: { (snapshot) in
+            if let new_users = snapshot.value as? [[String : Any]] {
+                if (new_users.count != self.users.count){
+                    let new_user = new_users[new_users.count-1]
+                    self.users[new_user["ID"] as! String] = User(new_user)
+                }
+            }
+        })
     }
     
     func setupGesture(){
@@ -328,6 +368,13 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
             } else if (kind == UICollectionView.elementKindSectionHeader) && (indexPath.section != 0) {
                 let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
                 sectionHeader.title = mealSections[indexPath.section-1]
+                if (indexPath.section == 3){
+                    sectionHeader.addReviewButton.isHidden = false
+                    sectionHeader.delegate = self
+                }
+                else{
+                    sectionHeader.addReviewButton.isHidden = true
+                }
                 return sectionHeader
             } else {
                 let emptyCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "EmptyCell", for: indexPath)
@@ -475,4 +522,35 @@ extension CALayer {
 
 }
 
+extension DetailViewController:showAddReviewDelegate{
+    func showAddReview() {
+        if (Auth.auth().currentUser != nil) {
+            let vc = AddReviewController(nibName: "AddReviewController", bundle: nil)
+            vc.food_id = self.food_id
+            if (CurrentUser.needUpdate){
+                let new_user = [
+                    "Allergies": CurrentUser.allergies,
+                    "Average_Rating": CurrentUser.average_Rating,
+                    "Chef_label": CurrentUser.chef_label,
+                    "Chef_name": CurrentUser.chef_name,
+                    "Food_items": [0], //need to revise
+                    "ID": CurrentUser.uid,
+                    "Name": CurrentUser.name,
+                    "Reviews": "",
+                    "Total_Ratings": CurrentUser.total_ratings,
+                    "photoURL": CurrentUser.photoURL?.absoluteString,
+                    "Index": self.total_users
+                ] as [String : Any]
+                self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
+                self.ref.child("Total_users").setValue(self.total_users+1)
+            }
+            self.present(vc, animated: true, completion: nil)
+        }
+        else{
+            let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            loginViewController.modalPresentationStyle = .fullScreen
+            self.present(loginViewController, animated: true, completion: nil)
+        }
+    }
+}
 

@@ -123,6 +123,7 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.5.0)
+  - IQKeyboardManagerSwift (6.5.6)
   - Kingfisher (6.3.0)
   - leveldb-library (1.22)
   - nanopb (2.30907.0):
@@ -147,6 +148,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - GoogleSignIn
+  - IQKeyboardManagerSwift
   - Kingfisher (~> 6.0)
   - SwiftSpinner
   - YPImagePicker
@@ -173,6 +175,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - Kingfisher
     - leveldb-library
     - nanopb
@@ -203,6 +206,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
@@ -212,6 +216,6 @@ SPEC CHECKSUMS:
   SwiftSpinner: f9b59477fe107427f2b5b835497d6636fa167ede
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: 2ef71351dadd451c537fdf7ea7e03c43b7dba2be
+PODFILE CHECKSUM: f09d32eaab29cf8448c57649ae9991dcf8546e4d
 
 COCOAPODS: 1.10.1

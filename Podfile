@@ -19,6 +19,7 @@ target 'Nani' do
   pod 'GoogleSignIn'
   pod 'Kingfisher', '~> 6.0'
 
+  pod 'IQKeyboardManagerSwift'
   target 'NaniTests' do
     inherit! :search_paths
     # Pods for testing

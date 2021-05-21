@@ -43,6 +43,8 @@ class SectionTitleIndexCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+   
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -62,6 +64,7 @@ class SectionTitleIndexCollectionViewCell: UICollectionViewCell {
             titleLabelWidthConstraint!,
             titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20)
             ])
+        
     }
 }
 

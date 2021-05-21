@@ -34,6 +34,7 @@ class TabBarController: UITabBarController {
     lazy var profileViewController: UIViewController = {
 //        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
         let vc = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+//        let vc = AddReviewController(nibName: "AddReviewController", bundle: nil)
         vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "icons8-user-50"), selectedImage: #imageLiteral(resourceName: "icons8-user-50"))
         return vc
     }()

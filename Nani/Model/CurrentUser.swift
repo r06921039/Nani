@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 struct CurrentUser {
     
-    static var photoURL = UserDefaults.standard.url(forKey: "photoURL") ?? URL(string: "")
+    static var photoURL = Auth.auth().currentUser?.photoURL
     static var needUpdate = true
     static var uid = UserDefaults.standard.string(forKey: "uid") ?? ""
     static var average_Rating = UserDefaults.standard.float(forKey: "rating") ?? 0.0
@@ -18,8 +19,8 @@ struct CurrentUser {
     static var chef_name = UserDefaults.standard.string(forKey: "chef_name") ?? ""
     static var food_items = UserDefaults.standard.object(forKey: "food_items") ?? []
     static var name = UserDefaults.standard.string(forKey: "name") ?? ""
-    static var didLogin = UserDefaults.standard.bool(forKey: "didLogin") ?? false
-    static var reviews = [0]
+    static var didLogin = Auth.auth().currentUser != nil
+    static var reviews = [0] // need to be fixed
     static var total_ratings = 0
     static var index = 0
 }

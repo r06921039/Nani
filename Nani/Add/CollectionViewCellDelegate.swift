@@ -24,3 +24,7 @@ protocol ButtonCollectionViewCellDelegate {
 protocol AddViewDelegate{
     func getAllergens(delegatedFrom viewController: AddViewController)
 }
+
+protocol showAddReviewDelegate{
+    func showAddReview()
+}

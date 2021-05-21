@@ -63,6 +63,12 @@
 		1FBD1A9A2654ACD9006FA458 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1A992654ACD9006FA458 /* ProfileViewController.swift */; };
 		1FBD1AA22654AD11006FA458 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */; };
 		1FBD1AEA2654D553006FA458 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1AE92654D553006FA458 /* CurrentUser.swift */; };
+		1FBD1B662656F21E006FA458 /* AddReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1B652656F21E006FA458 /* AddReviewController.swift */; };
+		1FBD1B6E2656F22C006FA458 /* AddReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD1B6D2656F22C006FA458 /* AddReviewController.xib */; };
+		1FBD1B7326570034006FA458 /* AddReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1B7226570034006FA458 /* AddReviewCell.swift */; };
+		1FBD1B78265701C0006FA458 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1B77265701C0006FA458 /* RatingCell.swift */; };
+		1FBD1B7D26571456006FA458 /* RatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD1B7C26571456006FA458 /* RatingCell.xib */; };
+		1FBD1B82265779F8006FA458 /* AddReviewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1B81265779F8006FA458 /* AddReviewCellDelegate.swift */; };
 		3CD1817D76CF11EEFBE0F1F8 /* Pods_NaniTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B6CD19BC443AFC7E14114B /* Pods_NaniTests.framework */; };
 		52E65082BF292FCFECA8929A /* Pods_Nani_NaniUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */; };
 /* End PBXBuildFile section */
@@ -148,6 +154,12 @@
 		1FBD1A992654ACD9006FA458 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		1FBD1AE92654D553006FA458 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		1FBD1B652656F21E006FA458 /* AddReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewController.swift; sourceTree = "<group>"; };
+		1FBD1B6D2656F22C006FA458 /* AddReviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddReviewController.xib; sourceTree = "<group>"; };
+		1FBD1B7226570034006FA458 /* AddReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewCell.swift; sourceTree = "<group>"; };
+		1FBD1B77265701C0006FA458 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
+		1FBD1B7C26571456006FA458 /* RatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingCell.xib; sourceTree = "<group>"; };
+		1FBD1B81265779F8006FA458 /* AddReviewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewCellDelegate.swift; sourceTree = "<group>"; };
 		56ECBE7FD5805C94E1DCBA70 /* Pods-Nani-NaniUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani-NaniUITests.debug.xcconfig"; path = "Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D96B6D082B8166440F1C751 /* Pods-Nani.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani.release.xcconfig"; path = "Target Support Files/Pods-Nani/Pods-Nani.release.xcconfig"; sourceTree = "<group>"; };
 		7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nani_NaniUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -287,6 +299,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1FBD1B642656F201006FA458 /* Review */,
 				1FBD1A982654ABEB006FA458 /* Profile */,
 				1F1D06DA2644F129008A0ED7 /* Login */,
 				1F0FBF67262665B6009B2A82 /* Nani.entitlements */,
@@ -366,6 +379,19 @@
 				1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		1FBD1B642656F201006FA458 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				1FBD1B652656F21E006FA458 /* AddReviewController.swift */,
+				1FBD1B6D2656F22C006FA458 /* AddReviewController.xib */,
+				1FBD1B7226570034006FA458 /* AddReviewCell.swift */,
+				1FBD1B77265701C0006FA458 /* RatingCell.swift */,
+				1FBD1B7C26571456006FA458 /* RatingCell.xib */,
+				1FBD1B81265779F8006FA458 /* AddReviewCellDelegate.swift */,
+			);
+			path = Review;
 			sourceTree = "<group>";
 		};
 		75AE54B3F02218DAFBA2D7EA /* Pods */ = {
@@ -510,9 +536,11 @@
 				1FBD1AA22654AD11006FA458 /* ProfileViewController.xib in Resources */,
 				1FA327C2260338E900811BC2 /* LaunchScreen.storyboard in Resources */,
 				1F2B47E82612AA4E00F758DE /* Comfortaa-Regular.ttf in Resources */,
+				1FBD1B7D26571456006FA458 /* RatingCell.xib in Resources */,
 				1FA327BF260338E900811BC2 /* Assets.xcassets in Resources */,
 				1F2B47E72612AA4E00F758DE /* Comfortaa-Light.ttf in Resources */,
 				1FA327BD260338E800811BC2 /* Main.storyboard in Resources */,
+				1FBD1B6E2656F22C006FA458 /* AddReviewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +727,7 @@
 				1F4D50C62611204900C34716 /* InfoTableViewCell.swift in Sources */,
 				1FB3A59726165047004D71BF /* Business.swift in Sources */,
 				1FB8DFF7261FE3CB00132152 /* CollectionViewCellDelegate.swift in Sources */,
+				1FBD1B82265779F8006FA458 /* AddReviewCellDelegate.swift in Sources */,
 				1FB3A5AA26165C36004D71BF /* TabBarViewController.swift in Sources */,
 				1F4D5067261115B600C34716 /* SectionTitleIndexController.swift in Sources */,
 				1FB8DFF2261FDEF100132152 /* AddCollectionViewCell.swift in Sources */,
@@ -707,6 +736,7 @@
 				1F4D509F26111C5000C34716 /* SectionHeaderView.swift in Sources */,
 				1FB3A58A26164E08004D71BF /* HomeViewController.swift in Sources */,
 				1FA327B6260338E800811BC2 /* AppDelegate.swift in Sources */,
+				1FBD1B662656F21E006FA458 /* AddReviewController.swift in Sources */,
 				1FB8E009261FFE8F00132152 /* ImageCollectionViewCell.swift in Sources */,
 				1FA327B8260338E800811BC2 /* SceneDelegate.swift in Sources */,
 				1FB3A59D261652DF004D71BF /* PresentAnimator.swift in Sources */,
@@ -716,6 +746,7 @@
 				1FB8DFE4261E59DB00132152 /* AddViewController.swift in Sources */,
 				1F4D507D2611169500C34716 /* Interactor.swift in Sources */,
 				1F4D506F261115D800C34716 /* InfoViewController.swift in Sources */,
+				1FBD1B78265701C0006FA458 /* RatingCell.swift in Sources */,
 				1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */,
 				1F4D50C126111F1200C34716 /* InfoTableViewHeader.swift in Sources */,
 				1F4D508326111A3300C34716 /* HeaderView.swift in Sources */,
@@ -729,6 +760,7 @@
 				1F4D50A426111CD800C34716 /* MealItemViewController.swift in Sources */,
 				1F4D50BC26111E9400C34716 /* InfoTableView.swift in Sources */,
 				1F4D509526111BC300C34716 /* InfoCollectionViewCell.swift in Sources */,
+				1FBD1B7326570034006FA458 /* AddReviewCell.swift in Sources */,
 				1FBD1A9A2654ACD9006FA458 /* ProfileViewController.swift in Sources */,
 				1F4D508B26111AF200C34716 /* DetailCollectionViewCell.swift in Sources */,
 				1F4D50B726111DCE00C34716 /* MealItemQuantityCell.swift in Sources */,
@@ -913,7 +945,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.3;
+				CURRENT_PROJECT_VERSION = 0.2.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
@@ -937,7 +969,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.3;
+				CURRENT_PROJECT_VERSION = 0.2.6;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

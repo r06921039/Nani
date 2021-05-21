@@ -15,7 +15,7 @@ struct User{
     var food_items: [Int]
     var name: String
 //    var picture: UIImage
-    var reviews: [Int]
+    var reviews: [Int]?
     var total_ratings: Int
     var chef_label: String
     var photoURL: String
@@ -28,7 +28,7 @@ struct User{
         self.food_items = item["Food_items"] as! [Int]
         self.name = item["Name"] as! String
 //        self.picture = image
-        self.reviews = item["Reviews"] as! [Int]
+        self.reviews = item["Reviews"] as? [Int]
         self.total_ratings = item["Total_Ratings"] as! Int
         self.chef_label = item["Chef_label"] as! String
         self.photoURL = item["photoURL"] as! String
