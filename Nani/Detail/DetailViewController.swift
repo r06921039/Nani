@@ -541,8 +541,10 @@ extension DetailViewController:showAddReviewDelegate{
                     "photoURL": CurrentUser.photoURL?.absoluteString,
                     "Index": self.total_users
                 ] as [String : Any]
+                CurrentUser.index = self.total_users
                 self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
                 self.ref.child("Total_users").setValue(self.total_users+1)
+                CurrentUser.needUpdate = false
             }
             self.present(vc, animated: true, completion: nil)
         }

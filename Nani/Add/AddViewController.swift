@@ -579,8 +579,10 @@ extension AddViewController{
                     self.ref.child("Food_items").child(String(foodId)).setValue(values)
                     self.ref.child("Total_items").setValue(self.total_items+1)
                     if CurrentUser.needUpdate{
+                        CurrentUser.index = self.total_users
                         self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
                         self.ref.child("Total_users").setValue(self.total_users+1)
+                        CurrentUser.needUpdate = false
                     }
                     else{
                         self.ref.child("Users").child(String(CurrentUser.index)).child("Food_items").setValue(CurrentUser.food_items)

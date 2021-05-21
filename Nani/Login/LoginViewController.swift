@@ -46,12 +46,36 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
             UserDefaults.standard.set(CurrentUser.uid, forKey: "uid")
             UserDefaults.standard.set(CurrentUser.didLogin, forKey: "didLogin")
             UserDefaults.standard.synchronize()
+            CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
+            if (CurrentUser.needUpdate){
+                let new_user = [
+                    "Allergies": CurrentUser.allergies,
+                    "Average_Rating": CurrentUser.average_Rating,
+                    "Chef_label": CurrentUser.chef_label,
+                    "Chef_name": CurrentUser.chef_name,
+                    "Food_items": [0], //need to revise
+                    "ID": CurrentUser.uid,
+                    "Name": CurrentUser.name,
+                    "Reviews": "",
+                    "Total_Ratings": CurrentUser.total_ratings,
+                    "photoURL": CurrentUser.photoURL?.absoluteString,
+                    "Index": self.total_users
+                ] as [String : Any]
+                CurrentUser.index = self.total_users
+                self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
+                self.ref.child("Total_users").setValue(self.total_users+1)
+                CurrentUser.needUpdate = false
+            }
             self.dismiss(animated: true, completion: nil)
           }
     }
     
     var keyboardAdjusted = false
     var lastKeyboardOffset: CGFloat = 0.0
+    var users: [String: User] = [:]
+    var total_users: Int = 0
+    
+    var ref = Database.database().reference()
     
     @IBOutlet weak var LoginLabel: UILabel!
     @IBOutlet weak var EmailLabel: UILabel!
@@ -88,7 +112,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
         //GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         //checkIfUserIsSignedIn()
         setupViews()
-        
+        getData()
 //        hideKeyboardWhenTappedAround()
         //GIDSignIn.sharedInstance().signIn()
         //var loginButton = GIDSignInButton(frame: CGRect(x: 50, y: 50, width: 100, height: 50))
@@ -136,6 +160,24 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
         LoginButton.layer.borderWidth = 1
         LoginButton.layer.borderColor = hexStringToUIColor(hex: "#F0B357").cgColor
         
+    }
+    
+    func getData(){
+        self.ref.child("Users").observe(DataEventType.value, with: { (snapshot) in
+            if let new_users = snapshot.value as? [[String : Any]] {
+                self.users = [:]
+                for user in new_users {
+                    self.users[user["ID"] as! String] = User(user)
+                }
+                
+            }
+        })
+        
+        self.ref.child("Total_users").observe(DataEventType.value, with: { (snapshot) in
+            if let usersNumber = snapshot.value as? Int{
+                self.total_users = usersNumber
+            }
+        })
     }
     
     private func checkIfUserIsSignedIn() {
@@ -199,9 +241,9 @@ extension UIViewController {
 }
 
 //extension LoginViewController{
-//    
-//    
-//    
+//
+//
+//
 //    @objc func keyboardWillShow(notification: NSNotification) {
 //        if keyboardAdjusted == false {
 //            lastKeyboardOffset = getKeyboardHeight(notification: notification) / 2
@@ -226,5 +268,5 @@ extension UIViewController {
 //        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
 //        return keyboardSize.cgRectValue.height
 //    }
-//    
+//
 //}
