@@ -101,6 +101,18 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
     }
     @IBAction func passwordEndEditing(_ sender: Any) {
     }
+    @IBAction func register(_ sender: Any) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        let vc = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
+        vc.modalPresentationStyle = .fullScreen
+        vc.delegate = self
+        self.present(vc, animated: false, completion: nil)
+    }
     
     
     override func viewDidLoad() {
@@ -270,3 +282,9 @@ extension UIViewController {
 //    }
 //
 //}
+
+extension LoginViewController:RegisterDelegate{
+    func dismissLogin() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}

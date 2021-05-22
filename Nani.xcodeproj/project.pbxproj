@@ -69,6 +69,9 @@
 		1FBD1B78265701C0006FA458 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1B77265701C0006FA458 /* RatingCell.swift */; };
 		1FBD1B7D26571456006FA458 /* RatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD1B7C26571456006FA458 /* RatingCell.xib */; };
 		1FBD1B82265779F8006FA458 /* AddReviewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD1B81265779F8006FA458 /* AddReviewCellDelegate.swift */; };
+		1FCBE91E2659A4A30028EBCF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCBE91D2659A4A30028EBCF /* RegisterViewController.swift */; };
+		1FCBE9262659A4B80028EBCF /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCBE9252659A4B80028EBCF /* RegisterViewController.xib */; };
+		1FCBE92B2659B8790028EBCF /* RegisterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCBE92A2659B8790028EBCF /* RegisterDelegate.swift */; };
 		3CD1817D76CF11EEFBE0F1F8 /* Pods_NaniTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B6CD19BC443AFC7E14114B /* Pods_NaniTests.framework */; };
 		52E65082BF292FCFECA8929A /* Pods_Nani_NaniUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */; };
 /* End PBXBuildFile section */
@@ -160,6 +163,9 @@
 		1FBD1B77265701C0006FA458 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
 		1FBD1B7C26571456006FA458 /* RatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingCell.xib; sourceTree = "<group>"; };
 		1FBD1B81265779F8006FA458 /* AddReviewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewCellDelegate.swift; sourceTree = "<group>"; };
+		1FCBE91D2659A4A30028EBCF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		1FCBE9252659A4B80028EBCF /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		1FCBE92A2659B8790028EBCF /* RegisterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDelegate.swift; sourceTree = "<group>"; };
 		56ECBE7FD5805C94E1DCBA70 /* Pods-Nani-NaniUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani-NaniUITests.debug.xcconfig"; path = "Target Support Files/Pods-Nani-NaniUITests/Pods-Nani-NaniUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D96B6D082B8166440F1C751 /* Pods-Nani.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nani.release.xcconfig"; path = "Target Support Files/Pods-Nani/Pods-Nani.release.xcconfig"; sourceTree = "<group>"; };
 		7772DE6A8DC6B8DF7FDF96C2 /* Pods_Nani_NaniUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nani_NaniUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +305,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1FCBE91C2659A4900028EBCF /* Register */,
 				1FBD1B642656F201006FA458 /* Review */,
 				1FBD1A982654ABEB006FA458 /* Profile */,
 				1F1D06DA2644F129008A0ED7 /* Login */,
@@ -392,6 +399,16 @@
 				1FBD1B81265779F8006FA458 /* AddReviewCellDelegate.swift */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		1FCBE91C2659A4900028EBCF /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				1FCBE91D2659A4A30028EBCF /* RegisterViewController.swift */,
+				1FCBE9252659A4B80028EBCF /* RegisterViewController.xib */,
+				1FCBE92A2659B8790028EBCF /* RegisterDelegate.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		75AE54B3F02218DAFBA2D7EA /* Pods */ = {
@@ -537,6 +554,7 @@
 				1FA327C2260338E900811BC2 /* LaunchScreen.storyboard in Resources */,
 				1F2B47E82612AA4E00F758DE /* Comfortaa-Regular.ttf in Resources */,
 				1FBD1B7D26571456006FA458 /* RatingCell.xib in Resources */,
+				1FCBE9262659A4B80028EBCF /* RegisterViewController.xib in Resources */,
 				1FA327BF260338E900811BC2 /* Assets.xcassets in Resources */,
 				1F2B47E72612AA4E00F758DE /* Comfortaa-Light.ttf in Resources */,
 				1FA327BD260338E800811BC2 /* Main.storyboard in Resources */,
@@ -738,6 +756,7 @@
 				1FA327B6260338E800811BC2 /* AppDelegate.swift in Sources */,
 				1FBD1B662656F21E006FA458 /* AddReviewController.swift in Sources */,
 				1FB8E009261FFE8F00132152 /* ImageCollectionViewCell.swift in Sources */,
+				1FCBE92B2659B8790028EBCF /* RegisterDelegate.swift in Sources */,
 				1FA327B8260338E800811BC2 /* SceneDelegate.swift in Sources */,
 				1FB3A59D261652DF004D71BF /* PresentAnimator.swift in Sources */,
 				1F4D50752611160500C34716 /* Meal.swift in Sources */,
@@ -750,6 +769,7 @@
 				1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */,
 				1F4D50C126111F1200C34716 /* InfoTableViewHeader.swift in Sources */,
 				1F4D508326111A3300C34716 /* HeaderView.swift in Sources */,
+				1FCBE91E2659A4A30028EBCF /* RegisterViewController.swift in Sources */,
 				1F4D50A926111D5500C34716 /* MealItemTableViewCell.swift in Sources */,
 				1FB8E004261FEDEE00132152 /* ShortAddCollectionViewCell.swift in Sources */,
 				1F1D06DC2644F152008A0ED7 /* LoginViewController.swift in Sources */,
@@ -945,7 +965,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.6;
+				CURRENT_PROJECT_VERSION = 0.2.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
@@ -969,7 +989,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.6;
+				CURRENT_PROJECT_VERSION = 0.2.7;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

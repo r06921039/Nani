@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController{
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var signOut: UIButton!
+    var handle: AuthStateDidChangeListenerHandle?
     @IBAction func signOut(_ sender: Any) {
         let firebaseAuth = Auth.auth()
         do {
@@ -46,17 +47,30 @@ class ProfileViewController: UIViewController{
     }
     
     
+    
     private func checkIfUserIsSignedIn() {
 
-        Auth.auth().addStateDidChangeListener { (auth, user) in
+        self.handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
                 // user is signed in
                 // go to feature controller
                 //print(user?.photoURL)
-                self.userName.text = user?.displayName
-                let url = URL(string: (user?.photoURL!.absoluteString)!)
-                self.profileImage.kf.setImage(with: url)
-            
+                print(user?.uid)
+                print(user?.displayName)
+                print(user?.photoURL)
+                if let displayName = user?.displayName{
+                    self.userName.text = user?.displayName
+                }
+                else{
+                    self.userName.text = "nani"
+                }
+                if let photoURL = user?.photoURL{
+                    let url = URL(string: (user?.photoURL!.absoluteString)!)
+                    self.profileImage.kf.setImage(with: url)
+                }
+                else{
+                    self.profileImage.image = UIImage(named: "Logo")
+                }
             } else {
                  // user is not signed in
                  // go to login controller

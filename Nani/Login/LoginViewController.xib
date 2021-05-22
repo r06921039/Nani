@@ -96,6 +96,9 @@
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAf-4v-bvC">
                     <rect key="frame" x="30" y="769" width="46" height="30"/>
                     <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="register:" destination="-1" eventType="touchUpInside" id="Iiz-mY-gXn"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C5d-Ln-plf" customClass="GIDSignInButton">
                     <rect key="frame" x="30" y="676" width="48" height="48"/>
