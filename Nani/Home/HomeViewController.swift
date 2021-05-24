@@ -302,7 +302,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
-//        getData()
+        getData()
         // checkUserAuth()
         //setupAPIClient()
         //logUser()

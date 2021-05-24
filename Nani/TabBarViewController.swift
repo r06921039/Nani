@@ -50,6 +50,5 @@ class TabBarController: UITabBarController {
             homeViewController,
             addViewController,
             profileViewController], animated: true)
-        self.selectedIndex = 2
     }
 }

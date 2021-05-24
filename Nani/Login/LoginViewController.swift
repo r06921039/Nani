@@ -12,6 +12,10 @@ import GoogleSignIn
 import FirebaseAuth
 import FBSDKCoreKit
 import SwiftSpinner
+import AuthenticationServices
+import CryptoKit
+
+
 
 class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDelegate{
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -94,8 +98,16 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
     @IBOutlet weak var NewHereLabel: UILabel!
     @IBOutlet weak var RegisterButton: UIButton!
     @IBOutlet weak var GoogleSignInButton: GIDSignInButton!
-    @IBOutlet weak var FacebookSignInButton: UIView!
-    @IBOutlet weak var AppleSignInButton: UIView!
+    @IBOutlet weak var AppleSignInButton: UIButton!
+    
+    // Unhashed nonce.
+    fileprivate var currentNonce: String?
+    
+    @IBAction func startAppleSignIn(_ sender: Any) {
+        self.startSignInWithAppleFlow()
+    }
+    
+    
     @IBAction func signIn(_ sender: Any) {
         if let email = EmailTextField.text, let password = PasswordTextField.text{
             SwiftSpinner.show(delay: 0.0, title: "Login to your account...", animated: true)
@@ -193,6 +205,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
         ForgetButton.setTitleColor(hexStringToUIColor(hex: "#F0B357"), for: .normal)
         
         GoogleSignInButton.style = .iconOnly
+        
+        AppleSignInButton.setImage(UIImage(named: "apple_icon"), for: .normal)
+        AppleSignInButton.layer.cornerRadius = 21
+        AppleSignInButton.layer.masksToBounds = true
+        
         
         NewHereLabel.text = "New Here?"
         NewHereLabel.font = UIFont(name: "Comfortaa-Regular", size: 16)
@@ -358,4 +375,161 @@ extension LoginViewController{
         UserDefaults.standard.synchronize()
         CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
     }
+}
+
+extension LoginViewController:ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding{
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+      precondition(length > 0)
+      let charset: Array<Character> =
+          Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+      var result = ""
+      var remainingLength = length
+
+      while remainingLength > 0 {
+        let randoms: [UInt8] = (0 ..< 16).map { _ in
+          var random: UInt8 = 0
+          let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+          if errorCode != errSecSuccess {
+            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+          }
+          return random
+        }
+
+        randoms.forEach { random in
+          if remainingLength == 0 {
+            return
+          }
+
+          if random < charset.count {
+            result.append(charset[Int(random)])
+            remainingLength -= 1
+          }
+        }
+      }
+
+      return result
+    }
+    
+    @available(iOS 13, *)
+    func startSignInWithAppleFlow() {
+      let nonce = randomNonceString()
+      currentNonce = nonce
+      let appleIDProvider = ASAuthorizationAppleIDProvider()
+      let request = appleIDProvider.createRequest()
+      request.requestedScopes = [.fullName, .email]
+      request.nonce = sha256(nonce)
+
+      let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+      authorizationController.delegate = self
+      authorizationController.presentationContextProvider = self
+      authorizationController.performRequests()
+    }
+
+    @available(iOS 13, *)
+    private func sha256(_ input: String) -> String {
+      let inputData = Data(input.utf8)
+      let hashedData = SHA256.hash(data: inputData)
+      let hashString = hashedData.compactMap {
+        return String(format: "%02x", $0)
+      }.joined()
+
+      return hashString
+    }
+    
+}
+
+@available(iOS 13.0, *)
+extension LoginViewController{
+
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+      guard let nonce = currentNonce else {
+        fatalError("Invalid state: A login callback was received, but no login request was sent.")
+      }
+      guard let appleIDToken = appleIDCredential.identityToken else {
+        print("Unable to fetch identity token")
+        return
+      }
+      guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+        print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+        return
+      }
+      // Initialize a Firebase credential.
+      let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                idToken: idTokenString,
+                                                rawNonce: nonce)
+      // Sign in with Firebase.
+      Auth.auth().signIn(with: credential) { (authResult, error) in
+        if (error != nil) {
+          // Error. If error.code == .MissingOrInvalidNonce, make sure
+          // you're sending the SHA256-hashed nonce as a hex string with
+          // your request to Apple.
+            print(error?.localizedDescription)
+          return
+        }
+        print("displayName: \(authResult?.user.displayName)")
+        print("uid \(authResult?.user.uid)")
+        print("authName: \(Auth.auth().currentUser?.displayName)")
+        let photoURLString: String
+        let displayName:String
+        if authResult?.user.photoURL != nil{
+            photoURLString = (authResult?.user.photoURL!.absoluteString)!
+        }
+        else{
+            photoURLString = "https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/187552709_107267058216864_4571187083831167402_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=IT82WeQs2pAAX_vatr4&_nc_ht=scontent-lga3-1.xx&oh=59a89c3b0bacd63a98dade524bf38864&oe=60D03A38"
+        }
+        if authResult?.user.displayName != nil{
+            displayName = (authResult?.user.displayName)!
+        }
+        else{
+            displayName = "nani"
+        }
+        self.updateUserDefault(photoURLString, displayName, (authResult?.user.uid)!)
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        
+        if (displayName == "nani"){
+            changeRequest?.displayName = "nani" + "_" + String(CurrentUser.index)
+            CurrentUser.name = "nani" + "_" + String(CurrentUser.index)
+            CurrentUser.chef_name = "nani" + "_" + String(CurrentUser.index)
+        }
+        changeRequest?.photoURL = URL(string:photoURLString)
+        changeRequest?.commitChanges { (error) in
+          // ...
+            self.dismiss(animated: true, completion: nil)
+        }
+        if (CurrentUser.needUpdate){
+            let new_user = [
+                "Allergies": [0],
+                "Average_Rating": 0,
+                "Chef_label": "Newbie",
+                "Chef_name": CurrentUser.chef_name,
+                "Food_items": [0], //need to revise
+                "ID": CurrentUser.uid,
+                "Name": CurrentUser.name,
+                "Reviews": "",
+                "Total_Ratings": 0,
+                "photoURL": CurrentUser.photoURL?.absoluteString,
+                "Index": self.total_users
+            ] as [String : Any]
+            CurrentUser.index = self.total_users
+            self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
+            self.ref.child("Total_users").setValue(self.total_users+1)
+            CurrentUser.needUpdate = false
+        }
+        
+        // User is signed in to Firebase with Apple.
+        // ...
+      }
+    }
+  }
+
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    // Handle error.
+    print("Sign in with Apple errored: \(error)")
+  }
+
 }
