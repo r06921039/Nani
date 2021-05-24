@@ -46,7 +46,17 @@ class ProfileViewController: UIViewController{
         }
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.userName.text = Auth.auth().currentUser?.displayName
+        if let photoURL = Auth.auth().currentUser?.photoURL{
+            let url = URL(string: (Auth.auth().currentUser?.photoURL!.absoluteString)!)
+            self.profileImage.kf.setImage(with: url)
+        }
+        else{
+            self.profileImage.image = UIImage(named: "Logo")
+        }
+    }
     
     private func checkIfUserIsSignedIn() {
 

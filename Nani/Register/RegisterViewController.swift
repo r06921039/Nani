@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Firebase
+import SwiftSpinner
 
 class RegisterViewController:UIViewController{
     
@@ -24,34 +25,60 @@ class RegisterViewController:UIViewController{
     @IBOutlet weak var registerButton: UIButton!
     
     var delegate: LoginViewController?
+    var errorMessage: String?
+    var total_users: Int = 0
+    var ref = Database.database().reference()
+    var defaultURL:String = "https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/187552709_107267058216864_4571187083831167402_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=IT82WeQs2pAAX_vatr4&_nc_ht=scontent-lga3-1.xx&oh=59a89c3b0bacd63a98dade524bf38864&oe=60D03A38"
     
     @IBAction func login(_ sender: Any) {
         self.dismissView()
     }
     @IBAction func register(_ sender: Any) {
+        if (fullNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty){
+            let alertController = UIAlertController(title: "Error", message:
+                                                        "Full name must be provided", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        
         if let email = emailTextField.text, let password = passwordTextField.text{
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                guard let user = authResult?.user, error == nil else {
-                    print(error)
-                    return
+            SwiftSpinner.show(delay: 0.0, title: "Creating \nnew account...", animated: true)
+                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                    guard let user = authResult?.user, error == nil else {
+                        print(error?.localizedDescription)
+                        self.errorMessage = error?.localizedDescription ?? ""
+                        if (self.errorMessage!.count == 55){
+                            self.errorMessage = "The email address is already in use."
+                        }
+                        SwiftSpinner.show(self.errorMessage!, animated: false).addTapHandler({
+                            SwiftSpinner.hide()
+                        }, subtitle: "Tap to continue")
+                        return
+                    }
+                    print("\(user.email!) created")
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = self.fullNameTextField.text ?? "nani"
+                    changeRequest?.photoURL = URL(string: self.defaultURL)
+                    changeRequest?.commitChanges { (error) in
+                      // ...
+                    }
+                    SwiftSpinner.show("Create account successfully!", animated: false).addTapHandler({
+                        SwiftSpinner.hide()
+                        self.uploadUser(user.uid, self.fullNameTextField.text!, self.defaultURL)
+                        self.dismissView()
+                        self.delegate?.dismissLogin()
+                        }, subtitle: "Tap to continue")
+                    
                 }
-                print("\(user.email!) created")
-//                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-//                changeRequest?.displayName = "nani"
-//                changeRequest?.photoURL = URL(string: "https://drive.google.com/file/d/11f_9BHW552AH0ZZ1pqA-LM3hkssl92Wz/view?usp=sharing")
-//                changeRequest?.commitChanges { (error) in
-//                  // ...
-//                }
-                CurrentUser.didLogin = true
-                self.dismissView()
-                self.delegate?.dismissLogin()
-            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupViews()
+        self.getData()
     }
     
     func setupViews(){
@@ -70,8 +97,15 @@ class RegisterViewController:UIViewController{
         fullNameLabel.textColor = hexStringToUIColor(hex: "#F0B357")
         
         fullNameTextField.setBorder()
+        fullNameTextField.textColor = .white
+        fullNameTextField.font = UIFont(name: "Comfortaa-Regular", size: 14)
         emailTextField.setBorder()
+        emailTextField.textColor = .white
+        emailTextField.font = UIFont(name: "Comfortaa-Regular", size: 14)
         passwordTextField.setBorder()
+        passwordTextField.textColor = .white
+        passwordTextField.font = UIFont(name: "Comfortaa-Regular", size: 14)
+        passwordTextField.isSecureTextEntry = true
         
         alreadyMemberLabel.text = "Already Member?"
         alreadyMemberLabel.font = UIFont(name: "Comfortaa-Regular", size: 16)
@@ -100,5 +134,43 @@ class RegisterViewController:UIViewController{
         transition.subtype = CATransitionSubtype.fromLeft
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
+    }
+    
+    func getData(){
+        self.ref.child("Total_users").observe(DataEventType.value, with: { (snapshot) in
+            if let usersNumber = snapshot.value as? Int{
+                self.total_users = usersNumber
+            }
+        })
+    }
+    
+    func uploadUser(_ uid:String, _ name:String, _ photoURL:String){
+        let new_user = [
+            "Allergies": [0],
+            "Average_Rating": 0,
+            "Chef_label": "Newbie",
+            "Chef_name": name,
+            "Food_items": [0], //need to revise
+            "ID": uid,
+            "Name": name,
+            "Reviews": "",
+            "Total_Ratings": 0,
+            "photoURL": photoURL,
+            "Index": self.total_users
+        ] as [String : Any]
+        CurrentUser.index = self.total_users
+        self.ref.child("Users").child(String(self.total_users)).setValue(new_user)
+        self.ref.child("Total_users").setValue(self.total_users+1)
+        CurrentUser.needUpdate = false
+        CurrentUser.uid = uid
+        CurrentUser.name = name
+        CurrentUser.chef_name = name
+        CurrentUser.didLogin = true
+        UserDefaults.standard.set(URL(string:photoURL), forKey: "photoURL")
+        UserDefaults.standard.set(CurrentUser.chef_name, forKey: "chef_name")
+        UserDefaults.standard.set(CurrentUser.name, forKey: "name")
+        UserDefaults.standard.set(CurrentUser.uid, forKey: "uid")
+        UserDefaults.standard.set(CurrentUser.didLogin, forKey: "didLogin")
+        UserDefaults.standard.synchronize()
     }
 }

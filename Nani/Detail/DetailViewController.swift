@@ -254,6 +254,9 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout, UICollection
                     if (indexPath.row == self.reviews.count - 1){
                         cell.last = true
                     }
+                    else{
+                        cell.last = false
+                    }
                     return cell
                 }
                 else{

@@ -13,7 +13,7 @@ struct CurrentUser {
     static var photoURL = Auth.auth().currentUser?.photoURL
     static var needUpdate = true
     static var uid = UserDefaults.standard.string(forKey: "uid") ?? ""
-    static var average_Rating = UserDefaults.standard.float(forKey: "rating") ?? 0.0
+    static var average_Rating = UserDefaults.standard.double(forKey: "rating") ?? 0.0
     static var allergies = UserDefaults.standard.object(forKey: "allergies") ?? [0]
     static var chef_label = UserDefaults.standard.string(forKey: "chef_label") ?? "Newbie"
     static var chef_name = UserDefaults.standard.string(forKey: "chef_name") ?? ""

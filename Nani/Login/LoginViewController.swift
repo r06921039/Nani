@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FirebaseAuth
 import FBSDKCoreKit
+import SwiftSpinner
 
 class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDelegate{
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -34,30 +35,31 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
             // User is signed in
             // ...
             //print(authResult?.user.photoURL)
-            let url = URL(string: (authResult?.user.photoURL!.absoluteString)!)
-            CurrentUser.photoURL = url
-            CurrentUser.chef_name = (authResult?.user.displayName)!
-            CurrentUser.name = (authResult?.user.displayName)!
-            CurrentUser.uid = (authResult?.user.uid)!
-            CurrentUser.didLogin = true
-            UserDefaults.standard.set(url, forKey: "photoURL")
-            UserDefaults.standard.set(CurrentUser.chef_name, forKey: "chef_name")
-            UserDefaults.standard.set(CurrentUser.name, forKey: "name")
-            UserDefaults.standard.set(CurrentUser.uid, forKey: "uid")
-            UserDefaults.standard.set(CurrentUser.didLogin, forKey: "didLogin")
-            UserDefaults.standard.synchronize()
-            CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
+//            let url = URL(string: (authResult?.user.photoURL!.absoluteString)!)
+//            CurrentUser.photoURL = url
+//            CurrentUser.chef_name = (authResult?.user.displayName)!
+//            CurrentUser.name = (authResult?.user.displayName)!
+//            CurrentUser.uid = (authResult?.user.uid)!
+//            CurrentUser.didLogin = true
+//            UserDefaults.standard.set(url, forKey: "photoURL")
+//            UserDefaults.standard.set(CurrentUser.chef_name, forKey: "chef_name")
+//            UserDefaults.standard.set(CurrentUser.name, forKey: "name")
+//            UserDefaults.standard.set(CurrentUser.uid, forKey: "uid")
+//            UserDefaults.standard.set(CurrentUser.didLogin, forKey: "didLogin")
+//            UserDefaults.standard.synchronize()
+//            CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
+            self.updateUserDefault((authResult?.user.photoURL!.absoluteString)!, (authResult?.user.displayName)!, (authResult?.user.uid)!)
             if (CurrentUser.needUpdate){
                 let new_user = [
-                    "Allergies": CurrentUser.allergies,
-                    "Average_Rating": CurrentUser.average_Rating,
-                    "Chef_label": CurrentUser.chef_label,
+                    "Allergies": [0],
+                    "Average_Rating": 0,
+                    "Chef_label": "Newbie",
                     "Chef_name": CurrentUser.chef_name,
                     "Food_items": [0], //need to revise
                     "ID": CurrentUser.uid,
                     "Name": CurrentUser.name,
                     "Reviews": "",
-                    "Total_Ratings": CurrentUser.total_ratings,
+                    "Total_Ratings": 0,
                     "photoURL": CurrentUser.photoURL?.absoluteString,
                     "Index": self.total_users
                 ] as [String : Any]
@@ -74,6 +76,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
     var lastKeyboardOffset: CGFloat = 0.0
     var users: [String: User] = [:]
     var total_users: Int = 0
+    var errorMessage: String?
     
     var ref = Database.database().reference()
     
@@ -93,9 +96,41 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
     @IBOutlet weak var GoogleSignInButton: GIDSignInButton!
     @IBOutlet weak var FacebookSignInButton: UIView!
     @IBOutlet weak var AppleSignInButton: UIView!
-    @IBAction func signOut(_ sender: Any) {
-        self.signOut()
+    @IBAction func signIn(_ sender: Any) {
+        if let email = EmailTextField.text, let password = PasswordTextField.text{
+            SwiftSpinner.show(delay: 0.0, title: "Login to your account...", animated: true)
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+                guard let strongSelf = self else { return }
+              // ...
+                guard let user = authResult?.user, error == nil else {
+                    print(error?.localizedDescription)
+                    print(error?.localizedDescription.count)
+                    if (error?.localizedDescription.count == 61){
+                        strongSelf.errorMessage = "The password is invalid"
+                    }
+                    else if(error?.localizedDescription.count == 89){
+                        strongSelf.errorMessage = "No user record corresponding to this identifier."
+                    }
+                    else{
+                        strongSelf.errorMessage = error?.localizedDescription ?? ""
+                    }
+                    SwiftSpinner.show(strongSelf.errorMessage!, animated: false).addTapHandler({
+                        SwiftSpinner.hide()
+                    }, subtitle: "Tap to continue")
+                    return
+                }
+                strongSelf.updateUserDefault((authResult?.user.photoURL!.absoluteString)!, (authResult?.user.displayName)!, (authResult?.user.uid)!)
+                print("CurrentUser.uid \(CurrentUser.uid)")
+                print("CurrentUser.photoURL \(CurrentUser.photoURL)")
+                print("CurrentUser.name \(CurrentUser.name)")
+                SwiftSpinner.show("Login account successfully!", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                    strongSelf.dismiss(animated: true, completion: nil)
+                }, subtitle: "Tap to continue")
+            }
+        }
     }
+    
     
     @IBAction func emailEndEditing(_ sender: Any) {
     }
@@ -146,7 +181,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UITextFieldDeleg
         PasswordLabel.textColor = hexStringToUIColor(hex: "#F0B357")
         
         EmailTextField.setBorder()
+        EmailTextField.textColor = .white
+        EmailTextField.font = UIFont(name: "Comfortaa-Regular", size: 14)
         PasswordTextField.setBorder()
+        PasswordTextField.textColor = .white
+        PasswordTextField.font = UIFont(name: "Comfortaa-Regular", size: 14)
+        PasswordTextField.isSecureTextEntry = true
         
         ForgetButton.setTitle("Forget Password?", for: .normal)
         ForgetButton.titleLabel?.font = UIFont(name: "Comfortaa-Bold", size: 14)
@@ -286,5 +326,36 @@ extension UIViewController {
 extension LoginViewController:RegisterDelegate{
     func dismissLogin() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension LoginViewController{
+    func updateUserDefault(_ url:String, _ name:String, _ uid:String){
+        let photoURL = URL(string: url)
+        CurrentUser.photoURL = photoURL
+        CurrentUser.chef_name = name
+        CurrentUser.name = name
+        CurrentUser.uid = uid
+        CurrentUser.didLogin = true
+        if let current_user = self.users[CurrentUser.uid]{
+            CurrentUser.food_items = current_user.food_items
+            CurrentUser.index = current_user.index
+            CurrentUser.chef_label = current_user.chef_label
+            CurrentUser.average_Rating = current_user.average_rating
+            CurrentUser.allergies = current_user.allergies
+            CurrentUser.chef_label = current_user.chef_label
+            CurrentUser.reviews = current_user.reviews ?? [0]
+            UserDefaults.standard.set(CurrentUser.food_items, forKey: "food_items")
+            UserDefaults.standard.set(CurrentUser.chef_label, forKey: "chef_label")
+            UserDefaults.standard.set(CurrentUser.average_Rating, forKey: "rating")
+            UserDefaults.standard.set(CurrentUser.allergies, forKey: "allergies")
+        }
+        UserDefaults.standard.set(url, forKey: "photoURL")
+        UserDefaults.standard.set(CurrentUser.chef_name, forKey: "chef_name")
+        UserDefaults.standard.set(CurrentUser.name, forKey: "name")
+        UserDefaults.standard.set(CurrentUser.uid, forKey: "uid")
+        UserDefaults.standard.set(CurrentUser.didLogin, forKey: "didLogin")
+        UserDefaults.standard.synchronize()
+        CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
     }
 }

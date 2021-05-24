@@ -70,7 +70,7 @@
                     </constraints>
                     <state key="normal" title="Button"/>
                     <connections>
-                        <action selector="signOut:" destination="-1" eventType="touchUpInside" id="OcY-Nv-Fac"/>
+                        <action selector="signIn:" destination="-1" eventType="touchUpInside" id="WCl-Vb-CEc"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2N-6Y-bNb">

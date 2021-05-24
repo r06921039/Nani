@@ -32,7 +32,12 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     
     var last: Bool?{
         didSet{
-            topSeperator.backgroundColor = .white
+            if (last!){
+                topSeperator.backgroundColor = .white
+            }
+            else{
+                topSeperator.backgroundColor = .lightGray
+            }
         }
     }
     
