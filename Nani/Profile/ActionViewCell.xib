@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActionViewCell" rowHeight="262" id="tn5-bQ-FSh" customClass="ActionViewCell" customModule="Nani" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="262"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tn5-bQ-FSh" id="KKZ-Lu-6H8">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="262"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pMd-XZ-9jJ">
+                        <rect key="frame" x="40" y="40" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="imp-KT-JZ0"/>
+                            <constraint firstAttribute="height" constant="24" id="kKH-69-15V"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WzK-bd-PAp">
+                        <rect key="frame" x="40" y="104" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="Hme-E9-rft"/>
+                            <constraint firstAttribute="width" constant="24" id="IIL-BN-ILN"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zeu-cZ-Ap2">
+                        <rect key="frame" x="40" y="168" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="ZPY-Js-6gD"/>
+                            <constraint firstAttribute="height" constant="24" id="yGk-Bs-S5R"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXZ-fk-wWG">
+                        <rect key="frame" x="84" y="41.5" width="310" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tell your friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nE9-HB-4oo">
+                        <rect key="frame" x="84" y="105.5" width="310" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tnn-03-B2j">
+                        <rect key="frame" x="84" y="169.5" width="290" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="FXZ-fk-wWG" firstAttribute="leading" secondItem="pMd-XZ-9jJ" secondAttribute="trailing" constant="20" id="00g-fm-NdV"/>
+                    <constraint firstItem="zeu-cZ-Ap2" firstAttribute="leading" secondItem="KKZ-Lu-6H8" secondAttribute="leading" constant="40" id="A17-bA-7QQ"/>
+                    <constraint firstItem="Tnn-03-B2j" firstAttribute="centerY" secondItem="zeu-cZ-Ap2" secondAttribute="centerY" id="Bmp-PS-PrZ"/>
+                    <constraint firstAttribute="bottom" secondItem="zeu-cZ-Ap2" secondAttribute="bottom" constant="40" id="LVs-l5-DaC"/>
+                    <constraint firstItem="WzK-bd-PAp" firstAttribute="top" secondItem="pMd-XZ-9jJ" secondAttribute="bottom" constant="40" id="Owx-53-6JT"/>
+                    <constraint firstItem="FXZ-fk-wWG" firstAttribute="centerY" secondItem="pMd-XZ-9jJ" secondAttribute="centerY" id="RXF-ZI-abC"/>
+                    <constraint firstAttribute="trailing" secondItem="FXZ-fk-wWG" secondAttribute="trailing" constant="20" id="SDa-cb-wx7"/>
+                    <constraint firstItem="nE9-HB-4oo" firstAttribute="leading" secondItem="WzK-bd-PAp" secondAttribute="trailing" constant="20" id="TZ3-W5-eLz"/>
+                    <constraint firstItem="nE9-HB-4oo" firstAttribute="centerY" secondItem="WzK-bd-PAp" secondAttribute="centerY" id="XeJ-1R-Uit"/>
+                    <constraint firstItem="pMd-XZ-9jJ" firstAttribute="leading" secondItem="KKZ-Lu-6H8" secondAttribute="leading" constant="40" id="cva-HQ-ltm"/>
+                    <constraint firstItem="Tnn-03-B2j" firstAttribute="leading" secondItem="zeu-cZ-Ap2" secondAttribute="trailing" constant="20" id="ggS-G9-pB1"/>
+                    <constraint firstAttribute="trailing" secondItem="nE9-HB-4oo" secondAttribute="trailing" constant="20" id="iCc-sp-7PV"/>
+                    <constraint firstItem="WzK-bd-PAp" firstAttribute="leading" secondItem="KKZ-Lu-6H8" secondAttribute="leading" constant="40" id="kWW-De-jOo"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Tnn-03-B2j" secondAttribute="trailing" constant="20" id="ojo-aZ-rYv"/>
+                    <constraint firstItem="pMd-XZ-9jJ" firstAttribute="top" secondItem="KKZ-Lu-6H8" secondAttribute="top" constant="40" id="r2N-gi-75c"/>
+                    <constraint firstItem="zeu-cZ-Ap2" firstAttribute="top" secondItem="WzK-bd-PAp" secondAttribute="bottom" constant="40" id="s62-xM-9bB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="friendsIcon" destination="WzK-bd-PAp" id="fnb-za-KXm"/>
+                <outlet property="friendsLabel" destination="nE9-HB-4oo" id="3nP-6O-GHN"/>
+                <outlet property="paymentIcon" destination="pMd-XZ-9jJ" id="Wx4-Q5-Njr"/>
+                <outlet property="paymentLabel" destination="FXZ-fk-wWG" id="UfN-8e-DHM"/>
+                <outlet property="settingsIcon" destination="zeu-cZ-Ap2" id="9Qa-JW-520"/>
+                <outlet property="settingsLabel" destination="Tnn-03-B2j" id="hU0-cr-jYR"/>
+            </connections>
+            <point key="canvasLocation" x="308.69565217391306" y="80.357142857142847"/>
+        </tableViewCell>
+    </objects>
+</document>

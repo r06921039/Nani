@@ -40,6 +40,20 @@
 		1F4D50C62611204900C34716 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D50C52611204900C34716 /* InfoTableViewCell.swift */; };
 		1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F26E626156F060013D666 /* InfoDetailCollectionViewCell.swift */; };
 		1F5F26EC261593D30013D666 /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F26EB261593D30013D666 /* ReviewCollectionViewCell.swift */; };
+		1F967A10265CD70000DEA705 /* NewProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A0F265CD70000DEA705 /* NewProfileViewController.xib */; };
+		1F967A15265CD80500DEA705 /* NewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A14265CD80500DEA705 /* NewProfileViewController.swift */; };
+		1F967A1A265CDAB900DEA705 /* UserImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A19265CDAB900DEA705 /* UserImageCell.swift */; };
+		1F967A1F265CDADB00DEA705 /* UserImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A1E265CDADB00DEA705 /* UserImageCell.xib */; };
+		1F967A24265E015A00DEA705 /* UserInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A23265E015A00DEA705 /* UserInfoViewCell.swift */; };
+		1F967A29265E018800DEA705 /* UserInfoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A28265E018800DEA705 /* UserInfoViewCell.xib */; };
+		1F967A31265E183B00DEA705 /* MoneyOrderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A30265E183B00DEA705 /* MoneyOrderViewCell.swift */; };
+		1F967A36265E188200DEA705 /* MoneyOrderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A35265E188200DEA705 /* MoneyOrderViewCell.xib */; };
+		1F967A3B265E2DC900DEA705 /* EditImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A3A265E2DC900DEA705 /* EditImageViewCell.swift */; };
+		1F967A40265E2DFB00DEA705 /* EditImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A3F265E2DFB00DEA705 /* EditImageViewCell.xib */; };
+		1F967A45265E34E400DEA705 /* ActionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A44265E34E400DEA705 /* ActionViewCell.swift */; };
+		1F967A4A265E34F100DEA705 /* ActionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A49265E34F100DEA705 /* ActionViewCell.xib */; };
+		1F967A4F265E3AA500DEA705 /* LogoutViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A4E265E3AA500DEA705 /* LogoutViewCell.swift */; };
+		1F967A54265E3AC600DEA705 /* LogoutViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A53265E3AC600DEA705 /* LogoutViewCell.xib */; };
 		1FA327B6260338E800811BC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA327B5260338E800811BC2 /* AppDelegate.swift */; };
 		1FA327B8260338E800811BC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA327B7260338E800811BC2 /* SceneDelegate.swift */; };
 		1FA327BA260338E800811BC2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA327B9260338E800811BC2 /* DetailViewController.swift */; };
@@ -128,6 +142,20 @@
 		1F4D50C52611204900C34716 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F5F26E626156F060013D666 /* InfoDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F5F26EB261593D30013D666 /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F967A0F265CD70000DEA705 /* NewProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewProfileViewController.xib; sourceTree = "<group>"; };
+		1F967A14265CD80500DEA705 /* NewProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileViewController.swift; sourceTree = "<group>"; };
+		1F967A19265CDAB900DEA705 /* UserImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageCell.swift; sourceTree = "<group>"; };
+		1F967A1E265CDADB00DEA705 /* UserImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserImageCell.xib; sourceTree = "<group>"; };
+		1F967A23265E015A00DEA705 /* UserInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewCell.swift; sourceTree = "<group>"; };
+		1F967A28265E018800DEA705 /* UserInfoViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoViewCell.xib; sourceTree = "<group>"; };
+		1F967A30265E183B00DEA705 /* MoneyOrderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyOrderViewCell.swift; sourceTree = "<group>"; };
+		1F967A35265E188200DEA705 /* MoneyOrderViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoneyOrderViewCell.xib; sourceTree = "<group>"; };
+		1F967A3A265E2DC900DEA705 /* EditImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewCell.swift; sourceTree = "<group>"; };
+		1F967A3F265E2DFB00DEA705 /* EditImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditImageViewCell.xib; sourceTree = "<group>"; };
+		1F967A44265E34E400DEA705 /* ActionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewCell.swift; sourceTree = "<group>"; };
+		1F967A49265E34F100DEA705 /* ActionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionViewCell.xib; sourceTree = "<group>"; };
+		1F967A4E265E3AA500DEA705 /* LogoutViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewCell.swift; sourceTree = "<group>"; };
+		1F967A53265E3AC600DEA705 /* LogoutViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutViewCell.xib; sourceTree = "<group>"; };
 		1FA327B2260338E800811BC2 /* Nani.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nani.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA327B5260338E800811BC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FA327B7260338E800811BC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -384,6 +412,20 @@
 			children = (
 				1FBD1A992654ACD9006FA458 /* ProfileViewController.swift */,
 				1FBD1AA12654AD11006FA458 /* ProfileViewController.xib */,
+				1F967A0F265CD70000DEA705 /* NewProfileViewController.xib */,
+				1F967A14265CD80500DEA705 /* NewProfileViewController.swift */,
+				1F967A19265CDAB900DEA705 /* UserImageCell.swift */,
+				1F967A1E265CDADB00DEA705 /* UserImageCell.xib */,
+				1F967A23265E015A00DEA705 /* UserInfoViewCell.swift */,
+				1F967A28265E018800DEA705 /* UserInfoViewCell.xib */,
+				1F967A30265E183B00DEA705 /* MoneyOrderViewCell.swift */,
+				1F967A35265E188200DEA705 /* MoneyOrderViewCell.xib */,
+				1F967A3A265E2DC900DEA705 /* EditImageViewCell.swift */,
+				1F967A3F265E2DFB00DEA705 /* EditImageViewCell.xib */,
+				1F967A44265E34E400DEA705 /* ActionViewCell.swift */,
+				1F967A49265E34F100DEA705 /* ActionViewCell.xib */,
+				1F967A4E265E3AA500DEA705 /* LogoutViewCell.swift */,
+				1F967A53265E3AC600DEA705 /* LogoutViewCell.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -549,13 +591,20 @@
 				1F2B47E62612AA4E00F758DE /* Comfortaa-SemiBold.ttf in Resources */,
 				1F2B47E52612AA4E00F758DE /* Comfortaa-Bold.ttf in Resources */,
 				1F0FBED5262026C9009B2A82 /* GoogleService-Info.plist in Resources */,
+				1F967A4A265E34F100DEA705 /* ActionViewCell.xib in Resources */,
+				1F967A1F265CDADB00DEA705 /* UserImageCell.xib in Resources */,
 				1F2B47E92612AA4E00F758DE /* Comfortaa-Medium.ttf in Resources */,
 				1FBD1AA22654AD11006FA458 /* ProfileViewController.xib in Resources */,
 				1FA327C2260338E900811BC2 /* LaunchScreen.storyboard in Resources */,
+				1F967A54265E3AC600DEA705 /* LogoutViewCell.xib in Resources */,
 				1F2B47E82612AA4E00F758DE /* Comfortaa-Regular.ttf in Resources */,
 				1FBD1B7D26571456006FA458 /* RatingCell.xib in Resources */,
+				1F967A36265E188200DEA705 /* MoneyOrderViewCell.xib in Resources */,
 				1FCBE9262659A4B80028EBCF /* RegisterViewController.xib in Resources */,
 				1FA327BF260338E900811BC2 /* Assets.xcassets in Resources */,
+				1F967A40265E2DFB00DEA705 /* EditImageViewCell.xib in Resources */,
+				1F967A10265CD70000DEA705 /* NewProfileViewController.xib in Resources */,
+				1F967A29265E018800DEA705 /* UserInfoViewCell.xib in Resources */,
 				1F2B47E72612AA4E00F758DE /* Comfortaa-Light.ttf in Resources */,
 				1FA327BD260338E800811BC2 /* Main.storyboard in Resources */,
 				1FBD1B6E2656F22C006FA458 /* AddReviewController.xib in Resources */,
@@ -750,14 +799,20 @@
 				1F4D5067261115B600C34716 /* SectionTitleIndexController.swift in Sources */,
 				1FB8DFF2261FDEF100132152 /* AddCollectionViewCell.swift in Sources */,
 				1F4D50AF26111DA700C34716 /* MealItemTitleCell.swift in Sources */,
+				1F967A3B265E2DC900DEA705 /* EditImageViewCell.swift in Sources */,
 				1FB8E00E26200C6600132152 /* DishContainsCollectionViewCell.swift in Sources */,
+				1F967A1A265CDAB900DEA705 /* UserImageCell.swift in Sources */,
 				1F4D509F26111C5000C34716 /* SectionHeaderView.swift in Sources */,
+				1F967A31265E183B00DEA705 /* MoneyOrderViewCell.swift in Sources */,
 				1FB3A58A26164E08004D71BF /* HomeViewController.swift in Sources */,
+				1F967A24265E015A00DEA705 /* UserInfoViewCell.swift in Sources */,
+				1F967A45265E34E400DEA705 /* ActionViewCell.swift in Sources */,
 				1FA327B6260338E800811BC2 /* AppDelegate.swift in Sources */,
 				1FBD1B662656F21E006FA458 /* AddReviewController.swift in Sources */,
 				1FB8E009261FFE8F00132152 /* ImageCollectionViewCell.swift in Sources */,
 				1FCBE92B2659B8790028EBCF /* RegisterDelegate.swift in Sources */,
 				1FA327B8260338E800811BC2 /* SceneDelegate.swift in Sources */,
+				1F967A4F265E3AA500DEA705 /* LogoutViewCell.swift in Sources */,
 				1FB3A59D261652DF004D71BF /* PresentAnimator.swift in Sources */,
 				1F4D50752611160500C34716 /* Meal.swift in Sources */,
 				1F0FBF2626248A9B009B2A82 /* User.swift in Sources */,
@@ -766,6 +821,7 @@
 				1F4D507D2611169500C34716 /* Interactor.swift in Sources */,
 				1F4D506F261115D800C34716 /* InfoViewController.swift in Sources */,
 				1FBD1B78265701C0006FA458 /* RatingCell.swift in Sources */,
+				1F967A15265CD80500DEA705 /* NewProfileViewController.swift in Sources */,
 				1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */,
 				1F4D50C126111F1200C34716 /* InfoTableViewHeader.swift in Sources */,
 				1F4D508326111A3300C34716 /* HeaderView.swift in Sources */,
@@ -965,7 +1021,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.9;
+				CURRENT_PROJECT_VERSION = 0.2.10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
@@ -989,7 +1045,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.9;
+				CURRENT_PROJECT_VERSION = 0.2.10;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

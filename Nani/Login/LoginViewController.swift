@@ -489,18 +489,6 @@ extension LoginViewController{
             displayName = "nani"
         }
         self.updateUserDefault(photoURLString, displayName, (authResult?.user.uid)!)
-        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        
-        if (displayName == "nani"){
-            changeRequest?.displayName = "nani" + "_" + String(CurrentUser.index)
-            CurrentUser.name = "nani" + "_" + String(CurrentUser.index)
-            CurrentUser.chef_name = "nani" + "_" + String(CurrentUser.index)
-        }
-        changeRequest?.photoURL = URL(string:photoURLString)
-        changeRequest?.commitChanges { (error) in
-          // ...
-            self.dismiss(animated: true, completion: nil)
-        }
         if (CurrentUser.needUpdate){
             let new_user = [
                 "Allergies": [0],
@@ -520,6 +508,19 @@ extension LoginViewController{
             self.ref.child("Total_users").setValue(self.total_users+1)
             CurrentUser.needUpdate = false
         }
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        
+        if (displayName == "nani"){
+            changeRequest?.displayName = "nani" + "_" + String(CurrentUser.index)
+            CurrentUser.name = "nani" + "_" + String(CurrentUser.index)
+            CurrentUser.chef_name = "nani" + "_" + String(CurrentUser.index)
+        }
+        changeRequest?.photoURL = URL(string:photoURLString)
+        changeRequest?.commitChanges { (error) in
+          // ...
+            self.dismiss(animated: true, completion: nil)
+        }
+        
         
         // User is signed in to Firebase with Apple.
         // ...

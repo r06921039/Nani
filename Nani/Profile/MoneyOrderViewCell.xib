@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoneyOrderViewCell" rowHeight="120" id="hFM-vg-w3K" customClass="MoneyOrderViewCell" customModule="Nani" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hFM-vg-w3K" id="sip-S7-27J">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="You made" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fys-di-rkY">
+                        <rect key="frame" x="60" y="20" width="76" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="$158" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VM-8O-CJ1">
+                        <rect key="frame" x="78.5" y="56" width="39" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="in total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs6-A7-xKe">
+                        <rect key="frame" x="72" y="91.5" width="52" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="You've had" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVW-DC-0kP">
+                        <rect key="frame" x="270" y="10" width="84" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duY-nN-bul">
+                        <rect key="frame" x="303" y="46" width="18" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="orders" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InU-Pv-cE4">
+                        <rect key="frame" x="287" y="82" width="50" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="SVW-DC-0kP" firstAttribute="top" secondItem="sip-S7-27J" secondAttribute="top" constant="20" id="2Ns-0y-Dbs"/>
+                    <constraint firstItem="duY-nN-bul" firstAttribute="top" secondItem="SVW-DC-0kP" secondAttribute="bottom" constant="15" id="5Uw-BP-PCY"/>
+                    <constraint firstItem="fys-di-rkY" firstAttribute="top" secondItem="sip-S7-27J" secondAttribute="top" constant="20" id="78q-Du-SdO"/>
+                    <constraint firstItem="4VM-8O-CJ1" firstAttribute="centerX" secondItem="fys-di-rkY" secondAttribute="centerX" id="7Zf-je-YAo"/>
+                    <constraint firstItem="4VM-8O-CJ1" firstAttribute="top" secondItem="fys-di-rkY" secondAttribute="bottom" constant="15" id="E3r-Ij-0y4"/>
+                    <constraint firstItem="fys-di-rkY" firstAttribute="leading" secondItem="sip-S7-27J" secondAttribute="leading" constant="60" id="FQd-Dc-mi2"/>
+                    <constraint firstItem="Xs6-A7-xKe" firstAttribute="centerX" secondItem="4VM-8O-CJ1" secondAttribute="centerX" id="PN6-jC-Qca"/>
+                    <constraint firstAttribute="bottom" secondItem="Xs6-A7-xKe" secondAttribute="bottom" constant="20" id="Pfe-06-7TL"/>
+                    <constraint firstAttribute="bottom" secondItem="InU-Pv-cE4" secondAttribute="bottom" constant="20" id="cR7-Iv-e8p"/>
+                    <constraint firstItem="InU-Pv-cE4" firstAttribute="top" secondItem="duY-nN-bul" secondAttribute="bottom" constant="15" id="eju-8R-t8u"/>
+                    <constraint firstItem="duY-nN-bul" firstAttribute="centerX" secondItem="SVW-DC-0kP" secondAttribute="centerX" id="hUM-Mf-eW7"/>
+                    <constraint firstItem="Xs6-A7-xKe" firstAttribute="top" secondItem="4VM-8O-CJ1" secondAttribute="bottom" constant="15" id="j0s-ui-fse"/>
+                    <constraint firstItem="InU-Pv-cE4" firstAttribute="centerX" secondItem="duY-nN-bul" secondAttribute="centerX" id="olS-Zf-7RL"/>
+                    <constraint firstAttribute="trailing" secondItem="SVW-DC-0kP" secondAttribute="trailing" constant="60" id="voT-Ya-0Se"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="hadLabel" destination="SVW-DC-0kP" id="q2t-OD-RAI"/>
+                <outlet property="madeLabel" destination="fys-di-rkY" id="91Y-BE-QW8"/>
+                <outlet property="moneyLabel" destination="4VM-8O-CJ1" id="5gt-r9-qLK"/>
+                <outlet property="orderNumLabel" destination="duY-nN-bul" id="Ml1-gA-7Xh"/>
+                <outlet property="ordersLabel" destination="InU-Pv-cE4" id="SBC-1L-yyZ"/>
+                <outlet property="totalLabel" destination="Xs6-A7-xKe" id="3B5-Pb-UHm"/>
+            </connections>
+            <point key="canvasLocation" x="250.72463768115944" y="111.16071428571428"/>
+        </tableViewCell>
+    </objects>
+</document>
