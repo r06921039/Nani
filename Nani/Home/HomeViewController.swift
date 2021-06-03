@@ -35,7 +35,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var ref = Database.database().reference()
     let storage = Storage.storage(url: "gs://nani-e9074.appspot.com")
    
-    
+    var isLoading = false
+    var loadingPostNum = 5
+    var offset = 0
     
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -128,6 +130,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return cv
     }()
     
+    private let footerView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    
 //    lazy var filterViewController: FilterViewController = {
 //        let vc = FilterViewController()
 //        vc.transitioningDelegate = self
@@ -216,52 +220,43 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         view.endEditing(true)
     }
     
-    func getData(){
+    func testGetData(){
         SwiftSpinner.show(delay: 0.0, title: "Connecting \nto Nani...", animated: true)
-        var refHandle = self.ref.observe(DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if let total_items = postDict["Total_items"] as? Int{
-                self.total_items = total_items
-            }
-            if let total_users = postDict["Total_users"] as? Int{
-                self.total_users = total_users
-            }
-            if let allergens = postDict["Allergens"] as? [String]{
+        
+        self.ref.child("Allergens").observe(DataEventType.value, with: { (snapshot) in
+            if let allergens = snapshot.value as? [String]{
                 self.allergens = allergens
             }
-            if let reviews = postDict["Reviews"] as? [[String : Any]]{
+        })
+        
+        self.ref.child("Total_items").observe(DataEventType.value, with: { (snapshot) in
+            if let total_items = snapshot.value as? Int{
+                self.total_items = total_items
+                self.offset = self.total_items - self.loadingPostNum
+                self.retrievePost(callFlag: true)
+            }
+        })
+        
+        self.ref.child("Total_users").observe(DataEventType.value, with: { (snapshot) in
+            if let total_users = snapshot.value as? Int{
+                self.total_users = total_users
+            }
+        })
+        
+        self.ref.child("Reviews").observe(DataEventType.value, with: { (snapshot) in
+            if let reviews = snapshot.value as? [[String : Any]]{
                 self.reviews = []
                 for review in reviews{
                     self.reviews.append(Review(review))
                 }
             }
-            if let users = postDict["Users"] as? [[String : Any]] {
+        })
+        
+        self.ref.child("Users").observe(DataEventType.value, with: { (snapshot) in
+            if let users = snapshot.value as? [[String : Any]] {
                 self.users = [:]
                 for user in users {
                     self.users[user["ID"] as! String] = User(user)
-//                    if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
-//                        self.collectionView.reloadData()
-//                        CurrentUser.needUpdate = self.users[CurrentUser.uid] != nil
-//                        SwiftSpinner.hide()
-//                    }
-//                    let pathReference = self.storage.reference()
-//                    let path = user["Picture"] as! String
-//                    let islandRef = pathReference.child(path)
-//                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
-//                        if let error = error {
-//                            print(error)
-//                        // Uh-oh, an error occurred!
-//                        }
-//                        else {
-//                        // Data for "images/island.jpg" is returned
-//                            let image = UIImage(data: data!)
-//                            self.users[user["ID"] as! String] = User(user)
-//                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
-//                                self.collectionView.reloadData()
-//                                SwiftSpinner.hide()
-//                            }
-//                        }
-//                    }
                 }
                 if let current_user = self.users[CurrentUser.uid]{
                     CurrentUser.food_items = current_user.food_items
@@ -269,40 +264,99 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
                     CurrentUser.chef_label = current_user.chef_label
                 }
             }
-            if let items = postDict["Food_items"] as? [[String : Any]] {
-                self.foodCard = [:]
-                for item in items {
-                    let pathReference = self.storage.reference()
-                    let path = item["Picture"] as! String
-                    let islandRef = pathReference.child(path)
-                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
-                        if let error = error {
-                        print(error)
-                        // Uh-oh, an error occurred!
-                        }
-                        else {
-                        // Data for "images/island.jpg" is returned
-                            let image = UIImage(data: data!)
-                            var food = FoodCard(item, image!, self.allergens)
-                            self.foodCard[item["Order"] as! Int] = food
-                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
-                                self.collectionView.reloadData()
-                                CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
-                                SwiftSpinner.hide()
-                            }
-                        }
-                    }
-                    
-                }
-            }
         })
+        
+        
     }
+    
+//    func getData(){
+//        SwiftSpinner.show(delay: 0.0, title: "Connecting \nto Nani...", animated: true)
+//        var refHandle = self.ref.observe(DataEventType.value, with: { (snapshot) in
+//            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+//            if let total_items = postDict["Total_items"] as? Int{
+//                self.total_items = total_items
+//            }
+//            if let total_users = postDict["Total_users"] as? Int{
+//                self.total_users = total_users
+//            }
+//            if let allergens = postDict["Allergens"] as? [String]{
+//                self.allergens = allergens
+//            }
+//            if let reviews = postDict["Reviews"] as? [[String : Any]]{
+//                self.reviews = []
+//                for review in reviews{
+//                    self.reviews.append(Review(review))
+//                }
+//            }
+//            if let users = postDict["Users"] as? [[String : Any]] {
+//                self.users = [:]
+//                for user in users {
+//                    self.users[user["ID"] as! String] = User(user)
+////                    if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+////                        self.collectionView.reloadData()
+////                        CurrentUser.needUpdate = self.users[CurrentUser.uid] != nil
+////                        SwiftSpinner.hide()
+////                    }
+////                    let pathReference = self.storage.reference()
+////                    let path = user["Picture"] as! String
+////                    let islandRef = pathReference.child(path)
+////                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+////                        if let error = error {
+////                            print(error)
+////                        // Uh-oh, an error occurred!
+////                        }
+////                        else {
+////                        // Data for "images/island.jpg" is returned
+////                            let image = UIImage(data: data!)
+////                            self.users[user["ID"] as! String] = User(user)
+////                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+////                                self.collectionView.reloadData()
+////                                SwiftSpinner.hide()
+////                            }
+////                        }
+////                    }
+//                }
+//                if let current_user = self.users[CurrentUser.uid]{
+//                    CurrentUser.food_items = current_user.food_items
+//                    CurrentUser.index = current_user.index
+//                    CurrentUser.chef_label = current_user.chef_label
+//                }
+//            }
+//            if let items = postDict["Food_items"] as? [[String : Any]] {
+//                self.foodCard = [:]
+//                for item in items {
+//                    let pathReference = self.storage.reference()
+//                    let path = item["Picture"] as! String
+//                    let islandRef = pathReference.child(path)
+//                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+//                        if let error = error {
+//                        print(error)
+//                        // Uh-oh, an error occurred!
+//                        }
+//                        else {
+//                        // Data for "images/island.jpg" is returned
+//                            let image = UIImage(data: data!)
+//                            var food = FoodCard(item, image!, self.allergens)
+//                            self.foodCard[item["Order"] as! Int] = food
+//                            if (self.foodCard.count == self.total_items && self.users.count == self.total_users){
+//                                self.collectionView.reloadData()
+//                                CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
+//                                SwiftSpinner.hide()
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            }
+//        })
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
-        getData()
+        testGetData()
+        //getData()
         // checkUserAuth()
         //setupAPIClient()
         //logUser()
@@ -310,7 +364,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         self.collectionView.refreshControl = refreshControl
-        
     }
     
     @objc func refresh(){
@@ -373,6 +426,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             sectionTitleIndexCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sectionTitleIndexCollectionView.heightAnchor.constraint(equalToConstant: 40)
             ])
+        
+        self.collectionView.register(CollectionViewFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "Footer")
     }
     
 //    func setupViews(){
@@ -598,5 +653,103 @@ extension HomeViewController{
         print("needupdate \(CurrentUser.needUpdate)")
         print("foodItems \(CurrentUser.food_items)")
         print("index \(CurrentUser.index)")
+    }
+}
+
+extension HomeViewController{
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+            if kind == UICollectionView.elementKindSectionFooter {
+                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath)
+                footer.addSubview(footerView)
+                footerView.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: 50)
+                return footer
+            }
+            return UICollectionReusableView()
+        }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        if elementKind == UICollectionView.elementKindSectionFooter{
+            self.footerView.startAnimating()
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        if elementKind == UICollectionView.elementKindSectionFooter{
+            self.footerView.stopAnimating()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if self.isLoading {
+            return CGSize.zero
+        }
+        else {
+            return CGSize(width: collectionView.bounds.size.width, height: 55)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == self.foodCard.count - 1 && !self.isLoading {
+            loadMoreData()
+        }
+    }
+    func loadMoreData() {
+        if !self.isLoading {
+            self.isLoading = true
+            self.retrievePost(callFlag: true)
+        }
+    }
+}
+
+
+extension HomeViewController{
+    func retrievePost(callFlag: Bool){
+        var updateOffset = callFlag
+        var refHandle = self.ref.child("Food_items").queryOrderedByKey().queryStarting(atValue: String(self.offset)).queryLimited(toFirst: UInt(self.loadingPostNum)).observe(DataEventType.value, with: {(snapshot) in
+            var count = 0
+            for child in snapshot.children {
+                if let value = (child as! DataSnapshot).value as? [String: Any]{
+                    let pathReference = self.storage.reference()
+                    let path = value["Picture"] as! String
+                    let islandRef = pathReference.child(path)
+                    islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+                        if let error = error {
+                        print(error)
+                        // Uh-oh, an error occurred!
+                        }
+                        else {
+                        // Data for "images/island.jpg" is returned
+                            let image = UIImage(data: data!)
+                            var food = FoodCard(value, image!, self.allergens)
+                            count += 1
+                            self.foodCard[value["Order"] as! Int] = food
+                            if count == self.loadingPostNum{
+                                if updateOffset {
+                                    self.offset = self.offset - self.loadingPostNum > 0 ? self.offset - self.loadingPostNum : 0
+                                    updateOffset = false
+                                }
+                                self.collectionView.reloadData()
+                                CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
+                                SwiftSpinner.hide()
+                                if self.foodCard.count != self.total_items{
+                                    self.isLoading = false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            })
+    }
+}
+
+public class CollectionViewFooterView: UICollectionReusableView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
