@@ -21,9 +21,9 @@ class ActionViewCell:UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.paymentIcon.image = UIImage(named: "star-24px.emf")
-        self.friendsIcon.image = UIImage(named: "star-24px.emf")
-        self.settingsIcon.image = UIImage(named: "star-24px.emf")
+        self.paymentIcon.image = UIImage(named: "credit_card_black_24dp")
+        self.friendsIcon.image = UIImage(named: "people_black_24dp")
+        self.settingsIcon.image = UIImage(named: "settings_black_24dp")
         self.paymentLabel.font = UIFont(name: "Comfortaa-Bold", size: 16)
         self.friendsLabel.font = UIFont(name: "Comfortaa-Bold", size: 16)
         self.settingsLabel.font = UIFont(name: "Comfortaa-Bold", size: 16)

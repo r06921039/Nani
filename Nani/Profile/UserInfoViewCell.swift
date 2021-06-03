@@ -21,13 +21,13 @@ class UserInfoViewCell:UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.addressIcon.image = UIImage(named: "star-24px.emf")
+        self.addressIcon.image = UIImage(named: "business_black_24dp")
         self.addressLabel.font = UIFont(name: "Comfortaa-Bold", size: 15)
         self.addressLabel.text = "The House at Cornell Tech 1 E. Loop Rd. Apt 17K"
-        self.phoneIcon.image = UIImage(named: "star-24px.emf")
+        self.phoneIcon.image = UIImage(named: "phone_black_24dp")
         self.phoneLabel.font = UIFont(name: "Comfortaa-Bold", size: 15)
         self.phoneLabel.text = "332-234-22xx"
-        self.mailIcon.image = UIImage(named: "star-24px.emf")
+        self.mailIcon.image = UIImage(named: "email_black_24dp")
         self.mailLabel.font = UIFont(name: "Comfortaa-Bold", size: 15)
         self.mailLabel.text = "contact.nanitoday@gmail.com"
     }

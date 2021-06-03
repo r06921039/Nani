@@ -428,6 +428,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             ])
         
         self.collectionView.register(CollectionViewFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "Footer")
+
     }
     
 //    func setupViews(){
@@ -659,13 +660,13 @@ extension HomeViewController{
 extension HomeViewController{
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            if kind == UICollectionView.elementKindSectionFooter {
+        if kind == UICollectionView.elementKindSectionFooter && collectionView != self.sectionTitleIndexCollectionView  {
                 let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath)
                 footer.addSubview(footerView)
-                footerView.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: 50)
+                footerView.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: 55)
                 return footer
             }
-            return UICollectionReusableView()
+        return UICollectionReusableView()
         }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
@@ -681,7 +682,7 @@ extension HomeViewController{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if self.isLoading {
+        if self.isLoading || collectionView == self.sectionTitleIndexCollectionView{
             return CGSize.zero
         }
         else {

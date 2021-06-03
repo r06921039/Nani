@@ -16,7 +16,7 @@ class EditImageViewCell:UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.editButton.setImage(UIImage(named: "edit"), for: .normal)
+        self.editButton.setImage(UIImage(named: "edit_black_24dp.emf"), for: .normal)
         
         
     }

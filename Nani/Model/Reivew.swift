@@ -16,10 +16,10 @@ struct Review {
     var user: String
     
     init(_ item: [String : Any]){
-        self.comment = item["Comment"] as! String
-        self.food_item = item["Food_item"] as! Int
-        self.posted_time = item["Posted_time"] as! String
-        self.rating = item["Rating"] as! Int
-        self.user = item["User"] as! String
+        self.comment = item["Comment"] as? String ?? ""
+        self.food_item = item["Food_item"] as? Int ?? 0
+        self.posted_time = item["Posted_time"] as? String ?? ""
+        self.rating = item["Rating"] as? Int ?? 0
+        self.user = item["User"] as? String ?? ""
     }
 }
