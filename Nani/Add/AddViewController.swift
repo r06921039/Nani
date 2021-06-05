@@ -286,16 +286,20 @@ extension AddViewController: UICollectionViewDelegateFlowLayout, UICollectionVie
                 }
             case 3:
                 cell.dishLabel.text = "Price per serving"
+                cell.dishTextField.keyboardType = .decimalPad
                 if (self.price == ""){
                     cell.dishTextField.text = ""
                 }
             case 4:
                 cell.dishLabel.text = "Total Serving"
+                cell.dishTextField.keyboardType = .decimalPad
                 if (self.totalServing == ""){
                     cell.dishTextField.text = ""
+                    cell.dishTextField.keyboardType = .decimalPad
                 }
             case 5:
                 cell.dishLabel.text = "Expire in hours"
+                cell.dishTextField.keyboardType = .decimalPad
                 if (self.expiryHour == ""){
                     cell.dishTextField.text = ""
                 }

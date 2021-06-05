@@ -31,6 +31,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var reviews: [Review] = []
     var total_items: Int = 0
     var total_users: Int = 0
+    var initialFoodCard: [Int: FoodCard] = [:]
     
     var ref = Database.database().reference()
     let storage = Storage.storage(url: "gs://nani-e9074.appspot.com")
@@ -38,6 +39,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var isLoading = false
     var loadingPostNum = 5
     var offset = 0
+    var isSearching = false
     
     lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -682,7 +684,7 @@ extension HomeViewController{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if self.isLoading || collectionView == self.sectionTitleIndexCollectionView{
+        if self.isLoading || collectionView == self.sectionTitleIndexCollectionView || self.isSearching{
             return CGSize.zero
         }
         else {
@@ -691,7 +693,7 @@ extension HomeViewController{
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == self.foodCard.count - 1 && !self.isLoading {
+        if indexPath.row == self.foodCard.count - 1 && !self.isLoading && !self.isSearching{
             loadMoreData()
         }
     }
@@ -730,6 +732,7 @@ extension HomeViewController{
                                     self.offset = self.offset - self.loadingPostNum > 0 ? self.offset - self.loadingPostNum : 0
                                     updateOffset = false
                                 }
+                                self.initialFoodCard = self.foodCard
                                 self.collectionView.reloadData()
                                 CurrentUser.needUpdate = self.users[CurrentUser.uid] == nil
                                 SwiftSpinner.hide()
@@ -745,6 +748,70 @@ extension HomeViewController{
     }
 }
 
+extension HomeViewController{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == ""{
+            self.isSearching = false
+            self.foodCard = self.initialFoodCard
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func search(){
+        var temp: [Int : [String : Any]] = [:]
+        var offset = 0
+        var count = 0
+        
+        self.isSearching = true
+        self.foodCard = [:]
+        var searchText = self.searchBar.text!.prefix(1).capitalized + self.searchBar.text!.dropFirst()
+        
+        SwiftSpinner.show(delay: 0.0, title: "Searching \nin Nani...", animated: true)
+        
+        var refHandle = self.ref.child("Food_items").queryOrdered(byChild: "Title").queryStarting(atValue: searchText).observe(DataEventType.value, with: {(snapshot) in
+            print(snapshot.value)
+            for child in snapshot.children {
+                if let value = (child as! DataSnapshot).value as? [String: Any]{
+                    temp[self.total_items - 1 - offset] = value
+                    offset += 1
+                }
+            }
+            if temp.count == 0{
+                self.collectionView.reloadData()
+                SwiftSpinner.hide()
+            }
+            for (key, value) in temp{
+                let pathReference = self.storage.reference()
+                let path = value["Picture"] as! String
+                let islandRef = pathReference.child(path)
+                islandRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+                    if let error = error {
+                    print(error)
+                    // Uh-oh, an error occurred!
+                    }
+                    else {
+                    // Data for "images/island.jpg" is returned
+                        let image = UIImage(data: data!)
+                        var food = FoodCard(value, image!, self.allergens)
+                        self.foodCard[key] = food
+                        count += 1
+                        if count == temp.count{
+                            self.collectionView.reloadData()
+                            SwiftSpinner.hide()
+                        }
+                    }
+                }
+            }
+            
+        })
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.search()
+        view.endEditing(true)
+    }
+}
+
 public class CollectionViewFooterView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -752,5 +819,15 @@ public class CollectionViewFooterView: UICollectionReusableView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
     }
 }
