@@ -567,7 +567,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             detailViewController.modalPresentationStyle = .overFullScreen
             detailViewController.users = self.users
             detailViewController.food_item = self.foodCard[self.total_items - 1 - indexPath.row]
-            detailViewController.food_id = self.total_items - 1 - indexPath.row
+            detailViewController.food_id = self.foodCard[self.total_items - 1 - indexPath.row]?.order
             var temp: [Review] = []
             for index in self.foodCard[self.total_items - 1 - indexPath.row]!.reviews{
                 temp.append(self.reviews[index])
