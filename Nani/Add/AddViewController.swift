@@ -18,8 +18,11 @@ class AddViewController: UIViewController, UITextFieldDelegate{
     var totalServing:String = ""
     var expiryHour:String = ""
     var contains:[Int] = []
+    var tags:[Int] = []
+    var total_food_tags:[Int] = []
     var notes:String = ""
     var allergensTable:[String] = []
+    var foodTagsTable:[String] = []
     var delegate: HomeViewController? = nil
     var image: Data? = nil
     var total_items: Int = 0
@@ -27,6 +30,7 @@ class AddViewController: UIViewController, UITextFieldDelegate{
     var tBController: UITabBarController? = nil
     
     var buttonCell: DishContainsCollectionViewCell? = nil
+    var tagCell: FoodTagsCollectionViewCell? = nil
     var needRefresh: Bool = false
     
     var ref = Database.database().reference()
@@ -91,6 +95,7 @@ class AddViewController: UIViewController, UITextFieldDelegate{
         cv.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")
         cv.register(DishContainsCollectionViewCell.self, forCellWithReuseIdentifier: "DishContainsCell")
         cv.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "NoteCell")
+        cv.register(FoodTagsCollectionViewCell.self, forCellWithReuseIdentifier: "TagCell")
 //        cv.register(InfoDetailCollectionViewCell.self, forCellWithReuseIdentifier: "InfoDetailCell")
 //        cv.register(ReviewCollectionViewCell.self, forCellWithReuseIdentifier: "ReviewCell")
 //        cv.register(DetailHeaderCollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DetailHeader")
@@ -255,7 +260,7 @@ extension AddViewController: UICollectionViewDelegateFlowLayout, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return 9
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -309,6 +314,15 @@ extension AddViewController: UICollectionViewDelegateFlowLayout, UICollectionVie
             return cell
         }
         else if (indexPath.row == 6){
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! FoodTagsCollectionViewCell
+            cell.delegate = self
+            self.tagCell = cell
+//            if (self.needRefresh){
+//                cell.refresh()
+//            }
+            return cell
+        }
+        else if (indexPath.row == 7){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishContainsCell", for: indexPath) as! DishContainsCollectionViewCell
             cell.delegate = self
             self.buttonCell = cell
@@ -333,9 +347,12 @@ extension AddViewController: UICollectionViewDelegateFlowLayout, UICollectionVie
             return CGSize(width: view.frame.width, height: 250)
         }
         if (indexPath.row == 6){
-            return CGSize(width: view.frame.width, height: 200)
+            return CGSize(width: view.frame.width, height: 150)
         }
         if (indexPath.row == 7){
+            return CGSize(width: view.frame.width, height: 200)
+        }
+        if (indexPath.row == 8){
             return CGSize(width: view.frame.width, height: 180)
         }
         return CGSize(width: view.frame.width, height: 80)
@@ -407,6 +424,23 @@ extension AddViewController: CollectionViewCellDelegate {
             }
         }
     }
+    
+    func collectionViewCell(selectOnTags button: UIButton){
+        if let text = button.titleLabel?.text{
+            let key = foodTagsTable.firstIndex(of: text)
+            tags.append(key!)
+            print(tags)
+        }
+    }
+    func collectionViewCell(deselectOnTags button: UIButton){
+        if let text = button.titleLabel?.text{
+            let key = foodTagsTable.firstIndex(of: text)
+            if let index = tags.firstIndex(of: key!) {
+                tags.remove(at: index)
+                print(tags)
+            }
+        }
+    }
 
 }
 
@@ -446,6 +480,7 @@ extension AddViewController{
         self.notes = ""
         self.image = nil
         self.buttonCell?.refresh()
+        self.tagCell?.refresh()
     }
     
     enum CreateBulletinError: String {
@@ -456,9 +491,10 @@ extension AddViewController{
         case EmptyServings = "Empty total servings"
         case EmptyExpiry = "Empty expire in hours"
         case EmptyNotes = "Empty notes"
-        case ErrorPrice = "Price should be numbers"
-        case ErrorServings = "Total servings should be numbers"
-        case ErrorExpiry = "Expire in hours should be numbers"
+        case EmptyTags = "Empty tag"
+//        case ErrorPrice = "Price should be numbers"
+        case ErrorServings = "Total servings should be integer"
+        case ErrorExpiry = "Expire in hours should be integer"
         case None = ""
     }
     
@@ -481,12 +517,15 @@ extension AddViewController{
         if (self.expiryHour == ""){
             return .EmptyExpiry
         }
+        if self.tags == []{
+            return .EmptyTags
+        }
         if (self.notes == ""){
             return .EmptyNotes
         }
-        if (!self.price.isInt){
-            return .ErrorPrice
-        }
+//        if (!self.price.isInt){
+//            return .ErrorPrice
+//        }
         if (!self.totalServing.isInt){
             return .ErrorServings
         }
@@ -541,13 +580,13 @@ extension AddViewController{
             "Chef_name": CurrentUser.chef_name,
             "Contains": self.contains,
             "Expiry_hours": Int(self.expiryHour),
-            "Food_tags": [0,1],
+            "Food_tags": self.tags,
             "Notes": self.notes,
             "Order": self.total_items,
             "Pickup": true,
             "Picture": "Foods/" + String(foodId) + ".jpeg",
             "Posted_time": realDate,
-            "Price": Int(self.price),
+            "Price": Double(self.price),
             "Reviews": [0,1,2,3,4,5],
             "Room": self.apt,
             "Servings": Int(self.totalServing),
@@ -581,6 +620,7 @@ extension AddViewController{
                 SwiftSpinner.show("Share food successfully!", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                     self.ref.child("Food_items").child(String(foodId)).setValue(values)
+                    self.updateFoodTags(foodId)
                     self.ref.child("Total_items").setValue(self.total_items+1)
                     if CurrentUser.needUpdate{
                         CurrentUser.index = self.total_users
@@ -684,6 +724,16 @@ extension AddViewController{
                 loginViewController.modalPresentationStyle = .fullScreen
                 self.present(loginViewController, animated: true, completion: nil)
             }
+        }
+    }
+}
+
+extension AddViewController{
+    func updateFoodTags(_ foodId:Int){
+        for tag in self.tags{
+            let tag_id = self.total_food_tags[tag]
+            self.ref.child("Food_items_by_Food_Tags").child(String(tag)).child(String(tag_id)).setValue(foodId)
+            self.ref.child("Total_food_tags").child(String(tag)).setValue(tag_id+1)
         }
     }
 }

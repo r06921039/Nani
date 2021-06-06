@@ -33,6 +33,8 @@ class SectionTitleIndexCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
+    
     var titleLabelWidthConstraint: NSLayoutConstraint?
     var titleLabel: UILabel = {
         let label = UILabel()
@@ -40,9 +42,24 @@ class SectionTitleIndexCollectionViewCell: UICollectionViewCell {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
+        label.textAlignment = .center
         return label
     }()
     
+    var topSeperator: UIView = {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = hexStringToUIColor(hex: "F0B357")
+        return line
+    }()
+    
+    
+    override var isSelected: Bool {
+        didSet {
+            self.titleLabel.textColor = isSelected ? hexStringToUIColor(hex: "F0B357") : .black
+            self.topSeperator.isHidden = isSelected ? false : true
+        }
+    }
    
     
     override init(frame: CGRect) {
@@ -62,8 +79,16 @@ class SectionTitleIndexCollectionViewCell: UICollectionViewCell {
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.heightAnchor.constraint(equalTo: heightAnchor),
             titleLabelWidthConstraint!,
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20)
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
             ])
+        addSubview(topSeperator)
+        NSLayoutConstraint.activate([
+            topSeperator.bottomAnchor.constraint(equalTo:bottomAnchor, constant: 0),
+            topSeperator.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
+            topSeperator.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
+            topSeperator.heightAnchor.constraint(equalToConstant: 1)
+            ])
+        self.topSeperator.isHidden = true
         
     }
 }

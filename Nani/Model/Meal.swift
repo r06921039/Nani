@@ -58,7 +58,7 @@ struct Meal {
 //        let sections: [String] = ["Recommended", "Beef Tacos", "Seafood Tacos", "Chicken Tacos", "Pork Tacos",
 //                                  "Veggie Tacos", "Quesadillas", "Skillets", "Main", "Chips and Dips", "Sides",
 //                                  "Starters","Salads","Sweets", "Kids Menu"]
-        let sections: [String] = ["Foods", "Drinks", "Desserts", "Etc."]
+        let sections: [String] = ["Desserts", "Drinks", "Foods", "Other"]
         
         return sections
     }

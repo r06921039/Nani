@@ -15,6 +15,8 @@ protocol CollectionViewCellDelegate {
     func collectionViewCell(valueChangedIn textView: UITextView, delegatedFrom cell: NoteCollectionViewCell)
     func collectionViewCell(selectOn button: UIButton)
     func collectionViewCell(deselectOn button: UIButton)
+    func collectionViewCell(selectOnTags button: UIButton)
+    func collectionViewCell(deselectOnTags button: UIButton)
 }
 
 protocol ButtonCollectionViewCellDelegate {

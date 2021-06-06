@@ -11,7 +11,7 @@ import UIKit
 struct FoodCard{
     var name: String
     var image: UIImage
-    var price: Int
+    var price: Double
     var user: String
     var apt: String
     var time: String
@@ -28,7 +28,7 @@ struct FoodCard{
     init(_ item: [String : Any], _ image: UIImage, _ allergens: [String]){
         self.name = item["Title"] as! String
         self.image = image
-        self.price = item["Price"] as! Int
+        self.price = item["Price"] as! Double
 //        let user = item["User"] as? [String: Any]
         self.chef_name = item["Chef_name"] as! String
         self.user = item["User"] as! String
