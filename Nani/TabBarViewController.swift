@@ -9,10 +9,10 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-//    lazy var homeNavController: UINavigationController = {
-//        let nav = UINavigationController(rootViewController: self.homeViewController)
-//        return nav
-//    }()
+    lazy var homeNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.homeViewController)
+        return nav
+    }()
     
     lazy var homeViewController: HomeViewController = {
         let layout = UICollectionViewFlowLayout()
@@ -23,9 +23,18 @@ class TabBarController: UITabBarController {
         return vc
     }()
     
+    lazy var messagesController: MessagesController = {
+        
+        let vc = MessagesController()
+//        vc.collectionView_s
+        vc.delegate = homeViewController
+        vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "filter_hala"), selectedImage: #imageLiteral(resourceName: "filter_hala"))
+        return vc
+    }()
+    
     lazy var addViewController: UIViewController = {
         let vc = AddViewController()
-        vc.delegate = homeViewController
+//        vc.delegate = homeViewController
         vc.tBController = self
         vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "button-plus"), selectedImage: #imageLiteral(resourceName: "button-plus"))
         return vc
@@ -50,6 +59,7 @@ class TabBarController: UITabBarController {
         self.setViewControllers([
             homeViewController,
             addViewController,
+            UINavigationController(rootViewController: messagesController),
             profileViewController], animated: true)
     }
 }

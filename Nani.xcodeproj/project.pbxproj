@@ -40,6 +40,14 @@
 		1F4D50C62611204900C34716 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D50C52611204900C34716 /* InfoTableViewCell.swift */; };
 		1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F26E626156F060013D666 /* InfoDetailCollectionViewCell.swift */; };
 		1F5F26EC261593D30013D666 /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F26EB261593D30013D666 /* ReviewCollectionViewCell.swift */; };
+		1F7E9D672673BE07008578A2 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D662673BE07008578A2 /* MessagesController.swift */; };
+		1F7E9D6C2673BE54008578A2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D6B2673BE54008578A2 /* Message.swift */; };
+		1F7E9D712673CC3B008578A2 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D702673CC3B008578A2 /* UserCell.swift */; };
+		1F7E9D772673CCAD008578A2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D762673CCAD008578A2 /* Extensions.swift */; };
+		1F7E9D7F2673D562008578A2 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D7E2673D562008578A2 /* NewMessageController.swift */; };
+		1F7E9D842673E551008578A2 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D832673E551008578A2 /* Delegates.swift */; };
+		1F7E9D892673E7FE008578A2 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D882673E7FE008578A2 /* ChatLogController.swift */; };
+		1F7E9D8E2673E837008578A2 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E9D8D2673E837008578A2 /* ChatMessageCell.swift */; };
 		1F967A10265CD70000DEA705 /* NewProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F967A0F265CD70000DEA705 /* NewProfileViewController.xib */; };
 		1F967A15265CD80500DEA705 /* NewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A14265CD80500DEA705 /* NewProfileViewController.swift */; };
 		1F967A1A265CDAB900DEA705 /* UserImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F967A19265CDAB900DEA705 /* UserImageCell.swift */; };
@@ -143,6 +151,14 @@
 		1F4D50C52611204900C34716 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F5F26E626156F060013D666 /* InfoDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F5F26EB261593D30013D666 /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F7E9D662673BE07008578A2 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
+		1F7E9D6B2673BE54008578A2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1F7E9D702673CC3B008578A2 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		1F7E9D762673CCAD008578A2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1F7E9D7E2673D562008578A2 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		1F7E9D832673E551008578A2 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
+		1F7E9D882673E7FE008578A2 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		1F7E9D8D2673E837008578A2 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		1F967A0F265CD70000DEA705 /* NewProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewProfileViewController.xib; sourceTree = "<group>"; };
 		1F967A14265CD80500DEA705 /* NewProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileViewController.swift; sourceTree = "<group>"; };
 		1F967A19265CDAB900DEA705 /* UserImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageCell.swift; sourceTree = "<group>"; };
@@ -310,6 +326,53 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		1F7E9D282672F7DC008578A2 /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				1F7E9D752673CC93008578A2 /* Helpers */,
+				1F7E9D5F2673BBC3008578A2 /* Controller */,
+				1F7E9D5E2673BBBB008578A2 /* View */,
+				1F7E9D5D2673BBB2008578A2 /* Model */,
+			);
+			path = ChatRoom;
+			sourceTree = "<group>";
+		};
+		1F7E9D5D2673BBB2008578A2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F7E9D6B2673BE54008578A2 /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1F7E9D5E2673BBBB008578A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F7E9D702673CC3B008578A2 /* UserCell.swift */,
+				1F7E9D8D2673E837008578A2 /* ChatMessageCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1F7E9D5F2673BBC3008578A2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1F7E9D662673BE07008578A2 /* MessagesController.swift */,
+				1F7E9D7E2673D562008578A2 /* NewMessageController.swift */,
+				1F7E9D882673E7FE008578A2 /* ChatLogController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1F7E9D752673CC93008578A2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1F7E9D762673CCAD008578A2 /* Extensions.swift */,
+				1F7E9D832673E551008578A2 /* Delegates.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		1FA327A9260338E800811BC2 = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +398,7 @@
 		1FA327B4260338E800811BC2 /* Nani */ = {
 			isa = PBXGroup;
 			children = (
+				1F7E9D282672F7DC008578A2 /* ChatRoom */,
 				1FCBE91C2659A4900028EBCF /* Register */,
 				1FBD1B642656F201006FA458 /* Review */,
 				1FBD1A982654ABEB006FA458 /* Profile */,
@@ -809,6 +873,7 @@
 				1F967A31265E183B00DEA705 /* MoneyOrderViewCell.swift in Sources */,
 				1FB3A58A26164E08004D71BF /* HomeViewController.swift in Sources */,
 				1F967A24265E015A00DEA705 /* UserInfoViewCell.swift in Sources */,
+				1F7E9D842673E551008578A2 /* Delegates.swift in Sources */,
 				1FDDBD02266C8E4A00C9A02B /* FoodTagsCollectionViewCell.swift in Sources */,
 				1F967A45265E34E400DEA705 /* ActionViewCell.swift in Sources */,
 				1FA327B6260338E800811BC2 /* AppDelegate.swift in Sources */,
@@ -824,6 +889,7 @@
 				1FB8DFE4261E59DB00132152 /* AddViewController.swift in Sources */,
 				1F4D507D2611169500C34716 /* Interactor.swift in Sources */,
 				1F4D506F261115D800C34716 /* InfoViewController.swift in Sources */,
+				1F7E9D6C2673BE54008578A2 /* Message.swift in Sources */,
 				1FBD1B78265701C0006FA458 /* RatingCell.swift in Sources */,
 				1F967A15265CD80500DEA705 /* NewProfileViewController.swift in Sources */,
 				1F5F26E726156F060013D666 /* InfoDetailCollectionViewCell.swift in Sources */,
@@ -834,19 +900,25 @@
 				1FB8E004261FEDEE00132152 /* ShortAddCollectionViewCell.swift in Sources */,
 				1F1D06DC2644F152008A0ED7 /* LoginViewController.swift in Sources */,
 				1F0FBF192620317C009B2A82 /* FoodCard.swift in Sources */,
+				1F7E9D892673E7FE008578A2 /* ChatLogController.swift in Sources */,
 				1F4D509026111B1300C34716 /* DetailHeaderCollectionViewCell.swift in Sources */,
 				1FB3A59226164E4E004D71BF /* HomeViewCell.swift in Sources */,
 				1F0FBECD262018FB009B2A82 /* NoteCollectionViewCell.swift in Sources */,
 				1F4D50A426111CD800C34716 /* MealItemViewController.swift in Sources */,
 				1F4D50BC26111E9400C34716 /* InfoTableView.swift in Sources */,
 				1F4D509526111BC300C34716 /* InfoCollectionViewCell.swift in Sources */,
+				1F7E9D7F2673D562008578A2 /* NewMessageController.swift in Sources */,
+				1F7E9D8E2673E837008578A2 /* ChatMessageCell.swift in Sources */,
+				1F7E9D712673CC3B008578A2 /* UserCell.swift in Sources */,
 				1FBD1B7326570034006FA458 /* AddReviewCell.swift in Sources */,
 				1FBD1A9A2654ACD9006FA458 /* ProfileViewController.swift in Sources */,
 				1F4D508B26111AF200C34716 /* DetailCollectionViewCell.swift in Sources */,
 				1F4D50B726111DCE00C34716 /* MealItemQuantityCell.swift in Sources */,
+				1F7E9D772673CCAD008578A2 /* Extensions.swift in Sources */,
 				1FB3A5A526165308004D71BF /* DismissAnimator.swift in Sources */,
 				1FBD1AEA2654D553006FA458 /* CurrentUser.swift in Sources */,
 				1F4D509A26111C1000C34716 /* MenuCollectionViewCell.swift in Sources */,
+				1F7E9D672673BE07008578A2 /* MessagesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1025,7 +1097,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.4.0;
+				CURRENT_PROJECT_VERSION = 0.5.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
@@ -1033,7 +1105,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1049,14 +1121,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nani/Nani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.4.0;
+				CURRENT_PROJECT_VERSION = 0.5.0;
 				DEVELOPMENT_TEAM = 47663X44T4;
 				INFOPLIST_FILE = Nani/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = Nani.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

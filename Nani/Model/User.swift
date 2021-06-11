@@ -20,6 +20,7 @@ struct User{
     var chef_label: String
     var photoURL: String
     var index: Int
+    var id: String
     
     init(_ item: [String : Any]){
         self.allergies = item["Allergies"] as! [Int]
@@ -33,5 +34,6 @@ struct User{
         self.chef_label = item["Chef_label"] as! String
         self.photoURL = item["photoURL"] as! String
         self.index = item["Index"] as! Int
+        self.id = item["ID"] as! String
     }
 }

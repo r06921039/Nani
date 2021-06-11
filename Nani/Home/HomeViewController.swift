@@ -899,3 +899,9 @@ public class CollectionViewFooterView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension HomeViewController:MessagesControllerDelegate{
+    func getUsers(delegatedFrom viewController: MessagesController) {
+        viewController.users = self.users
+    }
+}
