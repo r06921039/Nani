@@ -41,6 +41,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 self.messages.append(Message(dictionary: dictionary))
                 DispatchQueue.main.async(execute: {
                     self.collectionView?.reloadData()
+                    if !self.firstTimeLoad{
+                        self.scrollToBottom(offset:8)
+                    }
+                    
                     //scroll to the last index
 //                    let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
 //                    self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
@@ -53,18 +57,27 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter message..."
+        textField.placeholder = "Aa"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
+        textField.borderStyle = .roundedRect
+        textField.backgroundColor = UIColor.systemGroupedBackground
         return textField
     }()
     
     let cellId = "cellId"
     
+    var timer: Timer?
+    var firstTimeLoad = true
+    @objc func handleScrollToBottom() {
+        self.firstTimeLoad = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+//        collectionView?.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 52, right: 0)
 //        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor.white
@@ -72,15 +85,28 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         collectionView?.keyboardDismissMode = .interactive
         
+        self.timer?.invalidate()
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.handleScrollToBottom), userInfo: nil, repeats: false)
+        
         setupKeyboardObservers()
     }
     
     
     
     lazy var inputContainerView: UIView = {
-        let containerView = UIView()
-        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
-        containerView.backgroundColor = UIColor.white
+        let containerView = CustomView()
+//        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+        containerView.autoresizingMask = .flexibleHeight
+        containerView.backgroundColor = .white
+        
+        
+        containerView.addSubview(self.inputTextField)
+        //x,y,w,h
+        self.inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 52).isActive = true
+        self.inputTextField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
+        self.inputTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -80).isActive = true
+        self.inputTextField.bottomAnchor.constraint(equalTo: containerView.layoutMarginsGuide.bottomAnchor, constant: -8).isActive = true
         
         let uploadImageView = UIImageView()
         uploadImageView.isUserInteractionEnabled = true
@@ -90,9 +116,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         containerView.addSubview(uploadImageView)
         //x,y,w,h
         uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        uploadImageView.centerYAnchor.constraint(equalTo: self.inputTextField.centerYAnchor).isActive = true
         uploadImageView.widthAnchor.constraint(equalToConstant: 44).isActive = true
         uploadImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+//        uploadImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
         
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("Send", for: UIControl.State())
@@ -101,16 +128,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         containerView.addSubview(sendButton)
         //x,y,w,h
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.centerYAnchor.constraint(equalTo: self.inputTextField.centerYAnchor).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+//        sendButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
         
-        containerView.addSubview(self.inputTextField)
-        //x,y,w,h
-        self.inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant: 8).isActive = true
-        self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
         
         let separatorLineView = UIView()
         separatorLineView.backgroundColor = .lightGray
@@ -121,6 +144,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
         separatorLineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        
         
         return containerView
     }()
@@ -172,7 +196,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                     
                     self.uploadToFirebaseStorageUsingImage(thumbnailImage, completion: { (imageUrl) in
                         let properties: [String: Any] = ["imageUrl": imageUrl, "imageWidth": thumbnailImage.size.width, "imageHeight": thumbnailImage.size.height, "videoUrl": downloadUrl.absoluteString]
-                        self.sendMessageWithProperties(properties)
+                        self.sendMessageWithProperties(properties, isImage: false)
                         
                     })
                 }
@@ -267,15 +291,15 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     func setupKeyboardObservers() {
 //        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func handleKeyboardDidShow() {
         if messages.count > 0 {
-            let indexPath = IndexPath(item: messages.count - 1, section: 0)
-            collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
+            let indexPath = IndexPath(item: messages.count, section: 0)
+            collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
         }
     }
     
@@ -285,20 +309,28 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         NotificationCenter.default.removeObserver(self)
     }
     
-    func handleKeyboardWillShow(_ notification: Notification) {
+    @objc func handleKeyboardWillShow(_ notification: Notification) {
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = -keyboardFrame!.height
+        if keyboardFrame!.height  > 50 && messages.count > 6{
+            self.view.frame.origin.y = -keyboardFrame!.height + 50
+        }
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
     }
     
-    func handleKeyboardWillHide(_ notification: Notification) {
+    @objc func handleKeyboardWillHide(_ notification: Notification) {
+//        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = 0
+        if self.view.frame.origin.y != 0{
+            self.view.frame.origin.y  = 0
+        }
+        
+        print("hide")
+        
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
@@ -406,17 +438,16 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         if inputTextField.text?.count == 0{
             return
         }
-        print(inputTextField.text)
         let properties = ["text": inputTextField.text!]
-        sendMessageWithProperties(properties as [String : AnyObject])
+        sendMessageWithProperties(properties as [String : AnyObject], isImage: false)
     }
     
     fileprivate func sendMessageWithImageUrl(_ imageUrl: String, image: UIImage) {
         let properties: [String: AnyObject] = ["imageUrl": imageUrl as AnyObject, "imageWidth": image.size.width as AnyObject, "imageHeight": image.size.height as AnyObject]
-        sendMessageWithProperties(properties)
+        sendMessageWithProperties(properties, isImage: true)
     }
     
-    fileprivate func sendMessageWithProperties(_ properties: [String: Any]) {
+    fileprivate func sendMessageWithProperties(_ properties: [String: Any],isImage isImage: Bool) {
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
         let toId = user!.id
@@ -444,7 +475,10 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             
             let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId).child(messageId)
             recipientUserMessagesRef.setValue(1)
-            self.scrollToButton()
+            self.scrollToBottom(offset: 52)
+            let title = CurrentUser.chef_name
+            let body = isImage ? "Sent a photo." : values["text"] as! String
+            self.sendPushNotification(uid: toId, title: title, body: body)
         }
     }
     
@@ -456,10 +490,12 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         return true
     }
     
-    func scrollToButton(){
+    func scrollToBottom(offset offset: CGFloat){
         if messages.count > 0 {
+            collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: offset, right: 0)
             let indexPath = IndexPath(item: messages.count - 1, section: 0)
             collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
+            collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         }
     }
     
@@ -530,9 +566,53 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }
 }
 
+extension ChatLogController{
+    func sendPushNotification(uid: String, title: String, body: String) {
+            let urlString = "https://fcm.googleapis.com/fcm/send"
+            let url = NSURL(string: urlString)!
+            let paramString: [String : Any] = ["to" : "/topics/" + uid,
+                                               "notification" : ["title" : title, "body" : body]
+            ]
+            let request = NSMutableURLRequest(url: url as URL)
+            request.httpMethod = "POST"
+            request.httpBody = try? JSONSerialization.data(withJSONObject:paramString, options: [.prettyPrinted])
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("key=AAAA5LKR8qM:APA91bGXcgvgLobEOKcVJZ-Q3ke7OfSlWEvCiYi_Rk_ydAmcStttLzUWic_k-cellbMo-JxOdofBaM0BWKBllfyJz3-PI6UxmQVhu8lrd15PL4O8B_b3f0FAcjurYp73MhO0mucjga9o", forHTTPHeaderField: "Authorization")
+            let task =  URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
+                do {
+                    if let jsonData = data {
+                        if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                            NSLog("Received data:\n\(jsonDataDict))")
+                        }
+                    }
+                } catch let err as NSError {
+                    print(err.debugDescription)
+                }
+            }
+            task.resume()
+        }
+}
 
 
 
+class CustomView: UIView {
+
+    // this is needed so that the inputAccesoryView is properly sized from the auto layout constraints
+    // actual value is not important
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize.zero
+    }
+    
+//    override func didMoveToWindow() {
+//        super.didMoveToWindow()
+//        if #available(iOS 11.0, *) {
+//            if let window = self.window {
+//                self.bottomAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: window.safeAreaLayoutGuide.bottomAnchor, multiplier: 1.0).isActive = true
+//            }
+//        }
+//    }
+}
 
 
 

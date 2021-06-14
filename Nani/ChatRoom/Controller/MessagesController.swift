@@ -72,8 +72,10 @@ class MessagesController: UITableViewController {
         guard let uid = Auth.auth().currentUser?.uid else {
             return
         }
-        
-        SwiftSpinner.show("Connecting /nto nani...")
+        Messaging.messaging().subscribe(toTopic: String(uid)) { error in
+          print("Subscribed to message")
+        }
+//        SwiftSpinner.show("Connecting \nto nani...")
         let ref = Database.database().reference().child("user-messages").child(uid)
         ref.observe(.childAdded, with: { (snapshot) in
             
@@ -90,7 +92,6 @@ class MessagesController: UITableViewController {
     
     fileprivate func fetchMessageWithMessageId(_ messageId: String) {
         let messagesReference = Database.database().reference().child("messages").child(messageId)
-        
         messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -124,7 +125,7 @@ class MessagesController: UITableViewController {
         //this will crash because of background thread, so lets call this on dispatch_async main thread
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
-            SwiftSpinner.hide()
+//            SwiftSpinner.hide()
         })
     }
     
@@ -175,10 +176,13 @@ class MessagesController: UITableViewController {
     }
     
     func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser?.uid == nil {
-            perform(#selector(handleLogout), with: nil, afterDelay: 0)
-        } else {
-            fetchUserAndSetupNavBarTitle()
+        Auth.auth().addStateDidChangeListener{ (auth, user) in
+            guard let uid = Auth.auth().currentUser?.uid else {
+                //for some reason uid = nil
+                self.perform(#selector(self.handleLogout), with: nil, afterDelay: 0)
+                return
+            }
+            self.fetchUserAndSetupNavBarTitle()
 //            setupBarTitle()
         }
     }
@@ -195,6 +199,7 @@ class MessagesController: UITableViewController {
                 return
             }
             let index = self.idToIndex(uid)
+            CurrentUser.chef_name = self.users[uid]!.chef_name
             print(index)
 
             Database.database().reference().child("Users").child(String(index)).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -265,11 +270,14 @@ class MessagesController: UITableViewController {
     func showChatControllerForUser(_ user: User) {
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.user = user
+        chatLogController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(chatLogController, animated: true)
     }
     
     @objc func handleLogout() {
-        
+        let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        loginViewController.modalPresentationStyle = .fullScreen
+        self.present(loginViewController, animated: true, completion: nil)
 //        do {
 //            try Auth.auth().signOut()
 //        } catch let logoutError {

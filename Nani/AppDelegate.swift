@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.disabledToolbarClasses = [ChatLogController.self]
+        IQKeyboardManager.shared.disabledTouchResignedClasses = [ChatLogController.self]
+        IQKeyboardManager.shared.disabledDistanceHandlingClasses = [ChatLogController.self]
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID

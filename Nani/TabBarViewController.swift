@@ -34,7 +34,7 @@ class TabBarController: UITabBarController {
     
     lazy var addViewController: UIViewController = {
         let vc = AddViewController()
-//        vc.delegate = homeViewController
+        vc.delegate = homeViewController
         vc.tBController = self
         vc.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "button-plus"), selectedImage: #imageLiteral(resourceName: "button-plus"))
         return vc
